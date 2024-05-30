@@ -4,6 +4,7 @@ let data = {};
 let titlecard, auteurLabel, auteurParole, sorciereLabel, sorciereParole;
 let auteurTexte = "", auteurTexteIndex = -1, sorciereTexte = "", sorciereTexteIndex = -1;
 let lastTypewriter = 0;
+let alphabet = "abcdefghijklmnopqrstuvwxyz";
 
 function preload() {
 	data = loadJSON('data/paroles.json');
@@ -47,14 +48,28 @@ function typewriter() {
 
 	// increment text index
 	if (auteurTexteIndex < auteurTexte.length) {
-		auteurParole.innerHTML += auteurTexte.charAt(auteurTexteIndex);
+		let nextChar = auteurTexte.charAt(auteurTexteIndex);
+		let index = auteurTexteIndex % alphabet.length;
+		let letter = alphabet.charAt(index);
+		if (nextChar != ' ') {
+			auteurParole.innerHTML += "<span class='wave-" + letter + "'>" + nextChar + "</span>";
+		} else {
+			auteurParole.innerHTML += nextChar;
+		}
 		auteurTexteIndex++;
 		return;
 	}
 
 	// increment text index
 	if (sorciereTexteIndex < sorciereTexte.length) {
-		sorciereParole.innerHTML += sorciereTexte.charAt(sorciereTexteIndex);
+		let nextChar = sorciereTexte.charAt(sorciereTexteIndex);
+		let index = sorciereTexteIndex % alphabet.length;
+		let letter = alphabet.charAt(index);
+		if (nextChar != ' ') {
+			sorciereParole.innerHTML += "<span class='wave-" + letter + "'>" + nextChar + "</span>";
+		} else {
+			sorciereParole.innerHTML += nextChar;
+		}
 		sorciereTexteIndex++;
 		return;
 	}
@@ -82,6 +97,8 @@ function hideTitlecard() {
 
 function prochaineParole(nom) {
 
+	effacerParoles(nom);
+
 	let index = data.paroles[nom].index;
 	let parole = data.paroles[nom].paroles[index];
 
@@ -97,12 +114,20 @@ function prochaineParole(nom) {
 
 function parler(nom, parole) {
 
+	// let span = '';
+	// for (let i = 0; i < nom.length; i++) {
+	// 	const letter = alphabet.charAt(i%26);
+	// 	span += '<span class="wave-' + letter + '">' + nom.charAt(i) + '</span>';
+	// }
+
+	span = nom;
+
 	switch(nom) {
 
 		case 'Douglas':
 		case 'Isis':
 			// write the name in the label
-			auteurLabel.innerHTML = nom;
+			auteurLabel.innerHTML = span;
 			// write the parole to the element
 			auteurTexte = parole;
 			auteurTexteIndex = 0;
@@ -110,25 +135,37 @@ function parler(nom, parole) {
 			break;
 
 		case 'Sycorax':
+		case 'Caliban':
+		case 'Ferdinand':
+		case 'Miranda':
+		case 'Prospero':
 			// write the name in the label
-			sorciereLabel.innerHTML = nom;
+			sorciereLabel.innerHTML = span;
 			// write the parole to the element
 			sorciereTexte = parole;
 			sorciereTexteIndex = 0;
+			// text-to-speech
+			speak(nom, parole);
 			// sorciereParole.innerHTML = parole;
 			break;
 
 	}
 }
 
-function effacerParoles() {
+function effacerParoles(nom) {
 
 	hideTitlecard();
 
-	auteurLabel.innerHTML = '';
-	auteurParole.innerHTML = '';
-	auteurTexte = '';
-	auteurTexteIndex = -1;
+	switch(nom) {
+		case 'Douglas':
+		case 'Isis':
+
+		auteurLabel.innerHTML = '';
+		auteurParole.innerHTML = '';
+		auteurTexte = '';
+		auteurTexteIndex = -1;
+
+	}
 
 	sorciereLabel.innerHTML = '';
 	sorciereParole.innerHTML = '';
@@ -142,22 +179,37 @@ function keyPressed() {
 	switch(key) {
 		
 		case 'd':
-			effacerParoles();
 			prochaineParole("Douglas");
 			break;
 		case 'i':
-			effacerParoles();
 			prochaineParole("Isis");
 			break;
 		case 's':
 			prochaineParole("Sycorax");
 			break;
+		case 'c':
+			prochaineParole("Caliban");
+			break;
+		case 'f':
+			prochaineParole("Ferdinand");
+			break;
+		case 'm':
+			prochaineParole("Miranda");
+			break;
+		case 'p':
+			prochaineParole("Prospero");
+			break;
+
 	}
 
 	switch (keyCode) {
 
 		case BACKSPACE:
 			reset();
+			break;
+
+		case TAB:
+			effacerParoles('Douglas');
 			break;
 
 	}

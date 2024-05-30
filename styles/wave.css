@@ -1,0 +1,121 @@
+@keyframes wave {
+	0%	{ font-variation-settings: "wght" 400; }
+	10%	{ font-variation-settings: "wght" 400; }
+	25%	{ font-variation-settings: "wght" 600; }
+	50%	{ font-variation-settings: "wght" 800; }
+	75%	{ font-variation-settings: "wght" 600; }
+	90%	{ font-variation-settings: "wght" 400; }
+	100%{ font-variation-settings: "wght" 400; }
+}
+
+span.wave-a, span.wave-b, span.wave-c, span.wave-d, span.wave-e, span.wave-f, span.wave-g, span.wave-h, span.wave-i, span.wave-j, span.wave-k, span.wave-l, span.wave-m, span.wave-n, span.wave-o, span.wave-p, span.wave-q, span.wave-r, span.wave-s, span.wave-t, span.wave-u, span.wave-v, span.wave-w, span.wave-x, span.wave-y, span.wave-z {
+	animation: wave 10s infinite linear;
+}
+
+:root {
+	--time-spread: 0.75s;
+}
+
+span.wave-a {
+	animation-delay: calc(var(--time-spread) * 1);
+}
+
+span.wave-b {
+	animation-delay: calc(var(--time-spread) * 2);
+}
+
+span.wave-c {
+	animation-delay: calc(var(--time-spread) * 3);
+}
+
+span.wave-d {
+	animation-delay: calc(var(--time-spread) * 4);
+}
+
+span.wave-e {
+	animation-delay: calc(var(--time-spread) * 5);
+}
+
+span.wave-f {
+	animation-delay: calc(var(--time-spread) * 6);
+}
+
+span.wave-g {
+	animation-delay: calc(var(--time-spread) * 7);
+}
+
+span.wave-h {
+	animation-delay: calc(var(--time-spread) * 8);
+}
+
+span.wave-i {
+	animation-delay: calc(var(--time-spread) * 9);
+}
+
+span.wave-j {
+	animation-delay: calc(var(--time-spread) * 10);
+}
+
+span.wave-k {
+	animation-delay: calc(var(--time-spread) * 11);
+}
+
+span.wave-l {
+	animation-delay: calc(var(--time-spread) * 12);
+}
+
+span.wave-m {
+	animation-delay: calc(var(--time-spread) * 13);
+}
+
+span.wave-n {
+	animation-delay: calc(var(--time-spread) * 14);
+}
+
+span.wave-o {
+	animation-delay: calc(var(--time-spread) * 15);
+}
+
+span.wave-p {
+	animation-delay: calc(var(--time-spread) * 16);
+}
+
+span.wave-q {
+	animation-delay: calc(var(--time-spread) * 17);
+}
+
+span.wave-r {
+	animation-delay: calc(var(--time-spread) * 18);
+}
+
+span.wave-s {
+	animation-delay: calc(var(--time-spread) * 19);
+}
+
+span.wave-t {
+	animation-delay: calc(var(--time-spread) * 20);
+}
+
+span.wave-u {
+	animation-delay: calc(var(--time-spread) * 21);
+}
+
+span.wave-v {
+	animation-delay: calc(var(--time-spread) * 22);
+}
+
+span.wave-w {
+	animation-delay: calc(var(--time-spread) * 23);
+}
+
+span.wave-x {
+	animation-delay: calc(var(--time-spread) * 24);
+}
+
+span.wave-y {
+	animation-delay: calc(var(--time-spread) * 25);
+}
+
+span.wave-z {
+	animation-delay: calc(var(--time-spread) * 2§);
+}
