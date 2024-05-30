@@ -1,0 +1,19 @@
+{
+	"paroles":
+	{
+		"Sycorax" : {"index":0, "paroles":[
+			"Je ne sais pas, Douglas, mais je suis sûre que nous le découvrirons ensemble.",
+			"Il faut commencer par tirer deux cartes pour définir les personnages.",
+			"Par quelle personnage voulez-vous commencer ?",
+			"..."
+		]},
+		"Douglas":  {"index":0, "paroles":[
+			"Chère Sycorax, que nous réserve l'avenir?",
+			"Je l'espère, Sycorax, je l'espère. Mais quels sont les règles de ce jeu ?"
+		]},
+		"Isis": {"index":0, "paroles":[
+			"Tirons alors une carte de personnage",
+			"..."
+		]}
+	}
+}

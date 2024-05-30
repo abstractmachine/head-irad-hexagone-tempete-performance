@@ -1,24 +1,38 @@
 <!DOCTYPE html>
 <html lang="fr">
+
+<head>
 	<title>Tempête</title>
-	<head>
-		<meta charset="utf-8">
-		<link rel="stylesheet" type="text/css" href="styles/style.css">
-		<link rel="icon" type="image/png" href="images/favicon.png" />
-		<script src="scripts/camera.js"></script>
-		<script src="scripts/p5/p5.min.js"></script>
-		<script src="scripts/p5/p5.sound.min.js"></script>
-	</head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="styles/style.css">
+	<link rel="icon" type="image/png" href="images/favicon.png" />
+	<script src="scripts/camera.js"></script>
+	<script src="scripts/p5/p5.min.js"></script>
+	<script src="scripts/p5/p5.sound.min.js"></script>
+</head>
+
 <body>
 	<div id="page">
 
-		<div id="texte">
-			<div class="parole">
-				<h2 class="personnage">PROSPERO</h2>
-				<p class="parole">Mon fils, vous avez l’air ému, comme si vous étiez alarmé… Rassurez-vous, seigneur. Nos divertissements sont finis. Nos acteurs, je vous en ai prévenu, étaient tous des esprits ; ils se sont fondus en air, en air subtil. Un jour, de même que l’édifice sans base de cette vision, les tours coiffées de nuées, les magnifiques palais, les temples solennels, ce globe immense lui-même, et tout ce qu’il contient, se dissoudront, sans laisser plus de vapeur à l’horizon que la fête immatérielle qui vient de s’évanouir ! Nous sommes de l’étoffe dont sont faits les rêves, et notre petite vie est enveloppée dans un somme… Monsieur, je suis contrarié… Passez-moi cette faiblesse… Mon vieux cerveau est troublé… Ne soyez pas en peine de mon infirmité… Retirez-vous, s’il vous plaît, dans ma grotte, et reposez-vous là. Je vais faire un tour ou deux pour calmer mon âme agitée.</p>
-				<h2 class="personnage">FERDINAND & MIRANDA</h2>
-				<p class="parole">Nous vous souhaitons le repos</p>
+		<div id="texte"> 
+
+			<div id="titlecard">
+				<h1>La tempête</h1>
+				<h2>William Shakespeare</h2>
+				<h2>1610</h2>
+				<h2>&nbsp;</h2>
+				<h3>Adaptation</h3>
+				<h2>Isis Fahmy, Douglas Edric Stanley & Mistral.ai</h2>
+				<h2>2024</h2>
 			</div>
+
+			<div id="paroles">
+				<h2 id="auteur" class="personnage"></h2>
+				<p id="parole-auteur" class="parole"></p>
+				<h2 id="sorciere" class="personnage"></h2>
+				<p id="parole-sorciere" class="parole"></p>
+			</div>
+
 		</div>
 
 		<div id="webcam-container">
