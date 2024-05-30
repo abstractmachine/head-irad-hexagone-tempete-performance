@@ -1,0 +1,91 @@
+:root {
+	--duree:3s;
+}
+
+
+#webcam-container {
+	width: 0px;
+	height: 0px;
+}
+
+#webcam-element {
+	width: 100vw;
+	height: 33vh;
+	object-fit: cover;
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+	background-color: #666;
+}
+
+
+/* create a font family around the variable EB Garamond */
+@font-face {
+	font-family: 'EB Garamond';
+	font-style: normal;
+	src: url('fonts/EBGaramond-VariableFont_wght.ttf');
+}
+
+@font-face {
+	font-family: 'EB Garamond';
+	font-style: italic;
+	src: url('fonts/EBGaramond-Italic-VariableFont_wght.ttf');
+}
+
+body {
+	font-family: 'EB Garamond', serif;
+	font-style: normal;
+	font-variation-settings: "wght" 400;
+	background: black;
+	color: white;
+}
+
+body, h1, h2, h3, h4, h5, h6 {
+	font-size: 3vh;
+	padding-top: 3vh;
+	padding-bottom: 3vh;
+	padding-left: 10vh;
+	padding-right: 10vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	/* remove the vertical margin */
+	margin-block-start: 0;
+	margin-block-end: 0;
+}
+
+p {
+	margin-block-start: 0;
+}
+
+p.parole {
+	font-style: italic;
+}
+
+.personnage {
+	text-align: center;
+	animation: respirer var(--duree) infinite linear;
+}
+
+
+@keyframes respirer {
+	0% {
+	   font-variation-settings: "wght" 800;
+	}
+	  
+	25% {
+	 font-variation-settings: "wght" 600;
+	} 
+	
+   50% {
+	  font-variation-settings: "wght" 400;
+	} 
+	
+	75% {
+	  font-variation-settings: "wght" 600;
+	} 
+	
+	100% {
+	  font-variation-settings: "wght" 800;
+	}
+  }
