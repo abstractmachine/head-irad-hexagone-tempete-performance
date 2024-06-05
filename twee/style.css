@@ -1,0 +1,11 @@
+div#page {
+	padding: 1em;
+}
+
+div#page p, div#page a,  div#pageh1,  div#pageh2,  div#pageh3,  div#pageh4,  div#pageh5,  div#pageh6 {
+	color: white;
+}
+
+div#page a {
+	text-decoration: wavy underline rgba(255,255,255,1.0) 0.05em;
+}

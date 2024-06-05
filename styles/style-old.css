@@ -1,0 +1,114 @@
+:root {
+	--duree:3s;
+}
+
+/* create a font family around the variable EB Garamond */
+@font-face {
+	font-family: 'EB Garamond';
+	font-style: normal;
+	src: url('fonts/EBGaramond-VariableFont_wght.ttf');
+}
+
+@font-face {
+	font-family: 'EB Garamond';
+	font-style: italic;
+	src: url('fonts/EBGaramond-Italic-VariableFont_wght.ttf');
+}
+
+body, p, h1, h2, h3, h4, h5, h6 {
+	font-family: 'EB Garamond', serif;
+	font-style: normal;
+	font-size: 5vh;
+	font-variation-settings: "wght" 400;
+	background: black;
+	color: white;
+}
+
+#webcam-container {
+	width: 0px;
+	height: 0px;
+}
+
+#webcam-element {
+	width: 100vw;
+	height: 33vh;
+	object-fit: cover;
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+	background-color: #000;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+	/* remove the vertical margin */
+	margin-block-start: 0;
+	margin-block-end: 0;
+}
+
+#paroles, #titlecard {
+	padding-top: 3vh;
+	padding-bottom: 3vh;
+	padding-left: 10vh;
+	padding-right: 10vh;
+}
+
+h2.personnage {
+	font-variation-settings: "wght" 650;
+}
+
+#titlecard p, #titlecard h1, #titlecard h2, #titlecard h3, #titlecard h4, #titlecard h5, #titlecard h6 {
+	padding: 0;
+}
+
+#titlecard h1 {
+	font-style: normal;
+	font-variation-settings: "wght" 700;
+}
+
+#titlecard h3 {
+	/* font-style: italic; */
+}
+
+p {
+	margin-block-start: 0;
+	margin-block-end: 1em;
+}
+
+#paroles p {
+	font-style: italic;
+}
+
+.personnage {
+	text-align: left;
+	text-transform: uppercase;
+	font-size: 0.85em;
+	/* animation: respirer var(--duree) infinite linear; */
+}
+
+h2#paroles, p#paroles {
+	/* collapse return break */
+	display: inline;
+}
+
+/* 
+@keyframes respirer {
+	0% {
+		font-variation-settings: "wght" 800;
+	}
+	
+	25% {
+		font-variation-settings: "wght" 600;
+	}
+	
+	50% {
+		font-variation-settings: "wght" 400;
+	}
+	
+	75% {
+		font-variation-settings: "wght" 600;
+	}
+	
+	100% {
+		font-variation-settings: "wght" 800;
+	}
+} */

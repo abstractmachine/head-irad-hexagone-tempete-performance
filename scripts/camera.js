@@ -62,7 +62,7 @@ function startWebcam() {
 			videoElement.srcObject = stream;
 		})
 		.catch(function (e) {
-			logError(e.name + ": " + e.message);
+			//console.log(e.name + ": " + e.message);
 		});
 	}
 

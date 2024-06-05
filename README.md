@@ -13,3 +13,9 @@ The source code for the performance of Tempest at Théâtre Hexagone, using vari
 % cd ~/Code/AI/depthai-python/examples/ColorCamera
 % python rgb_uvc.py
 ```
+
+Or directly:
+
+```
+% python ~/Code/AI/depthai-python/examples/ColorCamera/rgb_uvc.py
+```

@@ -1,0 +1,21 @@
+:: Start
+Hello, World! This is a test of the emergency broadcast system. This is only a test. In the event of an actual emergency, you would be instructed where to tune in your area for news and official information. This concludes this test of the emergency broadcast system.
+
+[[One]]
+
+:: One
+This is the first option.
+
+[[Two]]
+
+:: Two
+This is the second option.
+
+[[Three]]
+
+:: Three
+This is the third option.
+
+{restart link}
+
+[[Start]]

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+	<title>Tempête</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="styles/styles.css">
+	<link rel="icon" type="image/png" href="images/favicon.png" />
+	<script src="scripts/camera.js"></script>
+	<script src="scripts/p5/p5.min.js"></script>
+	<script src="scripts/p5/p5.sound.min.js"></script>
+	<script src="scripts/tts.js"></script>
+</head>
+
+<body>
+	<div id="page">
+
+		<div id="texte"> 
+
+			<div id="titlecard">
+				<h1>La tempête</h1>
+				<h2>William Shakespeare</h2>
+				<h2>1610</h2>
+				<h2>&nbsp;</h2>
+				<h3>Adaptation</h3>
+				<h2>Isis Fahmy, Douglas Edric Stanley & Mistral.ai</h2>
+				<h2>2024</h2>
+			</div>
+
+			<div id="paroles">
+				<h2 id="auteur" class="personnage"></h2>
+				<p id="parole-auteur" class="parole"></p>
+				<h2 id="sorciere" class="personnage"></h2>
+				<p id="parole-sorciere" class="parole"></p>
+			</div>
+
+		</div>
+
+		<div id="webcam-container">
+			<video autoplay="true" id="webcam-element"></video>
+			<canvas id="webcam-canvas"></canvas>
+		</div>
+
+		<script src="scripts/sketch.js"></script>
+
+	</div>
+</body>
+</html>
