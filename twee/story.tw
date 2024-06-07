@@ -1,21 +1,19 @@
 :: Start
-Hello, World! This is a test of the emergency broadcast system. This is only a test. In the event of an actual emergency, you would be instructed where to tune in your area for news and official information. This concludes this test of the emergency broadcast system.
+Bonjour. Voici le premier texte qu'il faut prononcer. Il est très important de bien le lire.
 
 [[One]]
 
 :: One
-This is the first option.
+Voici la prémière page.
 
 [[Two]]
 
 :: Two
-This is the second option.
+Voici la deuxième page.
 
 [[Three]]
 
 :: Three
-This is the third option.
+Voici la troisième page.
 
-{restart link}
-
-[[Start]]
+[[Start]] {restart link|Restart}

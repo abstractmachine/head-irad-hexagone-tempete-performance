@@ -1,3 +1,10 @@
+:root {
+	/* declare variable */
+	--link-color: rgba(255,255,255,0.25);
+	--background-color: black;
+	--foreground-color: white;
+}
+
 div#page {
 	padding: 1em;
 }
@@ -7,5 +14,12 @@ div#page p, div#page a,  div#pageh1,  div#pageh2,  div#pageh3,  div#pageh4,  div
 }
 
 div#page a {
-	text-decoration: wavy underline rgba(255,255,255,1.0) 0.05em;
+	color: var(--link-color);
+	text-decoration: wavy underline var(--link-color) 0.05em;
+}
+
+div#page a:hover {
+	color: var(--background-color);
+	background-color: var(--link-color);
+	text-decoration-color: var(--background-color);
 }
