@@ -90,8 +90,8 @@ function passageChanged() {
 function restoreVisibility() {
 
 	// loop through all the <p> elements
-	document.querySelectorAll('p').forEach(function(paragraph) {
-		// set the display style to block
+	document.querySelectorAll('p, h1, h2, h3, h4, h5, h6').forEach(function(paragraph) {
+		// reset paragraph opacity to 1
 		paragraph.style.opacity = '1';
 	});
 
@@ -108,7 +108,7 @@ function speakArticle(article) {
 	let doc = parser.parseFromString(article, 'text/html');
 
 	// Get all the <p> elements in the Document
-	let paragraphs = doc.querySelectorAll('p, h1, h2, h3, h4, h5, h6, li');
+	let paragraphs = doc.querySelectorAll('p, h1, h2, h3, h4, h5, h6');
 
 	// Loop over the paragraphs and log their text content
 	paragraphs.forEach(function(paragraph) {
@@ -116,21 +116,6 @@ function speakArticle(article) {
 		parseParagraph(paragraph);
 
 	});
-	// // get the child nodes of the paragraph
-	// let childNodes = article.childNodes;
-	// // go through each child node of the paragraph
-	// for (let i = 0; i < childNodes.length; i++) {
-	// 	const node = childNodes[i];
-	// 	// if the node is a text node, wrap each character in a span element
-	// 	if (node.nodeType === Node.TEXT_NODE) {
-	// 		// speak("Douglas", node.textContent);
-	// 		console.log(node.textContent);
-	// 	}
-	// }
-
-	// 	// speak("Douglas", paragraph.textContent);
-	// 	// console.log(paragraph.textContent);
-	// });
 
 }
 

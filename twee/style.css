@@ -15,7 +15,8 @@ div#page p, div#page a,  div#pageh1,  div#pageh2,  div#pageh3,  div#pageh4,  div
 
 div#page a {
 	color: var(--link-color);
-	text-decoration: wavy underline var(--link-color) 0.05em;
+	/* text-decoration: wavy underline var(--link-color) 0.05em; */
+	text-decoration: none;
 }
 
 div#page a:hover {
