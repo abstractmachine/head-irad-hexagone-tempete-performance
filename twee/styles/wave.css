@@ -1,3 +1,7 @@
+:root {
+	--time-spread: 0.75s;
+}
+
 @keyframes wave {
 	0%	{ font-variation-settings: "wght" 400; }
 	10%	{ font-variation-settings: "wght" 400; }
@@ -8,114 +12,110 @@
 	100%{ font-variation-settings: "wght" 400; }
 }
 
-span.wave-a, span.wave-b, span.wave-c, span.wave-d, span.wave-e, span.wave-f, span.wave-g, span.wave-h, span.wave-i, span.wave-j, span.wave-k, span.wave-l, span.wave-m, span.wave-n, span.wave-o, span.wave-p, span.wave-q, span.wave-r, span.wave-s, span.wave-t, span.wave-u, span.wave-v, span.wave-w, span.wave-x, span.wave-y, span.wave-z {
+speak span.wave-a, speak span.wave-b, speak span.wave-c, speak span.wave-d, speak span.wave-e, speak span.wave-f, speak span.wave-g, speak span.wave-h, speak span.wave-i, speak span.wave-j, speak span.wave-k, speak span.wave-l, speak span.wave-m, speak span.wave-n, speak span.wave-o, speak span.wave-p, speak span.wave-q, speak span.wave-r, speak span.wave-s, speak span.wave-t, speak span.wave-u, speak span.wave-v, speak span.wave-w, speak span.wave-x, speak span.wave-y, speak span.wave-z {
 	animation: wave 10s infinite linear;
 }
 
-:root {
-	--time-spread: 0.75s;
-}
-
-span.wave-a {
+speak span.wave-a {
 	animation-delay: calc(var(--time-spread) * 1);
 }
 
-span.wave-b {
+speak span.wave-b {
 	animation-delay: calc(var(--time-spread) * 2);
 }
 
-span.wave-c {
+speak span.wave-c {
 	animation-delay: calc(var(--time-spread) * 3);
 }
 
-span.wave-d {
+speak span.wave-d {
 	animation-delay: calc(var(--time-spread) * 4);
 }
 
-span.wave-e {
+speak span.wave-e {
 	animation-delay: calc(var(--time-spread) * 5);
 }
 
-span.wave-f {
+speak span.wave-f {
 	animation-delay: calc(var(--time-spread) * 6);
 }
 
-span.wave-g {
+speak span.wave-g {
 	animation-delay: calc(var(--time-spread) * 7);
 }
 
-span.wave-h {
+speak span.wave-h {
 	animation-delay: calc(var(--time-spread) * 8);
 }
 
-span.wave-i {
+speak span.wave-i {
 	animation-delay: calc(var(--time-spread) * 9);
 }
 
-span.wave-j {
+speak span.wave-j {
 	animation-delay: calc(var(--time-spread) * 10);
 }
 
-span.wave-k {
+speak span.wave-k {
 	animation-delay: calc(var(--time-spread) * 11);
 }
 
-span.wave-l {
+speak span.wave-l {
 	animation-delay: calc(var(--time-spread) * 12);
 }
 
-span.wave-m {
+speak span.wave-m {
 	animation-delay: calc(var(--time-spread) * 13);
 }
 
-span.wave-n {
+speak span.wave-n {
 	animation-delay: calc(var(--time-spread) * 14);
 }
 
-span.wave-o {
+speak span.wave-o {
 	animation-delay: calc(var(--time-spread) * 15);
 }
 
-span.wave-p {
+speak span.wave-p {
 	animation-delay: calc(var(--time-spread) * 16);
 }
 
-span.wave-q {
+speak span.wave-q {
 	animation-delay: calc(var(--time-spread) * 17);
 }
 
-span.wave-r {
+speak span.wave-r {
 	animation-delay: calc(var(--time-spread) * 18);
 }
 
-span.wave-s {
+speak span.wave-s {
 	animation-delay: calc(var(--time-spread) * 19);
 }
 
-span.wave-t {
+speak span.wave-t {
 	animation-delay: calc(var(--time-spread) * 20);
 }
 
-span.wave-u {
+speak span.wave-u {
 	animation-delay: calc(var(--time-spread) * 21);
 }
 
-span.wave-v {
+speak span.wave-v {
 	animation-delay: calc(var(--time-spread) * 22);
 }
 
-span.wave-w {
+speak span.wave-w {
 	animation-delay: calc(var(--time-spread) * 23);
 }
 
-span.wave-x {
+speak span.wave-x {
 	animation-delay: calc(var(--time-spread) * 24);
 }
 
-span.wave-y {
+speak span.wave-y {
 	animation-delay: calc(var(--time-spread) * 25);
 }
 
-span.wave-z {
-	animation-delay: calc(var(--time-spread) * 2§);
+speak span.wave-z {
+	animation-delay: calc(var(--time-spread) * 26);
 }

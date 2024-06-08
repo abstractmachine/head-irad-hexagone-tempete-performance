@@ -1,0 +1,47 @@
+/* stylesheet on twee.html page */
+
+:root {
+	/* declare variable */
+	--foreground-color: white;
+	--background-color: black;
+	--link-color: rgba(255, 255, 255, 0.25);
+	--link-background-color: trasparent;
+	--link-hover-foreground-color: rgb(0, 0, 0);
+	--link-hover-background-color: rgba(255, 255, 255, 0.25);
+	--link-padding: 0.15em;
+}
+
+div#page {
+	padding: 1em;
+}
+
+div#page p, div#page a, div#page speak, div#page h1,  div#page h2,  div#page h3,  div#page h4,  div#page h5,  div#page h6 {
+	color: var(--foreground-color);
+}
+
+div#page a {
+	color: var(--link-color);
+	background-color: var(--link-background-color);
+	/* text-decoration: wavy underline var(--link-color) 0.05em; */
+	text-decoration: var(--link-color);
+}
+
+div#page a:hover {
+	color: var(--link-hover-foreground-color);
+	background-color: var(--link-hover-background-color);
+	text-decoration-color: var(--link-hover-foreground-color);
+	padding-left: var(--link-padding);
+	padding-right: var(--link-padding);
+	margin-left: calc(-1.0 * var(--link-padding));
+	margin-right: calc(-1.0 * var(--link-padding));
+}
+
+ul, ul li, speak {
+	color: var(--foreground-color);
+}
+
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}

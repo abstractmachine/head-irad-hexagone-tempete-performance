@@ -1,8 +1,9 @@
 config.body.transition.name = 'none';
 
-let currentDelay = 0.0;
 let currentSpeaker = "";
-
+let delayTime = 0.02;
+let currentCharIndex = 0;
+let previousCharIndex = 0;
 
 // Ensure the engine is initialized and ready
 window.onload = function() {
@@ -78,6 +79,8 @@ function passageChanged() {
 			// If you want to access the first 'article' element
 			if (articles.length > 0) {
 				let firstArticle = articles[0];
+				// start with a 0 index for the character count
+				resetTypewriterTime();
 				// parse this article using the inner html including tags
 				speakArticle(firstArticle.innerHTML);
 				// reset the typewriter time
@@ -121,18 +124,30 @@ function speakArticle(article) {
 	// look for all the speech tags in the document
 
 	// Get all the <p> and <h1> elements in the Document (everything else ignored for TTS)
-	let paragraphs = doc.querySelectorAll('speak, h2');
+	let paragraphs = doc.querySelectorAll('p, li, speak, h1, h2, h3, h4, h5, h6');
 
-	// Loop over the paragraphs and log their text content
-	paragraphs.forEach(function(paragraph) {
+	// loop through all results
+	for(let i=0; i<paragraphs.length; i++) {
+
+		let paragraph = paragraphs[i];
 		// get the tag type of the paragraph
 		let tag = paragraph.tagName.toLowerCase();
 		if (tag == 'h2') {
+			// set the speaker to the text content of the paragraph
 			setSpeaker(paragraph.textContent);
-		} else {
+			// increment character count
+			addCharacterCount(paragraph.textContent);
+		} else if (tag == 'speak') {
+			// parse the paragraph
 			parseParagraph(paragraph);
+		} else if (tag == 'h1' || tag == 'h3' || tag == 'h4' || tag == 'h5' || tag == 'h6') {
+			// increment character count
+			addCharacterCount(paragraph.textContent);
+		} else if (tag == 'p') {
+			// increment character count
+			addCharacterCount(paragraph.textContent);
 		}
-	});
+	}
 
 }
 
@@ -140,6 +155,18 @@ function speakArticle(article) {
 function setSpeaker(name) {
 
 	currentSpeaker = name;
+
+}
+
+
+function addCharacterCount(text) {
+
+	// this is an ugly hack because the <p> tag comes before <speak> tag
+	previousCharIndex = currentCharIndex;
+
+	// only count letters that are not spaces
+	let count = text.replace(/\s/g, '').length;
+	currentCharIndex += count;
 
 }
 
@@ -153,11 +180,10 @@ function parseParagraph(paragraph) {
 		const node = childNodes[i];
 		// if the node is a text node, wrap each character in a span element
 		if (node.nodeType === Node.TEXT_NODE) {
-			// get list of the parent node classes
-			let classes = node.parentNode.classList;
-			console.log(classes);
-
-			speak(currentSpeaker, node.textContent);
+			// calculate the delay for the current character count (i.e. start of this text node)
+			let delay = calcualteCharacterDelay(previousCharIndex);
+			// start speaking using the content of this text node
+			speak(currentSpeaker, node.textContent, delay);
 		}
 	}
 
@@ -166,7 +192,16 @@ function parseParagraph(paragraph) {
 
 function resetTypewriterTime() {
 
-	currentDelay = 0;
+	currentCharIndex = 0;
+	previousCharIndex = 0;
+
+}
+
+
+function calcualteCharacterDelay(index) {
+
+	let delay = (index * delayTime) + (Math.random() * delayTime);
+	return delay;
 
 }
 
@@ -182,16 +217,20 @@ function addTypewriterEffect(article, ignoreTypewriter = false) {
 
 		const node = article.childNodes[i];
 
+		// let waveIndex = 0;
+
 		if (node.nodeType === Node.TEXT_NODE) {
 			// if the node is a text node, wrap each character in a span element
 			const text = node.textContent;
-			let delayTime = 0.02;
 			const spannedText = text.split('').map(function(char) {
+				// create an ascii character index
+				// const ascii = String.fromCharCode(97 + (++waveIndex % 26));
+				// const waveClass = 'wave-' + ascii;
+				const classesAttribute = "typewriter";
 				// create a 10% of wobble in the delay, so it's not too uniform. 
-				currentDelay += delayTime + (Math.random() * delayTime);
+				let animationDelay = calcualteCharacterDelay(currentCharIndex++);
 				// create a style tag that will be applied to the span tag to fade in
-				// const style = "animation: fadeIn 1s linear forwards; animation-delay: " + delay + "s";
-				let style = 'opacity: 0; animation-delay: ' + currentDelay + 's;'
+				let style = 'animation-delay: ' + animationDelay + 's;'
 				let span = "";
 				// create a span tag with the random color
 				if (ignoreTypewriter) {
@@ -199,7 +238,7 @@ function addTypewriterEffect(article, ignoreTypewriter = false) {
 				} else if (char === ' ') {
 					span = ' ';
 				} else {
-					span = '<span class="typewriter" style="' + style + '">' + char + '</span>';
+					span = '<span class="' + classesAttribute + '" style="' + style + '">' + char + '</span>';
 				}
 				return span;
 			}).join('');

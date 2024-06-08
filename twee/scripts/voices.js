@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 speechSynthesis.addEventListener("voiceschanged", () => {
+
 	const voices = window.speechSynthesis.getVoices();
 	
 	for(let i = 0; i < voices.length ; i++) {
@@ -40,7 +41,7 @@ function isTalking() {
 
 
 // use Chrome Text-To-Speech to read the text
-function speak(nom, newText) {
+function speak(nom, newText, delayTime = 0) {
 
 	personnageTalking = nom;
 
@@ -54,10 +55,11 @@ function speak(nom, newText) {
 			// don't speak text from Isis
 			return;
 		case '':
-			desiredVoice = validVoices['Amélie (French (Canada))'];
+			// desiredVoice = validVoices['Amélie (French (Canada))'];
+			desiredVoice = validVoices['Chantal (French (Belgium))'];
 			break;
 		case 'Sycorax':
-			desiredVoice = validVoices['Amélie (French (Canada))'];
+			desiredVoice = validVoices['Aude (French (Belgium))'];
 			break;
 		case 'Miranda':
 			desiredVoice = validVoices['Google français'];
@@ -94,12 +96,13 @@ function speak(nom, newText) {
 		personnageTalking = '';
 	});
 
+	let utteranceDelay = Math.max(250, delayTime*1000);
 
 	setTimeout(function () {
 		talkingText = newText;
 		speechSynthesis.speak(utterance);
 		utterances.push(utterance);
-	}, 250);
+	}, utteranceDelay);
 
 }
 
