@@ -1,4 +1,6 @@
 config.body.transition.name = 'none';
+let currentDelay = 0.0;
+
 
 // Ensure the engine is initialized and ready
 window.onload = function() {
@@ -16,24 +18,45 @@ window.onload = function() {
 
 		// Add event listener for key presses
 		document.addEventListener('keydown', function (e) {
-			// Check if the key pressed is Escape
-			if (e.key === "Escape") {
-				// Go to the Start passage
-				go('Start');
-			}
+			parseKey(e.key);
 		});
 
-		// Initial passage change logging
-		passageChanged();
+		restoreVisibility();
+
 	});
 
 };
 
 
 
+function parseKey(key) {
+
+	// switch to handle the key presses
+	switch (key) {
+		case 'ArrowRight':
+			break;
+		case 'ArrowLeft':
+			break;
+		case 'ArrowUp':
+			break;
+		case 'ArrowDown':
+			break;
+		case 'Enter':
+			break;
+		case 'Escape':
+			restart();
+			break;
+		default:
+			break;
+	}
+
+}
+
 
 // Function to handle passage changes
 function passageChanged() {
+
+	console.log("passage changed");
 
 	const name = passage.name;
 	const current = engine.story.passageNamed(name);
@@ -47,6 +70,8 @@ function passageChanged() {
 				let firstArticle = articles[0];
 				// parse this article using the inner html including tags
 				speakArticle(firstArticle.innerHTML);
+				// reset the typewriter time
+				resetTypewriterTime();
 				// add the typewriter effect to the first article
 				var newHtml = addTypewriterEffect(firstArticle);
 				// apply new html to the first article
@@ -56,7 +81,7 @@ function passageChanged() {
 				// we need to do this after the typewriter effect has been applied
 				restoreVisibility();
 			}
-		}, 0); // Delay of 0 milliseconds
+		}, 10); // Delay of 0 milliseconds
 	}
 	
 }
@@ -126,6 +151,13 @@ function parseParagraph(paragraph) {
 }
 
 
+function resetTypewriterTime() {
+
+	currentDelay = 0;
+
+}
+
+
 
 function addTypewriterEffect(article, ignoreTypewriter = false) {
 
@@ -141,7 +173,6 @@ function addTypewriterEffect(article, ignoreTypewriter = false) {
 			// if the node is a text node, wrap each character in a span element
 			const text = node.textContent;
 			let delayTime = 0.02;
-			let currentDelay = 0.0;
 			const spannedText = text.split('').map(function(char) {
 				// create a 10% of wobble in the delay, so it's not too uniform. 
 				currentDelay += delayTime + (Math.random() * delayTime);

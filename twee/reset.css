@@ -1,5 +1,6 @@
 div#backdrop {
-	background-color: transparent;
+	/* background-color: transparent; */
+	background-color: var(--background-color);
 	/* remove flexbox */
 	display: block;
 	/* position at top of page

@@ -23,3 +23,13 @@ div#page a:hover {
 	background-color: var(--link-color);
 	text-decoration-color: var(--background-color);
 }
+
+ul, ul li {
+	color: var(--foreground-color);
+}
+
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}

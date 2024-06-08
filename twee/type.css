@@ -2,6 +2,10 @@ p, p.typewriter {
 	opacity: 0;
 }
 
+ul, ul li {
+	opacity: 1;
+}
+
 .typewriter {
 	opacity:0;
 	animation:typewriter 0s ease-out forwards;
