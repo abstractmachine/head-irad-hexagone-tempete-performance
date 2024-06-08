@@ -1,8 +1,8 @@
 var synth;
-let talking = false;
 let personnageTalking = '';
 let talkingText = '';
 let validVoices = {};
+let utterances = [];
 
 
 // start webcam in browser
@@ -18,22 +18,44 @@ speechSynthesis.addEventListener("voiceschanged", () => {
 	for(let i = 0; i < voices.length ; i++) {
 		if(voices[i].lang.includes('fr')) {
 			validVoices[voices[i].name] = voices[i];
-			// console.log(voices[i].name);
 		}
 	}
 
 })
 
+
+function cancelSpeech() {
+	
+	speechSynthesis.cancel();
+	utterances = [];
+
+}
+
+
+function isTalking() {
+
+	return utterances.length > 0;
+
+}
+
+
 // use Chrome Text-To-Speech to read the text
 function speak(nom, newText) {
 
-	talking = true;
-	talkingText = newText;
 	personnageTalking = nom;
 
 	let desiredVoice = '';
 
 	switch (nom) {
+		case 'Douglas':
+			// don't speak text from Douglas
+			return;
+		case 'Isis':
+			// don't speak text from Isis
+			return;
+		case '':
+			desiredVoice = validVoices['Amélie (French (Canada))'];
+			break;
 		case 'Sycorax':
 			desiredVoice = validVoices['Amélie (French (Canada))'];
 			break;
@@ -52,7 +74,11 @@ function speak(nom, newText) {
 
 	}
 
-	let utterance = new SpeechSynthesisUtterance(talkingText);
+	if (newText == '' || newText == ' ') {
+		return;
+	}
+
+	let utterance = new SpeechSynthesisUtterance(newText);
 	utterance.lang = "fr-FR";
 
 	if (desiredVoice != '') {
@@ -62,12 +88,21 @@ function speak(nom, newText) {
 	utterance.addEventListener("end", (event) => {
 		// speakSupplement()
 		talkingDone();
-		talking = false;
+		// find this utterance in the array
+		let index = utterances.indexOf(event.currentTarget);
+		utterances.splice(index, 1);
 		personnageTalking = '';
-	  });
-	speechSynthesis.speak(utterance);
+	});
+
+
+	setTimeout(function () {
+		talkingText = newText;
+		speechSynthesis.speak(utterance);
+		utterances.push(utterance);
+	}, 250);
 
 }
+
 
 function talkingDone() {
 

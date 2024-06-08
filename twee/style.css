@@ -9,7 +9,7 @@ div#page {
 	padding: 1em;
 }
 
-div#page p, div#page a,  div#pageh1,  div#pageh2,  div#pageh3,  div#pageh4,  div#pageh5,  div#pageh6 {
+div#page p, div#page a, div#page speak, div#page h1,  div#page h2,  div#page h3,  div#page h4,  div#page h5,  div#page h6 {
 	color: white;
 }
 

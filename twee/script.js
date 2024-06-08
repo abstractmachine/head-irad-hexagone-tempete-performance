@@ -1,9 +1,14 @@
 config.body.transition.name = 'none';
+
 let currentDelay = 0.0;
+let currentSpeaker = "";
 
 
 // Ensure the engine is initialized and ready
 window.onload = function() {
+
+	// cancel any speech that is currently happening
+	cancelSpeech();
 
 	// Check if the init function exists and call it to initialize the engine
 	if (typeof init === 'function') {
@@ -53,13 +58,18 @@ function parseKey(key) {
 }
 
 
+
 // Function to handle passage changes
 function passageChanged() {
 
-	console.log("passage changed");
+	// cancel any previous speaking utterances
+	cancelSpeech();
+	// reset any previous speaker attributions
+	setSpeaker("");
 
 	const name = passage.name;
 	const current = engine.story.passageNamed(name);
+
 	if (current) {
 		// Delay the execution of the code inside the setTimeout
 		setTimeout(function() {
@@ -87,10 +97,12 @@ function passageChanged() {
 }
 
 
+// TODO: This is a CSS<>JS hack to restore the visibility of the paragraphs
+// Need to find a better way to do this
 function restoreVisibility() {
 
 	// loop through all the <p> elements
-	document.querySelectorAll('p, h1, h2, h3, h4, h5, h6').forEach(function(paragraph) {
+	document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, ul, li, speak').forEach(function(paragraph) {
 		// reset paragraph opacity to 1
 		paragraph.style.opacity = '1';
 	});
@@ -100,22 +112,34 @@ function restoreVisibility() {
 
 function speakArticle(article) {
 
-
 	// Create a new DOMParser
 	let parser = new DOMParser();
 
 	// Parse the article string into a Document
 	let doc = parser.parseFromString(article, 'text/html');
 
-	// Get all the <p> elements in the Document
-	let paragraphs = doc.querySelectorAll('p, h1, h2, h3, h4, h5, h6');
+	// look for all the speech tags in the document
+
+	// Get all the <p> and <h1> elements in the Document (everything else ignored for TTS)
+	let paragraphs = doc.querySelectorAll('speak, h2');
 
 	// Loop over the paragraphs and log their text content
 	paragraphs.forEach(function(paragraph) {
-
-		parseParagraph(paragraph);
-
+		// get the tag type of the paragraph
+		let tag = paragraph.tagName.toLowerCase();
+		if (tag == 'h2') {
+			setSpeaker(paragraph.textContent);
+		} else {
+			parseParagraph(paragraph);
+		}
 	});
+
+}
+
+
+function setSpeaker(name) {
+
+	currentSpeaker = name;
 
 }
 
@@ -129,7 +153,11 @@ function parseParagraph(paragraph) {
 		const node = childNodes[i];
 		// if the node is a text node, wrap each character in a span element
 		if (node.nodeType === Node.TEXT_NODE) {
-			speak("Douglas", node.textContent);
+			// get list of the parent node classes
+			let classes = node.parentNode.classList;
+			console.log(classes);
+
+			speak(currentSpeaker, node.textContent);
 		}
 	}
 
@@ -173,7 +201,6 @@ function addTypewriterEffect(article, ignoreTypewriter = false) {
 				} else {
 					span = '<span class="typewriter" style="' + style + '">' + char + '</span>';
 				}
-				// console.log(span);
 				return span;
 			}).join('');
 			// node.innerHTML = spannedText;
