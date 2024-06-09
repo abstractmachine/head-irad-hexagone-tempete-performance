@@ -356,6 +356,8 @@ let currentCharIndex = 0;
 let previousCharIndex = 0;
 let selectedLinkIndex = -1;
 
+let cards = {'Protagoniste': '', 'Amant': '', 'Intrigue': '', 'Lieu': '', 'Scene': ''};
+
 // Ensure the engine is initialized and ready
 window.onload = function() {
 
@@ -403,9 +405,38 @@ function parseKey(key) {
 		case 'Escape':
 			restart();
 			break;
+		case '1':
+			setCard('Protagoniste', '');
+			break;
+		case '2':
+			setCard('Amant', '');
+			break;
+		case '3':
+			setCard('Intrigue', '');
+			break;
+		case '4':
+			setCard('Lieu', '');
+			break;
+		case '5':
+			setCard('Scene', '');
+			break;
 		default:
 			break;
 	}
+
+}
+
+
+function setCard(category, content) {
+
+	// TODO: Replace this with actual data
+	content = ['Hello', 'Goodbye', 'World'][Math.floor(Math.random() * 3)];
+	cards[category] = content;
+
+	// get access to the parent window
+	let parent = window.parent;
+	// send message to the parent window
+	parent.postMessage({category: category, content: content}, '*');
 
 }
 

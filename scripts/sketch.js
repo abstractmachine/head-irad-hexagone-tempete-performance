@@ -19,15 +19,15 @@ function setup() {
 	let hue = 0;
 
 	hue = (((360 * 0) / 5) + hueOffset) % 360;
-	cards.push(new Card(0, hue, "Category", "Content"));
+	cards.push(new Card(0, hue, "Protagoniste", "Content"));
 	hue = (((360 * 1) / 5) + hueOffset) % 360;
-	cards.push(new Card(1, hue, "Category", "Content"));
+	cards.push(new Card(1, hue, "Amant", "Content"));
 	hue = (((360 * 2) / 5) + hueOffset) % 360;
-	cards.push(new Card(2, hue, "Category", "Content"));
+	cards.push(new Card(2, hue, "Intrigue", "Content"));
 	hue = (((360 * 3) / 5) + hueOffset) % 360;
-	cards.push(new Card(3, hue, "Category", "Content"));
+	cards.push(new Card(3, hue, "Lieu", "Content"));
 	hue = (((360 * 4) / 5) + hueOffset) % 360;
-	cards.push(new Card(4, hue, "Category", "Content"));
+	cards.push(new Card(4, hue, "Scene", "Content"));
 
 }
 
@@ -58,121 +58,32 @@ function draw() {
 }
 
 
-class Card {
+// receive card changes from twee iframe
+window.addEventListener("message", (event) => {
+
+	// make sure we can trust the sender of the message
+	if (!event.isTrusted) {
+		return;
+	}
+
+	// check to see if there is a key in the data object
+	if (event.data.hasOwnProperty('category')) {
+
+		let category = event.data.category;
+		let content = event.data.content;
+
+		setCard(category, content);
+	}
 
 
-	constructor(index, hue, category, content) {
-
-		this.index = index;
-		this.hue = hue;
-		this.saturation = 50;
-		this.category = category;
-		this.content = content;
-		this.resize();
-		this.isRevealed = false;
-		this.angle = 0;
-		this.next = "";
-
-	} // constructo()
+	// Assuming you've verified the origin of the received message (which
+	// you must do in any case), a convenient idiom for replying to a
+	// message is to call postMessage on event.source and provide
+	// event.origin as the targetOrigin.
+	// event.source.postMessage(
+	//   "hi there yourself!  the secret response " + "is: rheeeeet!",
+	//   event.origin,
+	// );
+});
 
 
-	resize() {
-
-		let step = width / 5;
-		this.x = -(width*0.5) + (step * this.index) + (step*0.5);
-		this.y = 0;
-		this.height = height * 0.9;
-		this.width = height * 0.65;
-		this.corner = height * 0.05;
-
-	} // resize()
-
-
-	update() {
-
-		if (this.next != "" && this.angle != 0) {
-			this.isRevealed = false;
-		} else if (this.next != "" && this.angle == 0) {
-			this.isRevealed = false;
-			this.content = this.next;
-			this.next = "";
-		}
-		
-		if (this.isRevealed) {
-			this.revealed();
-		} else {
-			this.flipped();
-		}
-
-	} // update()
-
-
-	setNext(next) {
-		this.next = next;
-	} // setNext();
-
-
-	flipped() {
-
-		
-		if (abs(this.angle - 0) < 5) {
-			this.angle = 0;
-		}
-
-	} // flipped()
-
-
-	revealed() {
-
-		let interpolation = 0.1;
-		this.angle += ((180 - this.angle) * interpolation);
-		
-		if (abs(this.angle - 180) < 5) {
-			this.angle = 180;
-		}
-
-	} // revealed()
-
-
-	draw() {
-
-		push();
-
-		translate(this.x, this.y, 0);
-		rotateY(radians(this.angle));
-
-		push();
-		translate(0,0,0.5);
-		fill(this.hue,this.saturation,100,100);
-		noStroke();
-		rect(0, 0, this.width, this.height, this.corner);
-		pop();
-
-		push();
-		translate(0,0,1);
-		fill(this.hue,this.saturation,0,100);
-		noStroke();
-		text(this.category, 0, 0, this.width, this.height);
-		pop();
-
-		push();
-		translate(0,0,0);
-		fill(this.hue,this.saturation,33,100);
-		noStroke();
-		rect(0, 0, this.width*0.97, this.height*0.97, this.corner);
-		pop();
-
-		push();
-		translate(0,0,-2);
-		rotateY(PI);
-		fill(this.hue,this.saturation,100,100);
-		noStroke();
-		text(this.content, 0, 0, this.width, this.height);
-		pop();
-
-		pop();
-
-	} // draw()
-
-
-}
