@@ -6,13 +6,15 @@ let currentCharIndex = 0;
 let previousCharIndex = 0;
 let selectedLinkIndex = -1;
 
-let cards = {'Protagoniste': '', 'Amant': '', 'Intrigue': '', 'Lieu': '', 'Scene': ''};
+let cartes = {};
 
 // Ensure the engine is initialized and ready
 window.onload = function() {
 
 	// cancel any speech that is currently happening
 	cancelSpeech();
+
+	loadCardData();
 
 	// Check if the init function exists and call it to initialize the engine
 	if (typeof init === 'function') {
@@ -43,6 +45,37 @@ function parseKey(key) {
 
 	// switch to handle the key presses
 	switch (key) {
+		case 'a':
+		case 'b':
+		case 'c':
+		case 'd':
+		case 'e':
+		case 'f':
+		case 'g':
+		case 'h':
+		case 'i':
+		case 'j':
+		case 'k':
+		case 'l':
+		case 'm':
+		case 'n':
+		case 'o':
+		case 'p':
+		case 'q':
+		case 'r':
+		case 's':
+		case 't':
+		case 'u':
+		case 'v':
+		case 'w':
+		case 'x':
+		case 'y':
+		case 'z':
+			let choisir = engine.state.get('Choisir')
+			if (choisir) {
+				setCard(key.toUpperCase());
+			}
+
 		case 'ArrowRight':
 		case 'ArrowLeft':
 		case 'ArrowUp':
@@ -56,24 +89,62 @@ function parseKey(key) {
 			resetCards();
 			restart();
 			break;
-		case '1':
-			setCard('Protagoniste', '');
-			break;
-		case '2':
-			setCard('Amant', '');
-			break;
-		case '3':
-			setCard('Intrigue', '');
-			break;
-		case '4':
-			setCard('Lieu', '');
-			break;
-		case '5':
-			setCard('Scene', '');
-			break;
 		default:
 			break;
 	}
+
+}
+
+
+
+async function loadCardData() {
+
+	// load the file named 'head-hexagone-performance-tempete-cartes.csv'
+	// this file contains the data for the cards
+	// the data is in the format: Titre,Badge / numéro,Image,Texte,Couleur,Catégorie
+	// the data is loaded into the cards object
+
+	const csv = await fetch('data/head-hexagone-performance-tempete-cartes.csv');
+	const text = await csv.text();
+	const csvData = d3.csvParse(text);
+	let jsonData = JSON.parse(JSON.stringify(csvData));
+
+	// go through each row of the csv data
+	for (let i = 0; i < jsonData.length; i++) {
+		// get the row
+		let row = jsonData[i];
+		// get the category of the row
+		let categorie = row['Catégorie'];
+		// get the content of the row
+		let contenu = row['Texte'];
+		// get the identifier
+		let id = row['Badge / numéro'];
+		// get the title
+		let titre = row['Titre'];
+		// get the color
+		let couleur = row['Couleur'];
+		// get the color
+		let note = row['Note'];
+		// if the category does not exist in the cards object, create it
+		if (!cartes.hasOwnProperty(categorie)) {
+			// create a new array for this category
+			cartes[categorie] = [];
+			// tell the p5.js sketch to create a new card for this category
+			createNewPile(categorie, couleur);
+		}
+		// setCard(category, content);
+		cartes[categorie].push({'id': id, 'titre': titre, 'contenu': contenu, 'couleur': couleur, 'note': note});
+	}
+
+}
+
+
+function createNewPile(categorie, couleur) {
+
+	// get access to the parent window
+	let parent = window.parent;
+	// send message to the parent window
+	parent.postMessage({newCard: 'true', categorie:categorie, couleur:couleur}, '*');
 
 }
 
@@ -84,20 +155,37 @@ function resetCards() {
 	let parent = window.parent;
 	// send message to the parent window
 	parent.postMessage({reset: 'true'}, '*');
+	// 
+	engine.state.set('Choisir', 'hello');
 
 }
 
 
-function setCard(category, content) {
+function setCard(key) {
 
-	// TODO: Replace this with actual data
-	content = ['Hello', 'Goodbye', 'World'][Math.floor(Math.random() * 3)];
-	cards[category] = content;
+	let categorie = engine.state.get('Categorie');
+	let variable = engine.state.get('Variable');
 
-	// get access to the parent window
-	let parent = window.parent;
-	// send message to the parent window
-	parent.postMessage({category: category, content: content}, '*');
+	// get first letter of the data category and the key we pressed
+	let id = categorie[0].toUpperCase() + key.toUpperCase();
+	
+	// let's find this id in the data
+	let found = false;
+	for (let i = 0; i < cartes[categorie].length; i++) {
+		let carte = cartes[categorie][i];
+		if (carte.id == id) {
+			found = true;
+			// extract data
+			let titre = carte.titre;
+			// set the data in Twee
+			engine.state.set(variable, titre);
+			// get the name of the next passage
+			let nextPassage = engine.state.get('Done');
+			// go to the next passage
+			go(nextPassage);
+			break;
+		}
+	}
 
 }
 

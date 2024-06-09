@@ -1,12 +1,30 @@
 :: Persona
-<speak>Il faut choisir les personnages.</speak>
-
-[[Choisir|Persona-Random]]
-
-:: Persona-Random
-protagonist: 'Miranda'
-lover: 'Caliban'
+Choisir: true
+Categorie: 'Personnage'
+Variable: 'Protagoniste'
+Done: 'Persona-Choisir-Amant'
 --
-<speak data-persona='Sycorax'>Nos personnages sont {protagonist} et {lover}.</speak>
+## Sycorax
+<speak>Il faut choisir les personnages. Commençons par la personne qui sera notre protagoniste.</speak>
+
+
+
+:: Persona-Choisir-Amant
+Choisir: true
+Categorie: 'Personnage'
+Variable: 'Amant'
+Done: 'Persona-Done'
+--
+## Sycorax
+<speak>{Protagoniste} est un choix intéressant. Maintenant il faut choisir son amour.</speak>
+
+
+
+
+:: Persona-Done
+Choisir: false
+--
+## Sycorax
+<speak>Très bon choix. Nos personnages sont {Protagoniste} et {Amant}.</speak>
 
 [[Intro|TitleCard]]

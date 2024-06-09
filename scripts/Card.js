@@ -34,13 +34,13 @@ function setCard(category, content) {
 
 class Card {
 
-	constructor(index, hue, category, content) {
+	constructor(index, hue, category) {
 
 		this.index = index;
 		this.hue = hue;
-		this.saturation = 50;
+		this.saturation = 100;
 		this.category = category;
-		this.content = content;
+		this.content = "";
 		this.resize();
 		this.isRevealed = false;
 		this.angle = 0;
@@ -157,7 +157,8 @@ class Card {
 
 		push();
 		translate(0,0,1);
-		fill(this.hue,this.saturation,0,100);
+		// white
+		fill(this.hue,0,100,100);
 		noStroke();
 		text(this.category, 0, 0, this.width, this.height);
 		pop();
@@ -172,7 +173,8 @@ class Card {
 		push();
 		translate(0,0,-2);
 		rotateY(PI);
-		fill(this.hue,this.saturation,100,100);
+		// white
+		fill(this.hue,0,100,100);
 		noStroke();
 		text(this.content, 0, 0, this.width, this.height);
 		pop();

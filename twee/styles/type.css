@@ -11,6 +11,10 @@ ul, ul li {
 	animation:typewriter 0s ease-out forwards;
 }
 
+article h1:first-of-type, article h2:first-of-type, article h3:first-of-type {
+	margin-top: 0;
+}
+
 /* .type-out {
 	animation:fade-in 1s ease-out reverse forwards;
 } */

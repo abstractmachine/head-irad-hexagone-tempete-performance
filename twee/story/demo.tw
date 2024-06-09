@@ -16,4 +16,7 @@ This a demo page of the various possibilites:
 [[Back|Demo]]
 
 
-:: One
+:: Demo-Variables
+
+[JavaScript]
+engine.state.set('Intrigue', 'Jalousie');
