@@ -17,4 +17,4 @@ Choisir: false
 ## Sycorax
 <speak>L'intrigue est posée. Il sera question de {Intrigue}.</speak>
 
-[[Intro|TitleCard]]
+[[Acte]] [[Intro|TitleCard]]

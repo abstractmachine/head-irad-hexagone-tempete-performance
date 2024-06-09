@@ -27,4 +27,4 @@ Choisir: false
 ## Sycorax
 <speak>Très bon choix. Nos personnages sont {Protagoniste} et {Amant}.</speak>
 
-[[Intro|TitleCard]]
+[[Lieu]] [[Intro|TitleCard]]

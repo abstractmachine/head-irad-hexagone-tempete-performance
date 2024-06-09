@@ -15,4 +15,4 @@ Choisir: false
 ## Sycorax
 <speak>Le lieu de la prochaine acte est posé. Il se passera à {Lieu}.</speak>
 
-[[Intro|TitleCard]]
+[[Intrigue]] [[Intro|TitleCard]]

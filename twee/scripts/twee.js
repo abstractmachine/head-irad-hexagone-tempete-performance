@@ -174,6 +174,7 @@ function parseKey(key) {
 			break;
 
 		case 'Enter':
+			clickOnHighlight();
 			break;
 
 		case 'Escape':
@@ -492,6 +493,25 @@ function resetHighlight() {
 }
 
 
+function clickOnHighlight() {
+
+	// start by getting the article element
+	let articles = document.getElementsByTagName('article');
+	// get a list of all the links inside the article
+	let links = articles[0].getElementsByTagName('a');
+
+	if (articles.length > 0) {
+		// if we have a selected link
+		if (selectedLinkIndex > -1 && selectedLinkIndex < links.length) {
+			// click on the selected link
+			links[selectedLinkIndex].click();
+		}
+	
+	}
+
+}
+
+
 function highlightLink(key) {
 
 	// start by getting the article element
@@ -504,11 +524,25 @@ function highlightLink(key) {
 	}
 	else {
 		if (key == 'ArrowRight') {
-			selectedLinkIndex = ++selectedLinkIndex % links.length;
+			if (++selectedLinkIndex >= links.length) {
+				selectedLinkIndex = -1;
+			}
 		} else if (key == 'ArrowLeft') {
-			selectedLinkIndex = --selectedLinkIndex % links.length;
+			if (--selectedLinkIndex < -1) {
+				selectedLinkIndex = links.length - 1;
+			}
+		}
+		// loop through all the links
+		for (let i = 0; i < links.length; i++) {
+			// if the link is the selected link
+			if (i == selectedLinkIndex) {
+				// add the highlight class
+				links[i].classList.add('highlight');
+			} else {
+				// remove the highlight class
+				links[i].classList.remove('highlight');
+			}
 		}
 	}
-
 
 }

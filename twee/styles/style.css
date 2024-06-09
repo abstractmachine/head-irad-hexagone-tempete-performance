@@ -5,6 +5,7 @@
 	--foreground-color: white;
 	--background-color: black;
 	--link-color: rgba(255, 255, 255, 0.25);
+	--link-color-highlight: rgba(255, 255, 255, 1.0);
 	--link-background-color: trasparent;
 	--link-hover-foreground-color: rgb(0, 0, 0);
 	--link-hover-background-color: rgba(255, 255, 255, 0.25);
@@ -24,6 +25,11 @@ div#page a {
 	background-color: var(--link-background-color);
 	/* text-decoration: wavy underline var(--link-color) 0.05em; */
 	text-decoration: var(--link-color);
+}
+
+div#page a.highlight {
+	color: var(--link-color-highlight);
+	text-decoration: var(--link-color-highlight);
 }
 
 div#page a:hover {

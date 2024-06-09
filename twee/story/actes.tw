@@ -12,6 +12,12 @@ Done: 'Acte-Play'
 :: Acte-Play
 Sound: Lieu
 --
-Voici l'acte {Acte}.
+# {Acte}
+
+## {Protagoniste}
+<speak data-persona='Miranda'>Je suis le Protagoniste et voici mes premières paroles</speak>
+
+## {Amant}
+<speak data-persona='Caliban'>Je suis l'Amant et voici mes premières paroles</speak>
 
 [[Fin|Acte]]
