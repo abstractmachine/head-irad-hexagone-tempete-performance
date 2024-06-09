@@ -71,8 +71,8 @@ function parseKey(key) {
 		case 'x':
 		case 'y':
 		case 'z':
-			let choisir = engine.state.get('Choisir')
-			if (choisir) {
+			// if we're in Choosing mode
+			if (engine.state.get('Choisir')) {
 				setCard(key.toUpperCase());
 			}
 
@@ -129,22 +129,10 @@ async function loadCardData() {
 		if (!cartes.hasOwnProperty(categorie)) {
 			// create a new array for this category
 			cartes[categorie] = [];
-			// tell the p5.js sketch to create a new card for this category
-			createNewPile(categorie, couleur);
 		}
-		// setCard(category, content);
+		// setCard(categorie, content);
 		cartes[categorie].push({'id': id, 'titre': titre, 'contenu': contenu, 'couleur': couleur, 'note': note});
 	}
-
-}
-
-
-function createNewPile(categorie, couleur) {
-
-	// get access to the parent window
-	let parent = window.parent;
-	// send message to the parent window
-	parent.postMessage({newCard: 'true', categorie:categorie, couleur:couleur}, '*');
 
 }
 
@@ -155,8 +143,8 @@ function resetCards() {
 	let parent = window.parent;
 	// send message to the parent window
 	parent.postMessage({reset: 'true'}, '*');
-	// 
-	engine.state.set('Choisir', 'hello');
+	// turn off the choosing mode
+	engine.state.set('Choisir', 'false');
 
 }
 
@@ -175,10 +163,17 @@ function setCard(key) {
 		let carte = cartes[categorie][i];
 		if (carte.id == id) {
 			found = true;
+
 			// extract data
 			let titre = carte.titre;
 			// set the data in Twee
 			engine.state.set(variable, titre);
+
+			// get access to the parent window
+			let parent = window.parent;
+			// send message to the parent window
+			parent.postMessage({setCard: 'true', categorie:variable, contenu:titre}, '*');
+
 			// get the name of the next passage
 			let nextPassage = engine.state.get('Done');
 			// go to the next passage
@@ -226,10 +221,43 @@ function passageChanged() {
 				// this is because we want to avoid the render flash before the start of the typewriter effect
 				// we need to do this after the typewriter effect has been applied
 				restoreVisibility();
+
+				// if we're in choosing mode
+				if (engine.state.get('Choisir')) {
+					choosingMode();
+				}
 			}
 		}, 10); // Delay of 0 milliseconds
 	}
-	
+
+}
+
+
+function choosingMode() {
+
+	// get the category and variable
+	let categorie = engine.state.get('Categorie');
+	let variable = engine.state.get('Variable');
+
+	if (categorie === undefined || variable === undefined) {
+		return;
+	}
+
+	// find the categorie in the cards object
+	if (cartes.hasOwnProperty(categorie)) {
+		// get the cards for this category
+		let cards = cartes[categorie];
+		// get the color from the first card
+		let couleur = cards[0].couleur;
+		
+
+		// get access to the parent window
+		let parent = window.parent;
+		// send message to the parent window
+		parent.postMessage({newCard: 'true', categorie:variable, couleur:couleur}, '*');
+
+	}
+
 }
 
 

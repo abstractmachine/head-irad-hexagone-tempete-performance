@@ -1,32 +1,55 @@
 
 function resetCards() {
 
-	// go through all the cards
+	cards = [];
+
+}
+
+function cardsResized() {
+
 	for(let i = 0; i < cards.length; i++) {
-		cards[i].reset();
+		cards[i].resize();
 	}
 
 }
 
-function setCard(category, content) {
 
-	let foundCategory = false;
+
+function addRemainingCards() {
+
+	for(let i = 0; i < cardsToAdd.length; i++) {
+		let categorie = cardsToAdd[i].categorie;
+		let hue = cardsToAdd[i].hue;
+		let card = new Card(cards.length, hue, categorie);
+		cards.push(card);
+	}
+
+	cardsToAdd = [];
+
+	cardsResized();
+
+}
+
+
+function setCard(categorie, content) {
+
+	let foundCategorie = false;
 
 	// go through all the cards
 	for(let i = 0; i < cards.length; i++) {
 		// if the category matches
-		if (cards[i].category == category) {
+		if (cards[i].categorie == categorie) {
 			// set the content
 			cards[i].setNext(content);
 			// note that we found the category
-			foundCategory = true;
+			foundCategorie = true;
 			// done
 			break;
 		}
 	}
 
-	if (!foundCategory) {
-		console.log("Category not found: ", category, content);
+	if (!foundCategorie) {
+		console.log("categorie not found: ", categorie, content);
 	}
 
 }
@@ -34,12 +57,12 @@ function setCard(category, content) {
 
 class Card {
 
-	constructor(index, hue, category) {
+	constructor(index, hue, categorie) {
 
 		this.index = index;
 		this.hue = hue;
 		this.saturation = 100;
-		this.category = category;
+		this.categorie = categorie;
 		this.content = "";
 		this.resize();
 		this.isRevealed = false;
@@ -160,7 +183,7 @@ class Card {
 		// white
 		fill(this.hue,0,100,100);
 		noStroke();
-		text(this.category, 0, 0, this.width, this.height);
+		text(this.categorie, 0, 0, this.width, this.height);
 		pop();
 
 		push();
