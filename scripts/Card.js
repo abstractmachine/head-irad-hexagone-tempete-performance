@@ -1,4 +1,13 @@
 
+function resetCards() {
+
+	// go through all the cards
+	for(let i = 0; i < cards.length; i++) {
+		cards[i].reset();
+	}
+
+}
+
 function setCard(category, content) {
 
 	let foundCategory = false;
@@ -24,7 +33,6 @@ function setCard(category, content) {
 
 
 class Card {
-
 
 	constructor(index, hue, category, content) {
 
@@ -53,14 +61,29 @@ class Card {
 	} // resize()
 
 
+	reset() {
+		// reset the content
+		this.content = "";
+		this.next = "";
+		// flip the card back
+		this.isRevealed = false;
+	}
+
+
 	update() {
 
-		if (this.next != "" && this.angle != 0) {
-			this.isRevealed = false;
-		} else if (this.next != "" && this.angle == 0) {
-			this.isRevealed = false;
-			this.content = this.next;
-			this.next = "";
+		// if we need to switch to a new value
+		if (this.next != "") {
+			// if we're still flipping
+			if (this.angle != 0) {
+				this.isRevealed = false;
+			} else if (this.angle == 0) {
+				// switch value to the next value
+				this.content = this.next;
+				this.next = "";
+				// reveal the card
+				this.isRevealed = true;
+			}
 		}
 		
 		if (this.isRevealed) {
@@ -73,15 +96,22 @@ class Card {
 
 
 	setNext(next) {
+		
+		// if we already have this value, don't bother
+		if (this.content == next) {
+			return;
+		}
+
 		this.next = next;
+
 	} // setNext();
 
 
 	flipped() {
 
-		
-		if (abs(this.angle - 0) < 5) {
-			this.angle = 0;
+		// if we need to animate the flip
+		if (this.angle != 0) {
+			this.interpolate(0);
 		}
 
 	} // flipped()
@@ -89,14 +119,26 @@ class Card {
 
 	revealed() {
 
-		let interpolation = 0.1;
-		this.angle += ((180 - this.angle) * interpolation);
-		
-		if (abs(this.angle - 180) < 5) {
-			this.angle = 180;
+		// if we need to animate the flip
+		if (this.angle != 180) {
+			this.interpolate(180);
 		}
 
 	} // revealed()
+
+
+	interpolate(targetAngle) {
+
+		// interpolate to target value
+		let interpolation = 0.1;
+		this.angle += ((targetAngle - this.angle) * interpolation);
+
+		// snap to target value
+		if (abs(this.angle - targetAngle) < 5) {
+			this.angle = targetAngle;
+		}
+
+	}
 
 
 	draw() {

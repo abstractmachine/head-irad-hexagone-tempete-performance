@@ -47,10 +47,12 @@ function draw() {
 
 	background(0,0,0);
 
+	// first check to see if any cards need to be updated
 	for(let i = 0; i < cards.length; i++) {
 		cards[i].update();
 	}
 
+	// draw all the cards
 	for(let i = 0; i < cards.length; i++) {
 		cards[i].draw();
 	}
@@ -66,8 +68,18 @@ window.addEventListener("message", (event) => {
 		return;
 	}
 
-	// check to see if there is a key in the data object
-	if (event.data.hasOwnProperty('category')) {
+
+	// is this a reset-all-cards message ?
+	if (event.data.hasOwnProperty('reset')) {
+		// this is a reset message
+		if (event.data.reset == 'true') {
+			resetCards();
+		}
+	}
+
+
+	// check to see if there is a category key & a content key in the data object
+	if (event.data.hasOwnProperty('category') && event.data.hasOwnProperty('content')) {
 
 		let category = event.data.category;
 		let content = event.data.content;
@@ -75,15 +87,15 @@ window.addEventListener("message", (event) => {
 		setCard(category, content);
 	}
 
-
 	// Assuming you've verified the origin of the received message (which
 	// you must do in any case), a convenient idiom for replying to a
 	// message is to call postMessage on event.source and provide
 	// event.origin as the targetOrigin.
 	// event.source.postMessage(
-	//   "hi there yourself!  the secret response " + "is: rheeeeet!",
+	//   "hi there yourself!  the secret response " + "is: 42",
 	//   event.origin,
 	// );
+
 });
 
 

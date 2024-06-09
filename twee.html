@@ -403,6 +403,7 @@ function parseKey(key) {
 		case 'Enter':
 			break;
 		case 'Escape':
+			resetCards();
 			restart();
 			break;
 		case '1':
@@ -423,6 +424,16 @@ function parseKey(key) {
 		default:
 			break;
 	}
+
+}
+
+
+function resetCards() {
+
+	// get access to the parent window
+	let parent = window.parent;
+	// send message to the parent window
+	parent.postMessage({reset: 'true'}, '*');
 
 }
 
