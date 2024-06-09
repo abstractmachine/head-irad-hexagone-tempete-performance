@@ -1,40 +1,15 @@
+:: StoryTitle
+Tempête
+
+
+:: StoryData
+{
+    "ifid": "D674C58C-DEFA-4F70-B7A2-27742230C0FC",
+    "format": "Chapbook",
+    "format-version": "1.2.3",
+    "start": "Start"
+}
+
+
 :: Start
 [[La tempête|TitleCard]]
-
-
-:: TitleCard
-- ### La tempête
-- *William Shakespeare*
-- 1610
-- &nbsp;
-- ### Adaptation
-- *Isis Fahmy, Douglas Edric Stanley & Mistral.ai*
-- 2024
-
-[[One]] [[Two]] [[Three]]
-
-:: One
-Voici la première page
-
-## Douglas
-Voici un dialogue de Douglas
-
-## Isis
-Voici un dialogue d'Isis
-
-## Sycorax
-<speak data-persona='sycorax'>Voici un dialogue de Sycorax<speak>
-
-[[Two]] [[Three]]
-
-:: Two
-Voici la deuxième page
-
-<speak>Voici un paragraphe plutôt longue qui raconte une histoire de la tempête. La tempête est un phénomène météorologique qui se produit lorsque l'air chaud et humide monte en altitude et rencontre de l'air froid. Cela provoque la condensation de l'humidité et la formation de nuages</speak>
-
-[[One]] [[Three]]
-
-:: Three
-Voici la troisième page
-
-[[Title|TitleCard]] {restart link|Restart}

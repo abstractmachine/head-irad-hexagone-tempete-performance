@@ -1,0 +1,19 @@
+:: Demo
+This a demo page of the various possibilites:
+
+- A list of items
+- Some stuff
+- And whatever else you want
+
+## Persona Name Goes Here
+<speak data-persona:'Prospero'>Here the character will speak in the voice of Prospero</speak>
+
+[[Next|Demo-Next]]
+
+:: Demo-Next
+<speak>Sometimes text should be in a generic voice</speak>
+
+[[Back|Demo]]
+
+
+:: One

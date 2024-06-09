@@ -7,6 +7,11 @@ The source code for the performance of Tempest at Théâtre Hexagone, using vari
 - [Théâtre Hexagone Scène Nationale](https://www.theatre-hexagone.eu)
 
 
+## Watch Folder for Building Twee
+```
+% ./tweego twee -w -o twee.html
+```
+
 ## Start Luxonis Camera
 
 ```

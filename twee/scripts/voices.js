@@ -55,11 +55,10 @@ function speak(nom, newText, delayTime = 0) {
 			// don't speak text from Isis
 			return;
 		case '':
-			// desiredVoice = validVoices['Amélie (French (Canada))'];
 			desiredVoice = validVoices['Chantal (French (Belgium))'];
 			break;
 		case 'Sycorax':
-			desiredVoice = validVoices['Aude (French (Belgium))'];
+			desiredVoice = validVoices['Amélie (French (Canada))'];
 			break;
 		case 'Miranda':
 			desiredVoice = validVoices['Google français'];
@@ -85,6 +84,7 @@ function speak(nom, newText, delayTime = 0) {
 
 	if (desiredVoice != '') {
 		utterance.voice = desiredVoice;
+		console.log("desiredVoice: ", desiredVoice);
 	}
 
 	utterance.addEventListener("end", (event) => {

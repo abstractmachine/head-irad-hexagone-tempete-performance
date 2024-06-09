@@ -1,0 +1,9 @@
+:: Intrigue
+
+[JavaScript]
+engine.state.set('intrigue', 'jalousie');
+
+[continued]
+Nous venons de choisir une valeur aléatoire pour l'intrigue. Voici la valeur d'intrigue : {intrigue}.
+
+[[Intro|TitleCard]]

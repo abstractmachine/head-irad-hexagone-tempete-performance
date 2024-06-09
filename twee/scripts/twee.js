@@ -4,6 +4,7 @@ let currentSpeaker = "";
 let delayTime = 0.02;
 let currentCharIndex = 0;
 let previousCharIndex = 0;
+let selectedLinkIndex = -1;
 
 // Ensure the engine is initialized and ready
 window.onload = function() {
@@ -25,6 +26,7 @@ window.onload = function() {
 		// Add event listener for key presses
 		document.addEventListener('keydown', function (e) {
 			parseKey(e.key);
+			return true;
 		});
 
 		restoreVisibility();
@@ -40,12 +42,11 @@ function parseKey(key) {
 	// switch to handle the key presses
 	switch (key) {
 		case 'ArrowRight':
-			break;
 		case 'ArrowLeft':
-			break;
 		case 'ArrowUp':
-			break;
 		case 'ArrowDown':
+		case 'Shift':
+			highlightLink(key);
 			break;
 		case 'Enter':
 			break;
@@ -65,6 +66,8 @@ function passageChanged() {
 
 	// cancel any previous speaking utterances
 	cancelSpeech();
+	// reset any selected link index
+	resetHighlight();
 	// reset any previous speaker attributions
 	setSpeaker("");
 
@@ -132,15 +135,14 @@ function speakArticle(article) {
 		let paragraph = paragraphs[i];
 		// get the tag type of the paragraph
 		let tag = paragraph.tagName.toLowerCase();
-		if (tag == 'h2') {
-			// set the speaker to the text content of the paragraph
-			setSpeaker(paragraph.textContent);
-			// increment character count
-			addCharacterCount(paragraph.textContent);
-		} else if (tag == 'speak') {
+		if (tag == 'speak') {
+			// get the data attribute of the paragraph
+			let data = paragraph.getAttribute('data-persona');
+			// set the speaker to the data attribute of the paragraph
+			setSpeaker(data);
 			// parse the paragraph
 			parseParagraph(paragraph);
-		} else if (tag == 'h1' || tag == 'h3' || tag == 'h4' || tag == 'h5' || tag == 'h6') {
+		} else if (tag == 'h1' || tag == 'h2' || tag == 'h3' || tag == 'h4' || tag == 'h5' || tag == 'h6') {
 			// increment character count
 			addCharacterCount(paragraph.textContent);
 		} else if (tag == 'p') {
@@ -268,3 +270,31 @@ function addTypewriterEffect(article, ignoreTypewriter = false) {
 }
 
 
+
+
+
+function resetHighlight() {
+	selectedLinkIndex = -1;
+}
+
+
+function highlightLink(key) {
+
+	// start by getting the article element
+	let articles = document.getElementsByTagName('article');
+	// get a list of all the links inside the article
+	let links = articles[0].getElementsByTagName('a');
+	// make sure we have links
+	if (articles.length == 0) {
+		resetHighlight();
+	}
+	else {
+		if (key == 'ArrowRight') {
+			selectedLinkIndex = ++selectedLinkIndex % links.length;
+		} else if (key == 'ArrowLeft') {
+			selectedLinkIndex = --selectedLinkIndex % links.length;
+		}
+	}
+
+
+}

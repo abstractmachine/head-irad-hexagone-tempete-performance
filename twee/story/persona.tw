@@ -1,0 +1,12 @@
+:: Persona
+<speak>Il faut choisir les personnages.</speak>
+
+[[Choisir|Persona-Random]]
+
+:: Persona-Random
+protagonist: 'Miranda'
+lover: 'Caliban'
+--
+<speak data-persona='Sycorax'>Nos personnages sont {protagonist} et {lover}.</speak>
+
+[[Intro|TitleCard]]
