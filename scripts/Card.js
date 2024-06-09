@@ -69,12 +69,12 @@ class Card {
 		this.angle = 0;
 		this.next = "";
 
-	} // constructo()
+	} // constructor()
 
 
 	resize() {
 
-		let step = width / 5;
+		let step = width / 6;
 		this.x = -(width*0.5) + (step * this.index) + (step*0.5);
 		this.y = 0;
 		this.height = height * 0.9;

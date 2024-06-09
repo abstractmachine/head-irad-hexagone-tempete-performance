@@ -1,0 +1,17 @@
+:: Acte
+Sound: 'none'
+Choisir: true
+Categorie: 'Acte'
+Variable: 'Acte'
+Done: 'Acte-Play'
+--
+<speak data-persona='Sycorax'>Voici notre premier acte avec {Protagoniste} et {Amant}. La scène se passe dans {Lieu}. L'intrigue sera « {Intrigue} ».</speak>
+
+[[Intro|TitleCard]]
+
+:: Acte-Play
+Sound: Lieu
+--
+Voici l'acte {Acte}.
+
+[[Fin|Acte]]

@@ -3,13 +3,13 @@
 @font-face {
 	font-family: 'EB Garamond';
 	font-style: normal;
-	src: url('fonts/EBGaramond-VariableFont_wght.ttf');
+	src: url('assets/fonts/EBGaramond-VariableFont_wght.ttf');
 }
 
 @font-face {
 	font-family: 'EB Garamond';
 	font-style: italic;
-	src: url('fonts/EBGaramond-Italic-VariableFont_wght.ttf');
+	src: url('assets/fonts/EBGaramond-Italic-VariableFont_wght.ttf');
 }
 
 body, p, h1, h2, h3, h4, h5, h6, speak, ul, li {

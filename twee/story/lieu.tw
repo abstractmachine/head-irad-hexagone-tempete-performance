@@ -1,20 +1,18 @@
-:: Intrigue
-
-:: Intrigue
+:: Lieu
 Choisir: true
-Categorie: 'Intrigue'
-Variable: 'Intrigue'
-Done: 'Intrigue-Done'
+Categorie: 'Lieu'
+Variable: 'Lieu'
+Done: 'Lieu-Done'
 --
 ## Sycorax
-<speak>Nous allons choisir l'intrigue qui anime nos personnages. Choissisez une carte.</speak>
+<speak>Choissisons un lieu pour la prochaine acte. Choissisez une carte.</speak>
 
 
 
-:: Intrigue-Done
+:: Lieu-Done
 Choisir: false
 --
 ## Sycorax
-<speak>L'intrigue est posée. Il sera question de {Intrigue}.</speak>
+<speak>Le lieu de la prochaine acte est posé. Il se passera à {Lieu}.</speak>
 
 [[Intro|TitleCard]]

@@ -1,6 +1,0 @@
-:: Scene
-<speak data-persona='Sycorax'>
-Voici notre scène avec {protagonist} et {lover}. La scène se passe dans {setting}. L'intrigue est {intrigue}.
-</speak>
-
-[[Intro|TitleCard]]

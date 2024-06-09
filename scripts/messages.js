@@ -9,6 +9,22 @@ window.addEventListener("message", (event) => {
 	}
 
 
+	if (event.data.hasOwnProperty('sound')) {
+
+		if (event.data.sound == 'true') {
+			// this is a sound message
+			if (event.data.type == 'play') {
+				// play the sound
+				soundPlay(event.data.name);
+			}
+			else if (event.data.type == 'reset') {
+				// reset the sound
+				soundReset();
+			}
+		}
+	}
+
+
 	// is this a reset-all-cards message ?
 	if (event.data.hasOwnProperty('reset')) {
 		// this is a reset message

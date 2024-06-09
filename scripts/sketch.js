@@ -5,7 +5,7 @@ let cardsToAdd = [];
 
 
 function preload() {
-	font = loadFont('fonts/HankenGrotesk-VariableFont_wght.ttf');
+	font = loadFont('assets/fonts/HankenGrotesk-VariableFont_wght.ttf');
 }
 
 

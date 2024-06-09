@@ -5,6 +5,7 @@ let delayTime = 0.02;
 let currentCharIndex = 0;
 let previousCharIndex = 0;
 let selectedLinkIndex = -1;
+let currentSound = "";
 
 let cartes = {};
 
@@ -41,10 +42,98 @@ window.onload = function() {
 
 
 
+// Function to handle passage changes
+function passageChanged() {
+
+	// cancel any previous speaking utterances
+	cancelSpeech();
+	// reset any selected link index
+	resetHighlight();
+	// reset any previous speaker attributions
+	setSpeaker("");
+
+	const name = passage.name;
+	const current = engine.story.passageNamed(name);
+
+	if (current) {
+		// Delay the execution of the code inside the setTimeout
+		setTimeout(function() {
+			let articles = document.getElementsByTagName('article');
+
+			// If you want to access the first 'article' element
+			if (articles.length > 0) {
+				let firstArticle = articles[0];
+				// start with a 0 index for the character count
+				resetTypewriterTime();
+				// parse this article using the inner html including tags
+				speakArticle(firstArticle.innerHTML);
+				// reset the typewriter time
+				resetTypewriterTime();
+				// add the typewriter effect to the first article
+				var newHtml = addTypewriterEffect(firstArticle);
+				// apply new html to the first article
+				firstArticle.innerHTML = newHtml;
+				// we need to restore the visibility of the paragraphs that currently have opacity 0
+				// this is because we want to avoid the render flash before the start of the typewriter effect
+				// we need to do this after the typewriter effect has been applied
+				restoreVisibility();
+
+				// if we're in choosing mode
+				if (engine.state.get('Choisir')) {
+					choosingMode();
+				}
+
+				// if we're playing a sound
+				if (engine.state.get('Sound')) {
+					// get the sound name
+					let soundName = engine.state.get('Sound');
+					if (soundName == 'none') {
+						resetSounds();
+					} else {
+						playSound(engine.state.get('Sound'));
+					}
+				}
+			}
+		}, 10); // Delay of 0 milliseconds
+	}
+
+}
+
+
+function choosingMode() {
+
+	// get the category and variable
+	let categorie = engine.state.get('Categorie');
+	let variable = engine.state.get('Variable');
+
+	if (categorie === undefined || variable === undefined) {
+		return;
+	}
+
+	// find the categorie in the cards object
+	if (cartes.hasOwnProperty(categorie)) {
+		// get the cards for this category
+		let cards = cartes[categorie];
+		// get the color from the first card
+		let couleur = cards[0].couleur;
+		
+
+		// get access to the parent window
+		let parent = window.parent;
+		// send message to the parent window
+		parent.postMessage({newCard: 'true', categorie:variable, couleur:couleur}, '*');
+
+	}
+
+}
+
+
+
 function parseKey(key) {
 
 	// switch to handle the key presses
 	switch (key) {
+
 		case 'a':
 		case 'b':
 		case 'c':
@@ -83,15 +172,46 @@ function parseKey(key) {
 		case 'Shift':
 			highlightLink(key);
 			break;
+
 		case 'Enter':
 			break;
+
 		case 'Escape':
-			resetCards();
-			restart();
+			storyReset();
 			break;
+
 		default:
 			break;
+
 	}
+
+}
+
+
+function playSound(sound) {
+
+	if (currentSound == sound) {
+		return;
+	}
+
+	// get parent window
+	let parent = window.parent;
+	// send message to the parent window
+	parent.postMessage({sound: 'true', type: 'play', name: sound}, '*');
+
+	currentSound = sound;
+
+}
+
+
+function resetSounds() {
+
+	// get parent window
+	let parent = window.parent;
+	// send message to the parent window
+	parent.postMessage({sound: 'true', type: 'reset'}, '*');
+
+	currentSound = "";
 
 }
 
@@ -104,7 +224,7 @@ async function loadCardData() {
 	// the data is in the format: Titre,Badge / numéro,Image,Texte,Couleur,Catégorie
 	// the data is loaded into the cards object
 
-	const csv = await fetch('data/head-hexagone-performance-tempete-cartes.csv');
+	const csv = await fetch('assets/data/head-hexagone-performance-tempete-cartes.csv');
 	const text = await csv.text();
 	const csvData = d3.csvParse(text);
 	let jsonData = JSON.parse(JSON.stringify(csvData));
@@ -133,6 +253,18 @@ async function loadCardData() {
 		// setCard(categorie, content);
 		cartes[categorie].push({'id': id, 'titre': titre, 'contenu': contenu, 'couleur': couleur, 'note': note});
 	}
+
+}
+
+
+function storyReset() {
+
+	// stop the sound
+	resetSounds();
+	// reset the visible cards
+	resetCards();
+	// tell the Twee engine to reset
+	restart();
 
 }
 
@@ -180,82 +312,6 @@ function setCard(key) {
 			go(nextPassage);
 			break;
 		}
-	}
-
-}
-
-
-
-// Function to handle passage changes
-function passageChanged() {
-
-	// cancel any previous speaking utterances
-	cancelSpeech();
-	// reset any selected link index
-	resetHighlight();
-	// reset any previous speaker attributions
-	setSpeaker("");
-
-	const name = passage.name;
-	const current = engine.story.passageNamed(name);
-
-	if (current) {
-		// Delay the execution of the code inside the setTimeout
-		setTimeout(function() {
-			let articles = document.getElementsByTagName('article');
-
-			// If you want to access the first 'article' element
-			if (articles.length > 0) {
-				let firstArticle = articles[0];
-				// start with a 0 index for the character count
-				resetTypewriterTime();
-				// parse this article using the inner html including tags
-				speakArticle(firstArticle.innerHTML);
-				// reset the typewriter time
-				resetTypewriterTime();
-				// add the typewriter effect to the first article
-				var newHtml = addTypewriterEffect(firstArticle);
-				// apply new html to the first article
-				firstArticle.innerHTML = newHtml;
-				// we need to restore the visibility of the paragraphs that currently have opacity 0
-				// this is because we want to avoid the render flash before the start of the typewriter effect
-				// we need to do this after the typewriter effect has been applied
-				restoreVisibility();
-
-				// if we're in choosing mode
-				if (engine.state.get('Choisir')) {
-					choosingMode();
-				}
-			}
-		}, 10); // Delay of 0 milliseconds
-	}
-
-}
-
-
-function choosingMode() {
-
-	// get the category and variable
-	let categorie = engine.state.get('Categorie');
-	let variable = engine.state.get('Variable');
-
-	if (categorie === undefined || variable === undefined) {
-		return;
-	}
-
-	// find the categorie in the cards object
-	if (cartes.hasOwnProperty(categorie)) {
-		// get the cards for this category
-		let cards = cartes[categorie];
-		// get the color from the first card
-		let couleur = cards[0].couleur;
-		
-
-		// get access to the parent window
-		let parent = window.parent;
-		// send message to the parent window
-		parent.postMessage({newCard: 'true', categorie:variable, couleur:couleur}, '*');
-
 	}
 
 }
