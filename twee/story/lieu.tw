@@ -5,7 +5,7 @@ Variable: 'Lieu'
 Done: 'Lieu-Done'
 --
 ## Sycorax
-<speak>Choissisons un lieu pour la prochaine acte. Choissisez une carte.</speak>
+<speak data-persona='Sycorax'>Choisissons un lieu pour la prochaine acte. Choisissez une carte.</speak>
 
 
 
@@ -13,6 +13,6 @@ Done: 'Lieu-Done'
 Choisir: false
 --
 ## Sycorax
-<speak>Le lieu de la prochaine acte est posé. Il se passera à {Lieu}.</speak>
+<speak data-persona='Sycorax'>Le lieu du prochaine acte est posé. Il se passera à {Lieu}.</speak>
 
 [[Lieu]] • [[Intrigue]] • [[Intro|TitleCard]]

@@ -163,8 +163,9 @@ function parseKey(key) {
 			if (engine.state.get('Choisir')) {
 				setCard(key.toUpperCase());
 			}
+			break;
 
-		case ' ':
+		case 'Backspace':
 			toggleCamera();
 			break;
 

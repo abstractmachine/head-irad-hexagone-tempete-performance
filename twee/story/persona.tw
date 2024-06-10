@@ -5,7 +5,7 @@ Variable: 'Protagoniste'
 Done: 'Persona-Choisir-Amant'
 --
 ## Sycorax
-<speak>Il faut choisir les personnages. Commençons par la personne qui sera notre protagoniste.</speak>
+<speak data-persona='Sycorax'>Il faut choisir les personnages. Commençons par la personne qui sera notre protagoniste.</speak>
 
 
 
@@ -16,7 +16,7 @@ Variable: 'Amant'
 Done: 'Persona-Done'
 --
 ## Sycorax
-<speak>{Protagoniste} est un choix intéressant. Maintenant il faut choisir son amour.</speak>
+<speak data-persona='Sycorax'>{Protagoniste} est un choix intéressant. Maintenant il faut choisir son amour.</speak>
 
 
 
@@ -25,6 +25,6 @@ Done: 'Persona-Done'
 Choisir: false
 --
 ## Sycorax
-<speak>Très bon choix. Nos personnages sont {Protagoniste} et {Amant}.</speak>
+<speak data-persona='Sycorax'>Très bon choix. Nos personnages sont {Protagoniste} et {Amant}.</speak>
 
 [[Personae|Persona]] • [[Lieu]] • [[Intro|TitleCard]]

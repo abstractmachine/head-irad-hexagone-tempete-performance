@@ -5,7 +5,8 @@ Categorie: 'Acte'
 Variable: 'Acte'
 Done: 'Acte-Play'
 --
-<speak data-persona='Sycorax'>Voici notre premier acte avec {Protagoniste} et {Amant}. La scène se passe dans {Lieu}. L'intrigue sera « {Intrigue} ».</speak>
+## Sycorax
+<speak data-persona='Sycorax'>Voici notre acte avec {Protagoniste} et {Amant}. La scène se passe dans {Lieu}. L'intrigue sera « {Intrigue} ».</speak>
 
 [[Personae|Persona]] • [[Lieu]] • [[Intro|TitleCard]]
 
@@ -16,9 +17,16 @@ Choisir: false
 # {Acte}
 
 ## {Protagoniste}
-<speak data-persona='Miranda'>Je suis le Protagoniste et voici mes premières paroles</speak>
+<speak data-persona='Miranda'>Je suis le Protagoniste et voici mes premières paroles.</speak>
 
 ## {Amant}
-<speak data-persona='Caliban'>Je suis l'Amant et voici mes premières paroles</speak>
+<speak data-persona='Caliban'>Je suis l'Amant et voici mes premières paroles.</speak>
 
-[[Fin|Acte]]
+[[Fin|Acte-Fin]]
+
+:: Acte-Fin
+Sound: 'none'
+--
+<speak data-persona='Sycorax'>Fin de l'{Acte}.</speak>
+
+[[Acte]] • [[Personae|Persona]] • [[Lieu]] • [[Intrigue]] • [[Intro|TitleCard]]

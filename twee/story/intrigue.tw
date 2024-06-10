@@ -5,7 +5,7 @@ Variable: 'Intrigue'
 Done: 'Intrigue-Done'
 --
 ## Sycorax
-<speak>Nous allons choisir l'intrigue qui anime nos personnages. Choissisez une carte.</speak>
+<speak data-persona='Sycorax'>Nous allons choisir l'intrigue qui anime nos personnages. Choisissez une carte.</speak>
 
 
 
@@ -13,6 +13,6 @@ Done: 'Intrigue-Done'
 Choisir: false
 --
 ## Sycorax
-<speak>L'intrigue est posée. Il sera question de {Intrigue}.</speak>
+<speak data-persona='Sycorax'>L'intrigue est posée. Il sera question de {Intrigue}.</speak>
 
 [[Intrigue]] • [[Acte]] • [[Intro|TitleCard]]
