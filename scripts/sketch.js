@@ -11,7 +11,7 @@ function preload() {
 
 function setup() {
 
-	cnv = createCanvas(windowWidth, windowHeight*0.33, WEBGL);
+	cnv = createCanvas(windowWidth, windowHeight*0.34, WEBGL);
 	
 	textFont(font);
 	textSize(height*0.06);
@@ -24,7 +24,7 @@ function setup() {
 
 
 function windowResized() {
-	resizeCanvas(windowWidth, windowHeight*0.33);
+	resizeCanvas(windowWidth, windowHeight*0.34);
 	cardsResized();
 }
 
@@ -40,7 +40,7 @@ function draw() {
 	colorMode(HSB, 360, 100, 100);
 
 	// black background
-	background(0,0,0);
+	clear();
 
 	// first check to see if any cards need to be updated
 	for(let i = 0; i < cards.length; i++) {

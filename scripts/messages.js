@@ -32,6 +32,19 @@ window.addEventListener("message", (event) => {
 	}
 
 
+	if (event.data.hasOwnProperty('camera')) {
+		// this is a reset message
+		if (event.data.camera == 'true') {
+			if (event.data.action == 'toggle') {
+				// find the 'webcam-element' and toggle it
+				let webcamElement = document.getElementById('webcam-element');
+				// using the class 'visible' to toggle the webcam
+				webcamElement.classList.toggle('visible');
+			}
+		}
+	}
+
+
 	if (event.data.hasOwnProperty('choosing')) {
 		// this is a reset message
 		if (event.data.choosing == 'true') {

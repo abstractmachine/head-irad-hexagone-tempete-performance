@@ -164,6 +164,10 @@ function parseKey(key) {
 				setCard(key.toUpperCase());
 			}
 
+		case ' ':
+			toggleCamera();
+			break;
+
 		case 'ArrowRight':
 		case 'ArrowLeft':
 		case 'ArrowUp':
@@ -271,6 +275,15 @@ function resetCards() {
 	window.parent.postMessage({reset: 'true'}, '*');
 	// turn off the choosing mode
 	engine.state.set('Choisir', 'false');
+
+}
+
+
+
+function toggleCamera() {
+
+	// send message to the parent window
+	window.parent.postMessage({camera: 'true', action:'toggle'}, '*');
 
 }
 

@@ -3,7 +3,7 @@
 :root {
 	/* declare variable */
 	--foreground-color: white;
-	--background-color: black;
+	--background-color: transparent;
 	--link-color: rgba(255, 255, 255, 1.0);
 	--link-color-decoration: rgba(255, 255, 255, 0.5);
 	--link-color-highlight: rgba(255, 0, 0, 1.0);
