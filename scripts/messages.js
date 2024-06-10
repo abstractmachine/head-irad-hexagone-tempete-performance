@@ -1,5 +1,3 @@
-
-
 // receive card changes from twee iframe
 window.addEventListener("message", (event) => {
 
@@ -30,6 +28,16 @@ window.addEventListener("message", (event) => {
 		// this is a reset message
 		if (event.data.reset == 'true') {
 			resetCards();
+		}
+	}
+
+
+	if (event.data.hasOwnProperty('choosing')) {
+		// this is a reset message
+		if (event.data.choosing == 'true') {
+			// get the category and content
+			let categorie = event.data.categorie;
+			resetCard(categorie);
 		}
 	}
 
@@ -95,5 +103,7 @@ window.addEventListener("message", (event) => {
 	//   "hi there yourself!  the secret response " + "is: 42",
 	//   event.origin,
 	// );
+
+	return true;
 
 });

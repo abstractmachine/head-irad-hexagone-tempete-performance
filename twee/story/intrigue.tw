@@ -1,6 +1,4 @@
 :: Intrigue
-
-:: Intrigue
 Choisir: true
 Categorie: 'Intrigue'
 Variable: 'Intrigue'
@@ -17,4 +15,4 @@ Choisir: false
 ## Sycorax
 <speak>L'intrigue est posée. Il sera question de {Intrigue}.</speak>
 
-[[Acte]] [[Intro|TitleCard]]
+[[Intrigue]] • [[Acte]] • [[Intro|TitleCard]]

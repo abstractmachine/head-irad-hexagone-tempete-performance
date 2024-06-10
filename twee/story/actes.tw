@@ -7,10 +7,11 @@ Done: 'Acte-Play'
 --
 <speak data-persona='Sycorax'>Voici notre premier acte avec {Protagoniste} et {Amant}. La scène se passe dans {Lieu}. L'intrigue sera « {Intrigue} ».</speak>
 
-[[Intro|TitleCard]]
+[[Personae|Persona]] • [[Lieu]] • [[Intro|TitleCard]]
 
 :: Acte-Play
 Sound: Lieu
+Choisir: false
 --
 # {Acte}
 

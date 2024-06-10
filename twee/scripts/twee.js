@@ -116,14 +116,13 @@ function choosingMode() {
 		let cards = cartes[categorie];
 		// get the color from the first card
 		let couleur = cards[0].couleur;
-		
-
-		// get access to the parent window
-		let parent = window.parent;
 		// send message to the parent window
-		parent.postMessage({newCard: 'true', categorie:variable, couleur:couleur}, '*');
+		window.parent.postMessage({newCard: 'true', categorie:variable, couleur:couleur}, '*');
 
 	}
+
+	// make sure this value in unset in the P5 cards
+	window.parent.postMessage({choosing: 'true', categorie:variable}, '*');
 
 }
 
@@ -195,10 +194,8 @@ function playSound(sound) {
 		return;
 	}
 
-	// get parent window
-	let parent = window.parent;
 	// send message to the parent window
-	parent.postMessage({sound: 'true', type: 'play', name: sound}, '*');
+	window.parent.postMessage({sound: 'true', type: 'play', name: sound}, '*');
 
 	currentSound = sound;
 
@@ -207,10 +204,8 @@ function playSound(sound) {
 
 function resetSounds() {
 
-	// get parent window
-	let parent = window.parent;
 	// send message to the parent window
-	parent.postMessage({sound: 'true', type: 'reset'}, '*');
+	window.parent.postMessage({sound: 'true', type: 'reset'}, '*');
 
 	currentSound = "";
 
@@ -272,10 +267,8 @@ function storyReset() {
 
 function resetCards() {
 
-	// get access to the parent window
-	let parent = window.parent;
 	// send message to the parent window
-	parent.postMessage({reset: 'true'}, '*');
+	window.parent.postMessage({reset: 'true'}, '*');
 	// turn off the choosing mode
 	engine.state.set('Choisir', 'false');
 
@@ -302,10 +295,8 @@ function setCard(key) {
 			// set the data in Twee
 			engine.state.set(variable, titre);
 
-			// get access to the parent window
-			let parent = window.parent;
 			// send message to the parent window
-			parent.postMessage({setCard: 'true', categorie:variable, contenu:titre}, '*');
+			window.parent.postMessage({setCard: 'true', categorie:variable, contenu:titre}, '*');
 
 			// get the name of the next passage
 			let nextPassage = engine.state.get('Done');

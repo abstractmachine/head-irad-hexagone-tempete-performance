@@ -49,7 +49,31 @@ function setCard(categorie, content) {
 	}
 
 	if (!foundCategorie) {
-		console.log("categorie not found: ", categorie, content);
+		// console.log("categorie not found: ", categorie, content);
+	}
+
+}
+
+
+function resetCard(categorie) {
+
+	let foundCategorie = false;
+
+	// go through all the cards
+	for(let i = 0; i < cards.length; i++) {
+		// if the category matches
+		if (cards[i].categorie == categorie) {
+			// set the content
+			cards[i].reset();
+			// note that we found the category
+			foundCategorie = true;
+			// done
+			break;
+		}
+	}
+
+	if (!foundCategorie) {
+		// console.log("categorie not found: ", categorie);
 	}
 
 }
