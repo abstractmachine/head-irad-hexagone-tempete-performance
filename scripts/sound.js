@@ -10,6 +10,7 @@ function soundPlay(name) {
 }
 
 function soundLoaded() {
+	sound.setVolume(0.25);
 	sound.setLoop(true);
 	sound.play();
 }
