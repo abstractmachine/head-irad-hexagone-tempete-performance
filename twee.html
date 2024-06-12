@@ -964,6 +964,11 @@ function speak(nom, newText, delayTime = 0) {
 
 	let desiredVoice = '';
 
+	if (newText != '' && newText != ' ') {
+		console.log("nom: ", nom);
+		console.log("newText: ", newText);
+	}
+
 	switch (nom) {
 		case 'Douglas':
 			// don't speak text from Douglas
@@ -1041,10 +1046,10 @@ Choisir: false
 # {Acte}
 
 ## {Protagoniste}
-&lt;speak data-persona=&#39;Miranda&#39;&gt;Je suis le Protagoniste et voici mes premières paroles.&lt;/speak&gt;
+&lt;speak data-persona=&#39;{Protagoniste}&#39;&gt;Je suis le Protagoniste et voici mes premières paroles.&lt;/speak&gt;
 
 ## {Amant}
-&lt;speak data-persona=&#39;Caliban&#39;&gt;Je suis l&#39;Amant et voici mes premières paroles.&lt;/speak&gt;
+&lt;speak data-persona=&#39;{Amant}&#39;&gt;Je suis l&#39;Amant et voici mes premières paroles.&lt;/speak&gt;
 
 [[Fin|Acte-Fin]]</tw-passagedata><tw-passagedata pid="3" name="Acte-Fin" tags="" position="350,100" size="100,100">Sound: &#39;none&#39;
 --

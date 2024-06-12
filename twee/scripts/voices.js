@@ -47,6 +47,11 @@ function speak(nom, newText, delayTime = 0) {
 
 	let desiredVoice = '';
 
+	if (newText != '' && newText != ' ') {
+		console.log("nom: ", nom);
+		console.log("newText: ", newText);
+	}
+
 	switch (nom) {
 		case 'Douglas':
 			// don't speak text from Douglas
