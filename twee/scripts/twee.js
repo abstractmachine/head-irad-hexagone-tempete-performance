@@ -128,7 +128,7 @@ function choosingMode() {
 
 
 
-function parseKey(key) {
+async function parseKey(key) {
 
 	// switch to handle the key presses
 	switch (key) {
@@ -165,6 +165,12 @@ function parseKey(key) {
 			}
 			break;
 
+		case '=':
+			if (!port) {
+				await connectSerial();
+			}
+			break;
+
 		case 'Backspace':
 			toggleCamera();
 			break;
@@ -189,6 +195,8 @@ function parseKey(key) {
 			break;
 
 	}
+
+	return true;
 
 }
 
@@ -254,6 +262,8 @@ async function loadCardData() {
 		// setCard(categorie, content);
 		cartes[categorie].push({'id': id, 'titre': titre, 'contenu': contenu, 'couleur': couleur, 'note': note});
 	}
+
+	return true;
 
 }
 
