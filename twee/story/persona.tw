@@ -27,4 +27,4 @@ Choisir: false
 ## Sycorax
 <speak data-persona='Sycorax'>Très bon choix. Nos personnages sont {Protagoniste} et {Amant}.</speak>
 
-[[Personae|Persona]] • [[Lieu]] • [[Intro|TitleCard]]
+[[Lieu]] • [[Personae|Persona]] • [[Intrigue]] • [[Acte]] • [[Intro|TitleCard]]

@@ -60,22 +60,34 @@ function speak(nom, newText, delayTime = 0) {
 			// don't speak text from Isis
 			return;
 		case '':
-			desiredVoice = validVoices['Chantal (French (Belgium))'];
+			desiredVoice = validVoices['Amélie (French (Canada))'];
 			break;
 		case 'Sycorax':
-			desiredVoice = validVoices['Amélie (French (Canada))'];
+			desiredVoice = validVoices['Chantal (French (Belgium))'];
 			break;
 		case 'Miranda':
 			desiredVoice = validVoices['Google français'];
 			break;
+		case 'Ariel':
+			desiredVoice = validVoices['Aurélie']; // audrey, aude
+			break;
 		case 'Ferdinand':
+			desiredVoice = validVoices['Daniel (French (France))'];
+			break;
+		case 'Prospero':
+			desiredVoice = validVoices['Thomas (French (France))'];
+			break;
+		case 'Antonio':
+			desiredVoice = validVoices['Daniel (French (France))'];
+			break;
+		case 'Sébastien':
+			desiredVoice = validVoices['Daniel (French (France))'];
+			break;
+		case 'Alonso':
 			desiredVoice = validVoices['Daniel (French (France))'];
 			break;
 		case 'Caliban':
 			desiredVoice = validVoices['Thomas (French (France))'];
-			break;
-		case 'Prospero':
-			desiredVoice = validVoices['Rocko (French (France))'];
 			break;
 
 	}
