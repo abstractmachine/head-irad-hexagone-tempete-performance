@@ -35,7 +35,7 @@ void loop() {
 
   checkSerial();
   checkValues();
-  
+
 }
 
 void checkSerial() {
@@ -114,6 +114,7 @@ void checkValues() {
 
     // Record current time of this change
     elapsed[i] = millis();
+
   }
 
   // Update LED based on changes
@@ -121,8 +122,10 @@ void checkValues() {
 }
 
 void setTarget(unsigned int channel, unsigned int value) {
+
   // Make sure we're in bounds
   if (channel < universeSize && value <= 255) {
     targets[channel] = value;
   }
+  
 }

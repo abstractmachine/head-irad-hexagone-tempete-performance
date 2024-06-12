@@ -48,6 +48,8 @@ async function connectSerial() {
         // console.log('Serial port connected');
     } catch (error) {
         console.log('There was an error opening the serial port:', error);
+        // If there's an error, clear the saved port info
+        localStorage.removeItem('savedPort');
     }
 }
 
@@ -122,6 +124,13 @@ async function processWriteQueue() {
         console.error('Error processing write queue:', error);
     }
 }
+
+// Event listener for any click on the page to reinitialize the serial connection
+document.addEventListener('click', async () => {
+    if (!port) {
+        await connectSerial();
+    }
+});
 
 // Initialize the serial connection on page load
 document.addEventListener('DOMContentLoaded', initializeSerial);
