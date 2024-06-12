@@ -1,3 +1,4 @@
+/*
 var synth;
 let talking = false;
 let personnageTalking = '';
@@ -72,3 +73,4 @@ function speak(nom, newText) {
 function talkingDone() {
 
 }
+*/

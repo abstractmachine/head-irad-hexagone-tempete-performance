@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arduino Web Serial Auto-Connect Test</title>
+</head>
+<body>
+    <h1>Arduino Web Serial Auto-Connect Test</h1>
+    <button id="connect">Connect</button>
+    <button id="send" disabled>Send Data</button>
+    <div>
+        <label for="channel">Channel (0-15):</label>
+        <input type="number" id="channel" min="0" max="15" value="0">
+    </div>
+    <div>
+        <label for="value">Value (0-255 or 'on'/'off'):</label>
+        <input type="text" id="value" value="0">
+    </div>
+    <div id="status"></div>
+
+    <script>
+        let port;
+        let reader;
+        let inputDone;
+        let outputDone;
+        let inputStream;
+        let outputStream;
+
+        document.getElementById('connect').addEventListener('click', async () => {
+            if (port) {
+                await disconnect();
+                document.getElementById('connect').textContent = 'Connect';
+                document.getElementById('send').disabled = true;
+                return;
+            }
+
+            await connect();
+        });
+
+        document.getElementById('send').addEventListener('click', async () => {
+            const channel = document.getElementById('channel').value;
+            const value = document.getElementById('value').value;
+
+            if (outputStream) {
+                const writer = outputStream.getWriter();
+                await writer.write(`${channel} ${value}\n`);
+                writer.releaseLock();
+            }
+        });
+
+        async function connect() {
+            try {
+                const savedPortInfo = localStorage.getItem('savedPort');
+                if (savedPortInfo) {
+                    port = await attemptAutoConnect(JSON.parse(savedPortInfo));
+                }
+
+                if (!port) {
+                    port = await navigator.serial.requestPort();
+                }
+
+                await port.open({ baudRate: 9600 });
+
+                const info = port.getInfo();
+                localStorage.setItem('savedPort', JSON.stringify(info));
+
+                document.getElementById('connect').textContent = 'Disconnect';
+                document.getElementById('send').disabled = false;
+
+                const encoder = new TextEncoderStream();
+                outputDone = encoder.readable.pipeTo(port.writable);
+                outputStream = encoder.writable;
+
+                const decoder = new TextDecoderStream();
+                inputDone = port.readable.pipeTo(decoder.writable);
+                inputStream = decoder.readable;
+
+                reader = inputStream.getReader();
+                readLoop();
+            } catch (error) {
+                console.log('There was an error opening the serial port:', error);
+                document.getElementById('status').textContent = `Error: ${error.message}`;
+            }
+        }
+
+        async function attemptAutoConnect(savedPortInfo) {
+            const ports = await navigator.serial.getPorts();
+            for (const port of ports) {
+                const info = port.getInfo();
+                if (info.usbVendorId === savedPortInfo.usbVendorId && info.usbProductId === savedPortInfo.usbProductId) {
+                    return port;
+                }
+            }
+            return null;
+        }
+
+        async function disconnect() {
+            if (reader) {
+                await reader.cancel();
+                await inputDone.catch(() => {});
+                reader = null;
+                inputDone = null;
+            }
+
+            if (outputStream) {
+                await outputStream.getWriter().close();
+                await outputDone;
+                outputStream = null;
+                outputDone = null;
+            }
+
+            if (port) {
+                await port.close();
+                port = null;
+            }
+        }
+
+        async function readLoop() {
+            while (true) {
+                const { value, done } = await reader.read();
+                if (done) {
+                    break;
+                }
+                console.log(value);
+                document.getElementById('status').textContent = value;
+            }
+        }
+
+        // Attempt auto-connect on page load
+        window.addEventListener('DOMContentLoaded', async () => {
+            const savedPortInfo = localStorage.getItem('savedPort');
+            if (savedPortInfo) {
+                const autoConnectedPort = await attemptAutoConnect(JSON.parse(savedPortInfo));
+                if (autoConnectedPort) {
+                    port = autoConnectedPort;
+                    await connect();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
+
 speechSynthesis.addEventListener("voiceschanged", () => {
 
 	const voices = window.speechSynthesis.getVoices();
@@ -126,4 +127,8 @@ function speak(nom, newText, delayTime = 0) {
 
 function talkingDone() {
 
+	// tell the dmx controller to turn off the lights for the personnage
+	dmxOff(personnageTalking);
+
 }
+

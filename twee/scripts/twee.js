@@ -374,6 +374,18 @@ function speakArticle(article) {
 }
 
 
+function resetSpeaker() {
+	
+	currentSpeaker = "";
+
+	// figure out how many speakers there are
+	let speakerCount = 16;
+	// loop through all the speakers
+	dmxOffAll();
+
+}
+
+
 function setSpeaker(name) {
 
 	currentSpeaker = name;
@@ -406,10 +418,111 @@ function parseParagraph(paragraph) {
 			let delay = calcualteCharacterDelay(previousCharIndex);
 			// start speaking using the content of this text node
 			speak(currentSpeaker, node.textContent, delay);
+			// if there was actual text output, fire a function called dmxOutput
+			// this function will send the text to the DMX controller
+			if (node.textContent.trim() !== '') {
+				dmxOn(currentSpeaker);
+			}
 		}
 	}
 
 }
+
+
+function dmxOn(speaker) {
+
+	console.log("DMX on: " + speaker);
+	// depending on the name of the speaker, we can turn on different lights
+	switch (speaker) {
+		case 'Douglas':
+			sendData(10, 'on');
+			return;
+		case 'Isis':
+			sendData(11, 'on');
+			return;
+		case 'Sycorax':
+			sendData(9, 'on');
+			break;
+		case 'Miranda':
+			sendData(1, 'on');
+			break;
+		case 'Ariel':
+			sendData(2, 'on');
+			break;
+		case 'Ferdinand':
+			sendData(3, 'on');
+			break;
+		case 'Prospero':
+			sendData(4, 'on');
+			break;
+		case 'Antonio':
+			sendData(5, 'on');
+			break;
+		case 'Sébastien':
+			sendData(6, 'on');
+			break;
+		case 'Alonso':
+			sendData(7, 'on');
+			break;
+		case 'Caliban':
+			sendData(8, 'on');
+			break;
+	}
+	//switch(speaker)
+}
+// dmxOn()
+
+
+function dmxOff(speaker) {
+
+	console.log("DMX off: " + speaker);
+	// depending on the name of the speaker, we can turn on different lights
+	switch (speaker) {
+		case 'Douglas':
+			sendData(10, 'off');
+			return;
+		case 'Isis':
+			sendData(11, 'off');
+			return;
+		case 'Sycorax':
+			sendData(9, 'off');
+			break;
+		case 'Miranda':
+			sendData(1, 'off');
+			break;
+		case 'Ariel':
+			sendData(2, 'off');
+			break;
+		case 'Ferdinand':
+			sendData(3, 'off');
+			break;
+		case 'Prospero':
+			sendData(4, 'off');
+			break;
+		case 'Antonio':
+			sendData(5, 'off');
+			break;
+		case 'Sébastien':
+			sendData(6, 'off');
+			break;
+		case 'Alonso':
+			sendData(7, 'off');
+			break;
+		case 'Caliban':
+			sendData(8, 'off');
+			break;
+	}
+	//switch(speaker)
+
+}
+
+
+function dmxOffAll() {
+	for(let i=1; i<=11; i++) {
+		sendData(i, 'off');
+	}
+}
+// dmxOff()
 
 
 function resetTypewriterTime() {
