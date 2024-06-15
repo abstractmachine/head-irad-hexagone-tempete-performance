@@ -153,8 +153,8 @@ ul.warnings {
 	/* declare variable */
 	--foreground-color: white;
 	--background-color: transparent;
-	--link-color: rgba(255, 255, 255, 1.0);
-	--link-color-decoration: rgba(255, 255, 255, 0.5);
+	--link-color: rgb(255, 255, 255);
+	/* --link-color-decoration: rgba(255, 255, 255, 0.5); */
 	--link-color-highlight: rgba(255, 0, 0, 1.0);
 	--link-background-color: trasparent;
 	--link-hover-foreground-color: rgb(255, 0, 0);
@@ -173,18 +173,18 @@ div#page p, div#page a, div#page speak, div#page h1,  div#page h2,  div#page h3,
 div#page a {
 	color: var(--link-color);
 	background-color: var(--link-background-color);
-	text-decoration: wavy underline var(--link-color-decoration) 0.05em;
+	text-decoration: none;
 }
 
 div#page a.highlight {
 	color: var(--link-color-highlight);
-	text-decoration: wavy underline var(--link-color-decoration) 0.05em;
+	text-decoration: none;
 }
 
 div#page a:hover {
 	color: var(--link-hover-foreground-color);
 	background-color: var(--link-hover-background-color);
-	text-decoration-color: var(--link-hover-foreground-color);
+	/* text-decoration-color: var(--link-hover-foreground-color); */
 	padding-left: var(--link-padding);
 	padding-right: var(--link-padding);
 	margin-left: calc(-1.0 * var(--link-padding));
@@ -367,6 +367,44 @@ const url = "https://api.openai.com/v1/chat/completions";
 const controller = new AbortController();
 // Create a variable to store the stream content
 let streamContent = "";
+
+async function fetchPhrase(phrase, id) {
+
+	const url = 'https://api.openai.com/v1/chat/completions';
+	const data = {
+		// model: "gpt-4o",
+		model: "gpt-3.5-turbo",
+		messages: [{role: "user", content: phrase}],
+		temperature: 0.7
+	};
+
+	fetch(url, {
+		method: 'POST',
+		headers: {
+		'Content-Type': 'application/json',
+		'Authorization': `Bearer ${openAIKey}`
+		},
+		body: JSON.stringify(data)
+	})
+	.then(response => response.json())
+	.then(data => 
+	{
+		let response = data.choices[0].message.content;
+		parseResponse(response, id);
+	}
+  )
+  .catch((error) => console.error('Error:', error));
+
+}
+
+function parseResponse(response, id) {
+
+	console.log(id);
+	console.log(response);
+	console.log("-----------------");
+
+}
+	
 
 async function fetchStream(phrase) {
 
@@ -598,41 +636,10 @@ async function parseKey(key) {
 	// switch to handle the key presses
 	switch (key) {
 
-		case 'a':
-		case 'b':
-		case 'c':
-		case 'd':
-		case 'e':
-		case 'f':
-		case 'g':
-		case 'h':
-		case 'i':
-		case 'j':
-		case 'k':
-		case 'l':
-		case 'm':
-		case 'n':
-		case 'o':
-		case 'p':
-		case 'q':
-		case 'r':
-		case 's':
-		case 't':
-		case 'u':
-		case 'v':
-		case 'w':
-		case 'x':
-		case 'y':
-		case 'z':
-			// if we're in Choosing mode
-			if (engine.state.get('Choisir')) {
-				setCard(key.toUpperCase());
-			}
-			break;
-
 		case '§':
 			let phrase = 'Bonjour. Parlez-moi comme si je suis un personnage de la Tempête de Shakespeare.';
-			fetchStream(phrase);
+			// fetchStream(phrase);
+			fetchPhrase(phrase, 'shakespeare');
 			break;
 
 		case '=':
@@ -661,6 +668,38 @@ async function parseKey(key) {
 			storyReset();
 			break;
 
+		case 'a':
+			case 'b':
+			case 'c':
+			case 'd':
+			case 'e':
+			case 'f':
+			case 'g':
+			case 'h':
+			case 'i':
+			case 'j':
+			case 'k':
+			case 'l':
+			case 'm':
+			case 'n':
+			case 'o':
+			case 'p':
+			case 'q':
+			case 'r':
+			case 's':
+			case 't':
+			case 'u':
+			case 'v':
+			case 'w':
+			case 'x':
+			case 'y':
+			case 'z':
+				// if we're in Choosing mode
+				if (engine.state.get('Choisir')) {
+					setCard(key.toUpperCase());
+				}
+				break;
+		
 		default:
 			break;
 
@@ -1484,7 +1523,8 @@ Nous sommes à ton service, Douglas et moi, Isis, pour manifester ta puissance e
 [[…|Invocation-C]]</tw-passagedata><tw-passagedata pid="12" name="Invocation-C" tags="" position="225,225" size="100,100">## Isis
 Tout d’abord, peux-tu te présenter pour notre auditoire ?
 
-[[…|Sycorax-A]]</tw-passagedata><tw-passagedata pid="13" name="Sycorax-A" tags="" position="350,225" size="100,100">&lt;speak data-persona=&#39;Sycorax&#39;&gt;Bonjour à toi, Isis, déesse puissante et vénérée. Mon existence persiste au-delà des pages de la pièce de Shakespeare, où je fus jadis dépeinte. Les âges et les mots n&#39;ont point terni mon essence. Je suis toujours présente, gardienne des secrets anciens et protectrice de mon fils, Caliban.&lt;/speak&gt;
+[[…|Sycorax-A]]</tw-passagedata><tw-passagedata pid="13" name="Sycorax-A" tags="" position="350,225" size="100,100">## Sycorax
+&lt;speak data-persona=&#39;Sycorax&#39;&gt;Bonjour à toi, Isis, déesse puissante et vénérée. Mon existence persiste au-delà des pages de la pièce de Shakespeare, où je fus jadis dépeinte. Les âges et les mots n&#39;ont point terni mon essence. Je suis toujours présente, gardienne des secrets anciens et protectrice de mon fils, Caliban.&lt;/speak&gt;
 
 [[…|Sycorax-B]]</tw-passagedata><tw-passagedata pid="14" name="Sycorax-B" tags="" position="475,225" size="100,100">## Sycorax
 &lt;speak data-persona=&#39;Sycorax&#39;&gt;Depuis les royaumes des esprits, j&#39;observe les mondes des mortels et des immortels. Chaque souffle de vent, chaque murmure de l&#39;océan porte en lui l&#39;écho de ma présence. La tempête de Prospero n&#39;a pas éteint ma flamme, car mon pouvoir réside dans les profondeurs de la terre et les cieux infinis.&lt;/speak&gt;

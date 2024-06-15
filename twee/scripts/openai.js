@@ -5,6 +5,44 @@ const controller = new AbortController();
 // Create a variable to store the stream content
 let streamContent = "";
 
+async function fetchPhrase(phrase, id) {
+
+	const url = 'https://api.openai.com/v1/chat/completions';
+	const data = {
+		// model: "gpt-4o",
+		model: "gpt-3.5-turbo",
+		messages: [{role: "user", content: phrase}],
+		temperature: 0.7
+	};
+
+	fetch(url, {
+		method: 'POST',
+		headers: {
+		'Content-Type': 'application/json',
+		'Authorization': `Bearer ${openAIKey}`
+		},
+		body: JSON.stringify(data)
+	})
+	.then(response => response.json())
+	.then(data => 
+	{
+		let response = data.choices[0].message.content;
+		parseResponse(response, id);
+	}
+  )
+  .catch((error) => console.error('Error:', error));
+
+}
+
+function parseResponse(response, id) {
+
+	console.log(id);
+	console.log(response);
+	console.log("-----------------");
+
+}
+	
+
 async function fetchStream(phrase) {
 
 	// check the controller to see if there is a signal

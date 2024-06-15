@@ -4,8 +4,8 @@
 	/* declare variable */
 	--foreground-color: white;
 	--background-color: transparent;
-	--link-color: rgba(255, 255, 255, 1.0);
-	--link-color-decoration: rgba(255, 255, 255, 0.5);
+	--link-color: rgb(255, 255, 255);
+	/* --link-color-decoration: rgba(255, 255, 255, 0.5); */
 	--link-color-highlight: rgba(255, 0, 0, 1.0);
 	--link-background-color: trasparent;
 	--link-hover-foreground-color: rgb(255, 0, 0);
@@ -24,18 +24,18 @@ div#page p, div#page a, div#page speak, div#page h1,  div#page h2,  div#page h3,
 div#page a {
 	color: var(--link-color);
 	background-color: var(--link-background-color);
-	text-decoration: wavy underline var(--link-color-decoration) 0.05em;
+	text-decoration: none;
 }
 
 div#page a.highlight {
 	color: var(--link-color-highlight);
-	text-decoration: wavy underline var(--link-color-decoration) 0.05em;
+	text-decoration: none;
 }
 
 div#page a:hover {
 	color: var(--link-hover-foreground-color);
 	background-color: var(--link-hover-background-color);
-	text-decoration-color: var(--link-hover-foreground-color);
+	/* text-decoration-color: var(--link-hover-foreground-color); */
 	padding-left: var(--link-padding);
 	padding-right: var(--link-padding);
 	margin-left: calc(-1.0 * var(--link-padding));
