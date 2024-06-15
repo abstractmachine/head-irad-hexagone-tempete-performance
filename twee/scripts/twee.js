@@ -1,5 +1,6 @@
 config.body.transition.name = 'none';
 
+let openAIKey = "";
 let currentSpeaker = "";
 let delayTime = 0.02;
 let currentCharIndex = 0;
@@ -8,6 +9,86 @@ let selectedLinkIndex = -1;
 let currentSound = "";
 
 let cartes = {};
+
+
+async function parseKey(key) {
+
+	// switch to handle the key presses
+	switch (key) {
+
+		case 'a':
+		case 'b':
+		case 'c':
+		case 'd':
+		case 'e':
+		case 'f':
+		case 'g':
+		case 'h':
+		case 'i':
+		case 'j':
+		case 'k':
+		case 'l':
+		case 'm':
+		case 'n':
+		case 'o':
+		case 'p':
+		case 'q':
+		case 'r':
+		case 's':
+		case 't':
+		case 'u':
+		case 'v':
+		case 'w':
+		case 'x':
+		case 'y':
+		case 'z':
+			// if we're in Choosing mode
+			if (engine.state.get('Choisir')) {
+				setCard(key.toUpperCase());
+			}
+			break;
+
+		case '§':
+			let phrase = 'Bonjour. Parlez-moi comme si je suis un personnage de la Tempête de Shakespeare.';
+			fetchStream(phrase);
+			break;
+
+		case '=':
+			if (!port) {
+				await connectSerial();
+			}
+			break;
+
+		case 'Backspace':
+			toggleCamera();
+			break;
+
+		case 'ArrowRight':
+		case 'ArrowLeft':
+		case 'ArrowUp':
+		case 'ArrowDown':
+		case 'Shift':
+			highlightLink(key);
+			break;
+
+		case 'Enter':
+			clickOnHighlight();
+			break;
+
+		case 'Escape':
+			storyReset();
+			break;
+
+		default:
+			break;
+
+	}
+
+	return true;
+
+}
+
+
 
 // Ensure the engine is initialized and ready
 window.onload = function() {
@@ -127,78 +208,6 @@ function choosingMode() {
 }
 
 
-
-async function parseKey(key) {
-
-	// switch to handle the key presses
-	switch (key) {
-
-		case 'a':
-		case 'b':
-		case 'c':
-		case 'd':
-		case 'e':
-		case 'f':
-		case 'g':
-		case 'h':
-		case 'i':
-		case 'j':
-		case 'k':
-		case 'l':
-		case 'm':
-		case 'n':
-		case 'o':
-		case 'p':
-		case 'q':
-		case 'r':
-		case 's':
-		case 't':
-		case 'u':
-		case 'v':
-		case 'w':
-		case 'x':
-		case 'y':
-		case 'z':
-			// if we're in Choosing mode
-			if (engine.state.get('Choisir')) {
-				setCard(key.toUpperCase());
-			}
-			break;
-
-		case '=':
-			if (!port) {
-				await connectSerial();
-			}
-			break;
-
-		case 'Backspace':
-			toggleCamera();
-			break;
-
-		case 'ArrowRight':
-		case 'ArrowLeft':
-		case 'ArrowUp':
-		case 'ArrowDown':
-		case 'Shift':
-			highlightLink(key);
-			break;
-
-		case 'Enter':
-			clickOnHighlight();
-			break;
-
-		case 'Escape':
-			storyReset();
-			break;
-
-		default:
-			break;
-
-	}
-
-	return true;
-
-}
 
 
 function playSound(sound) {
@@ -674,3 +683,22 @@ function highlightLink(key) {
 	}
 
 }
+
+
+// receive card changes from twee iframe
+window.addEventListener("message", (event) => {
+
+	// make sure we can trust the sender of the message
+	if (!event.isTrusted) {
+		return;
+	}
+	// if the event is looking for the OPEN_AI_API_KEY
+	if (event.data.hasOwnProperty('OPEN_AI_API_KEY')) {
+		openAIKey = event.data.OPEN_AI_API_KEY;
+	}
+
+});
+
+
+// post a message to the parent window looking for the OPEN_AI_API_KEY
+window.parent.postMessage({OPEN_AI_API_KEY: 'true'}, '*');

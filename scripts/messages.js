@@ -5,6 +5,14 @@ window.addEventListener("message", (event) => {
 	if (!event.isTrusted) {
 		return;
 	}
+	// if the event is looking for the OPEN_AI_API_KEY
+	if (event.data.hasOwnProperty('OPEN_AI_API_KEY')) {
+		// send the key to the sender
+		event.source.postMessage(
+			{OPEN_AI_API_KEY: keys.OPEN_AI_API_KEY},
+			event.origin,
+		);
+	}
 
 
 	if (event.data.hasOwnProperty('sound')) {
@@ -97,25 +105,6 @@ window.addEventListener("message", (event) => {
 			}
 		}
 	}
-	
-
-	// // check to see if there is a category key & a content key in the data object
-	// if (event.data.hasOwnProperty('categorie') && event.data.hasOwnProperty('content')) {
-
-	// 	let categorie = event.data.categorie;
-	// 	let content = event.data.content;
-
-	// 	setCard(categorie, content);
-	// }
-
-	// Assuming you've verified the origin of the received message (which
-	// you must do in any case), a convenient idiom for replying to a
-	// message is to call postMessage on event.source and provide
-	// event.origin as the targetOrigin.
-	// event.source.postMessage(
-	//   "hi there yourself!  the secret response " + "is: 42",
-	//   event.origin,
-	// );
 
 	return true;
 
