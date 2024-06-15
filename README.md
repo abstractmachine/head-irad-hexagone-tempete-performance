@@ -12,6 +12,12 @@ The source code for the performance of Tempest at Théâtre Hexagone, using vari
 % ./tweego twee -w -o twee.html
 ```
 
+## Camera
+Allumer/Éteindre la caméra avec la touche `DEL`
+
+## Serial Port
+Connecter le pilote DMX avec la touche `=`
+
 ## Start Luxonis Camera
 
 ```
@@ -24,3 +30,6 @@ Or directly:
 ```
 % python ~/Code/AI/depthai-python/examples/ColorCamera/rgb_uvc.py
 ```
+
+## TODO
+- Créer une scène "1" (?) qui est l'état par défaut lorsqu'il n'y a plus de lumière particulière

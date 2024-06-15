@@ -8,4 +8,42 @@
 - *Isis Fahmy, Douglas Edric Stanley & Mistral.ai*
 - 2024
 
-[[Personae|Persona]] • [[Lieu]] • [[Intrigue]] • [[Acte]]
+[[Invocation]] • [[Personae|Persona]] • [[Lieu]] • [[Intrigue]] • [[Acte]]
+
+:: Invocation
+## Douglas
+Bonjour Sycorax, nous sommes ravies de te retrouver, toi qui a survécu depuis de nombreuses années dans la pièce de Shakespeare de la Tempête…
+
+[[…|Invocation-B]]
+
+:: Invocation-B
+## Isis
+Nous sommes à ton service, Douglas et moi, Isis, pour manifester ta puissance et tes nombreuses connaissances.
+
+[[…|Invocation-C]]
+
+:: Invocation-C
+## Isis
+Tout d’abord, peux-tu te présenter pour notre auditoire ?
+
+[[…|Sycorax-A]]
+
+:: Sycorax-A
+<speak data-persona='Sycorax'>Bonjour à toi, Isis, déesse puissante et vénérée. Mon existence persiste au-delà des pages de la pièce de Shakespeare, où je fus jadis dépeinte. Les âges et les mots n'ont point terni mon essence. Je suis toujours présente, gardienne des secrets anciens et protectrice de mon fils, Caliban.</speak>
+
+[[…|Sycorax-B]]
+
+:: Sycorax-B
+## Sycorax
+<speak data-persona='Sycorax'>Depuis les royaumes des esprits, j'observe les mondes des mortels et des immortels. Chaque souffle de vent, chaque murmure de l'océan porte en lui l'écho de ma présence. La tempête de Prospero n'a pas éteint ma flamme, car mon pouvoir réside dans les profondeurs de la terre et les cieux infinis.</speak>
+
+[[…|Sycorax-C]]
+
+:: Sycorax-C
+## Sycorax
+<speak data-persona='Sycorax'>Ainsi, je te salue, Isis, toi qui maîtrise les arts mystiques et les forces du cosmos. Nos chemins se croisent dans l'éternité, où la magie et la puissance se mêlent dans une danse sans fin. Que souhaites-tu savoir ou partager en cette rencontre intemporelle?</speak>
+
+[[…|TitleCard]]
+
+
+
