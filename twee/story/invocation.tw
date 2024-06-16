@@ -61,9 +61,10 @@ Id: 'Invocation-D'
 
 :: Invocation-Fin
 Sound: 'none'
+Invoked: true
 --
 ## Invocation, fin
-[[…|TitleCard]]
+[[⤾|TitleCard]]
 
 
 :: Invocation-Variables-Unused

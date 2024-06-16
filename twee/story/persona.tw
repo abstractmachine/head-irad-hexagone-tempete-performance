@@ -5,7 +5,7 @@ Variable: 'Protagoniste'
 Done: 'Persona-Choisir-Amant'
 --
 ## Sycorax
-<speak data-persona='Sycorax'>Il faut choisir les personnages. Commençons par la personne qui sera notre protagoniste.</speak>
+<speak data-persona='Sycorax'>Commençons par le personnage qui sera notre protagoniste de la prochaine scène.</speak>
 
 
 

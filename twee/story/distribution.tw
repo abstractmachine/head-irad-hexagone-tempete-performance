@@ -33,14 +33,14 @@ _ready: Protagoniste && Amant && Lieu && Intrigue
 [continue]
 
 [if _ready]
-<voiceover data-persona='Sycorax'>Les cartes sont tirées. On peut démarrer l'acte.</voiceover>
+<voiceover data-persona='Sycorax'>Les cartes sont tirées. On peut démarrer la tragédie.</voiceover>
 [if _nothing]
-<voiceover data-persona='Sycroax'>Il faut choisir les paramètres de l'acte</voiceover>
+<voiceover data-persona='Sycroax'>Il faut choisir les paramètres de la tragédie.</voiceover>
 [continue]
 [if !_ready && !_nothing && !Protagoniste && !Amant]
-<voiceover data-persona='Sycorax'>Il faut choisir les personnages.</voiceover>
+<voiceover data-persona='Sycorax'>On doit définir les personnages.</voiceover>
 [if !_ready && !_nothing && !Lieu]
-<voiceover data-persona='Sycorax'>Il faut choisir un lieu.</voiceover>
+<voiceover data-persona='Sycorax'>On doit définir le lieu.</voiceover>
 [if !_ready && !_nothing && !Intrigue]
-<voiceover data-persona='Sycorax'>Il faut choisir une intrigue.</voiceover>
+<voiceover data-persona='Sycorax'>On doit décider de l'intrigue.</voiceover>
 [continue]

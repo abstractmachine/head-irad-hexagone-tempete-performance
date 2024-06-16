@@ -1859,16 +1859,16 @@ _ready: Protagoniste &amp;&amp; Amant &amp;&amp; Lieu &amp;&amp; Intrigue
 [continue]
 
 [if _ready]
-&lt;voiceover data-persona=&#39;Sycorax&#39;&gt;Les cartes sont tirées. On peut démarrer l&#39;acte.&lt;/voiceover&gt;
+&lt;voiceover data-persona=&#39;Sycorax&#39;&gt;Les cartes sont tirées. On peut démarrer la tragédie.&lt;/voiceover&gt;
 [if _nothing]
-&lt;voiceover data-persona=&#39;Sycroax&#39;&gt;Il faut choisir les paramètres de l&#39;acte&lt;/voiceover&gt;
+&lt;voiceover data-persona=&#39;Sycroax&#39;&gt;Il faut choisir les paramètres de la tragédie.&lt;/voiceover&gt;
 [continue]
 [if !_ready &amp;&amp; !_nothing &amp;&amp; !Protagoniste &amp;&amp; !Amant]
-&lt;voiceover data-persona=&#39;Sycorax&#39;&gt;Il faut choisir les personnages.&lt;/voiceover&gt;
+&lt;voiceover data-persona=&#39;Sycorax&#39;&gt;On doit définir les personnages.&lt;/voiceover&gt;
 [if !_ready &amp;&amp; !_nothing &amp;&amp; !Lieu]
-&lt;voiceover data-persona=&#39;Sycorax&#39;&gt;Il faut choisir un lieu.&lt;/voiceover&gt;
+&lt;voiceover data-persona=&#39;Sycorax&#39;&gt;On doit définir le lieu.&lt;/voiceover&gt;
 [if !_ready &amp;&amp; !_nothing &amp;&amp; !Intrigue]
-&lt;voiceover data-persona=&#39;Sycorax&#39;&gt;Il faut choisir une intrigue.&lt;/voiceover&gt;
+&lt;voiceover data-persona=&#39;Sycorax&#39;&gt;On doit décider de l&#39;intrigue.&lt;/voiceover&gt;
 [continue]</tw-passagedata><tw-passagedata pid="8" name="Intrigue" tags="" position="975,100" size="100,100">Action: &#39;Choosing&#39;
 Categorie: &#39;Intrigue&#39;
 Variable: &#39;Intrigue&#39;
@@ -1931,9 +1931,10 @@ Id: &#39;Invocation-D&#39;
 &lt;speak data-persona=&#39;Sycorax&#39;&gt;Ainsi, je te salue, Isis, toi qui maîtrise les arts mystiques et les forces du cosmos. Nos chemins se croisent dans l&#39;éternité, où la magie et la puissance se mêlent dans une danse sans fin. Que souhaites-tu savoir ou partager en cette rencontre intemporelle?&lt;/speak&gt;
 
 [[…|Invocation-Fin]]</tw-passagedata><tw-passagedata pid="19" name="Invocation-Fin" tags="" position="1100,225" size="100,100">Sound: &#39;none&#39;
+Invoked: true
 --
 ## Invocation, fin
-[[…|TitleCard]]</tw-passagedata><tw-passagedata pid="20" name="Invocation-Variables-Unused" tags="" position="1225,225" size="100,100">Intrigue-Note: &#39;Cosmologie&#39;
+[[⤾|TitleCard]]</tw-passagedata><tw-passagedata pid="20" name="Invocation-Variables-Unused" tags="" position="1225,225" size="100,100">Intrigue-Note: &#39;Cosmologie&#39;
 Acte-Note: &#39;Préambule&#39;
 Lieu-Note: &#39;Cosmos&#39;
 Interlocuteur-Note: &#39;Douglas&#39;
@@ -1953,7 +1954,7 @@ Variable: &#39;Protagoniste&#39;
 Done: &#39;Persona-Choisir-Amant&#39;
 --
 ## Sycorax
-&lt;speak data-persona=&#39;Sycorax&#39;&gt;Il faut choisir les personnages. Commençons par la personne qui sera notre protagoniste.&lt;/speak&gt;</tw-passagedata><tw-passagedata pid="24" name="Persona-Choisir-Amant" tags="" position="475,350" size="100,100">Action: &#39;Choosing&#39;
+&lt;speak data-persona=&#39;Sycorax&#39;&gt;Commençons par le personnage qui sera notre protagoniste de la prochaine scène.&lt;/speak&gt;</tw-passagedata><tw-passagedata pid="24" name="Persona-Choisir-Amant" tags="" position="475,350" size="100,100">Action: &#39;Choosing&#39;
 Categorie: &#39;Persona&#39;
 Variable: &#39;Amant&#39;
 Done: &#39;Persona-Done&#39;
