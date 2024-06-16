@@ -1,0 +1,45 @@
+:: Distribution
+_nothing: !Protagoniste && !Amant && !Lieu && !Intrigue
+_ready: Protagoniste && Amant && Lieu && Intrigue
+--
+- ### La tempête
+- **Tragedie**
+- &nbsp;
+[if Lieu]
+- **Lieu**
+- *{Lieu}*
+[continue]
+[if Protagoniste && Amant]
+- **Distribution**
+- *{Protagoniste}*, *{Amant}*
+[continue]
+[if Intrigue]
+- **Intrigue**
+- *{Intrigue}*
+[continue]
+
+[if _ready]
+1. [[Personae|Persona]]
+2. [[Lieu]]
+3. [[Intrigue]]
+4. [[Acte]]
+5. [[⤾|TitleCard]]
+[else]
+1. [[Personae|Persona]]
+2. [[Lieu]]
+3. [[Intrigue]]
+4. [[⤾|TitleCard]]
+[continue]
+
+[if _ready]
+<voiceover data-persona='Sycorax'>Les cartes sont tirées. On peut démarrer l'acte.</voiceover>
+[if _nothing]
+<voiceover data-persona='Sycroax'>Il faut choisir les paramètres de l'acte</voiceover>
+[continue]
+[if !_ready && !_nothing && !Protagoniste && !Amant]
+<voiceover data-persona='Sycorax'>Il faut choisir les personnages.</voiceover>
+[if !_ready && !_nothing && !Lieu]
+<voiceover data-persona='Sycorax'>Il faut choisir un lieu.</voiceover>
+[if !_ready && !_nothing && !Intrigue]
+<voiceover data-persona='Sycorax'>Il faut choisir une intrigue.</voiceover>
+[continue]

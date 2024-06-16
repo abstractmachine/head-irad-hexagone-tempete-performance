@@ -1,19 +1,19 @@
 :: Acte
-Sound: 'none'
+Sound: Lieu
 Action: 'Choosing'
 Categorie: 'Acte'
 Variable: 'Acte'
 Done: 'Acte-Play'
 --
-## Sycorax
-<speak data-persona='Sycorax'>Voici notre acte avec {Protagoniste} et {Amant}. La scène se passe dans {Lieu}. L'intrigue sera « {Intrigue} ».</speak>
+- **Lieu**
+- *{Lieu}*
 
-[[Personae|Persona]] • [[Lieu]] • [[Intro|TitleCard]]
+[[⤾|Distribution]]
 
 :: Acte-Play
-Sound: Lieu
 --
-# {Acte}
+- # {Acte}
+- *{Lieu}*
 
 ## {Protagoniste}
 <speak data-persona='{Protagoniste}'>Je suis le Protagoniste et voici mes premières paroles.</speak>
@@ -28,4 +28,4 @@ Sound: 'none'
 --
 <speak data-persona='Sycorax'>Fin de l'{Acte}.</speak>
 
-[[Distribution]]
+[[⤾|Distribution]]

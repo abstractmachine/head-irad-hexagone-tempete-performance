@@ -4,7 +4,7 @@
 	/* declare variable */
 	--foreground-color: white;
 	--background-color: transparent;
-	--link-color: rgb(255, 255, 255);
+	--link-color: rgb(128, 126, 126);
 	/* --link-color-decoration: rgba(255, 255, 255, 0.5); */
 	--link-color-highlight: rgba(255, 0, 0, 1.0);
 	--link-background-color: trasparent;
@@ -15,6 +15,10 @@
 
 div#page {
 	padding: 2em;
+}
+
+article {
+	padding-right: 2em !important;
 }
 
 div#page p, div#page a, div#page speak, div#page h1,  div#page h2,  div#page h3,  div#page h4,  div#page h5,  div#page h6 {
@@ -54,4 +58,21 @@ ul {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
+}
+
+ol {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	margin-bottom: 1.3em;
+}
+
+ol li {
+	/* set to inline */
+	display: inline;
+}
+
+/* insert a character after each list item, but not the last */
+ol li:not(:last-child):after {
+	content: " • ";
 }

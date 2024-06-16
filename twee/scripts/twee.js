@@ -345,7 +345,7 @@ function chooseCard(key) {
 function restoreVisibility() {
 
 	// loop through all the <p> elements
-	document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, ul, li, speak, voiceover').forEach(function(paragraph) {
+	document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, ul, ol, li, speak, voiceover').forEach(function(paragraph) {
 		// reset paragraph opacity to 1
 		paragraph.style.opacity = '1';
 	});
@@ -569,8 +569,6 @@ function addTypewriterEffect(article, ignoreTypewriter = false) {
 
 		const node = article.childNodes[i];
 
-		// let waveIndex = 0;
-
 		if (node.nodeType === Node.TEXT_NODE) {
 			// if the node is a text node, wrap each character in a span element
 			const text = node.textContent;
@@ -594,20 +592,25 @@ function addTypewriterEffect(article, ignoreTypewriter = false) {
 				}
 				return span;
 			}).join('');
-			// node.innerHTML = spannedText;
+			
 			newArticle += spannedText;
 
 		} else {
 
 			// get the tag name of the node
 			currentTag = node.tagName.toLowerCase();
-			// get the full tag with attributes but not the inner html
-			let tagWithAttributes = node.outerHTML.split('>')[0] + '>';
 
-			newArticle += tagWithAttributes;
-			// if the node is an element node, call the function recursively
-			newArticle += addTypewriterEffect(node, currentTag === 'a');
-			newArticle += "</" + currentTag + ">";
+			if (currentTag !== 'voiceover') {
+
+				// get the full tag with attributes but not the inner html
+				let tagWithAttributes = node.outerHTML.split('>')[0] + '>';
+
+				newArticle += tagWithAttributes;
+				// if the node is an element node, call the function recursively
+				newArticle += addTypewriterEffect(node, currentTag === 'a');
+				newArticle += "</" + currentTag + ">";
+
+			}
 
 		}
 		// if(Node.TextNode)

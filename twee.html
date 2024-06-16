@@ -151,7 +151,7 @@ ul.warnings {
 	/* declare variable */
 	--foreground-color: white;
 	--background-color: transparent;
-	--link-color: rgb(255, 255, 255);
+	--link-color: rgb(128, 126, 126);
 	/* --link-color-decoration: rgba(255, 255, 255, 0.5); */
 	--link-color-highlight: rgba(255, 0, 0, 1.0);
 	--link-background-color: trasparent;
@@ -162,6 +162,10 @@ ul.warnings {
 
 div#page {
 	padding: 2em;
+}
+
+article {
+	padding-right: 2em !important;
 }
 
 div#page p, div#page a, div#page speak, div#page h1,  div#page h2,  div#page h3,  div#page h4,  div#page h5,  div#page h6 {
@@ -201,6 +205,23 @@ ul {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
+}
+
+ol {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	margin-bottom: 1.3em;
+}
+
+ol li {
+	/* set to inline */
+	display: inline;
+}
+
+/* insert a character after each list item, but not the last */
+ol li:not(:last-child):after {
+	content: " • ";
 }
 /* twine-user-stylesheet #4: "type.css" */
 p, p.typewriter, speak {
@@ -971,7 +992,7 @@ function chooseCard(key) {
 function restoreVisibility() {
 
 	// loop through all the <p> elements
-	document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, ul, li, speak, voiceover').forEach(function(paragraph) {
+	document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, ul, ol, li, speak, voiceover').forEach(function(paragraph) {
 		// reset paragraph opacity to 1
 		paragraph.style.opacity = '1';
 	});
@@ -1195,8 +1216,6 @@ function addTypewriterEffect(article, ignoreTypewriter = false) {
 
 		const node = article.childNodes[i];
 
-		// let waveIndex = 0;
-
 		if (node.nodeType === Node.TEXT_NODE) {
 			// if the node is a text node, wrap each character in a span element
 			const text = node.textContent;
@@ -1220,20 +1239,25 @@ function addTypewriterEffect(article, ignoreTypewriter = false) {
 				}
 				return span;
 			}).join('');
-			// node.innerHTML = spannedText;
+			
 			newArticle += spannedText;
 
 		} else {
 
 			// get the tag name of the node
 			currentTag = node.tagName.toLowerCase();
-			// get the full tag with attributes but not the inner html
-			let tagWithAttributes = node.outerHTML.split('>')[0] + '>';
 
-			newArticle += tagWithAttributes;
-			// if the node is an element node, call the function recursively
-			newArticle += addTypewriterEffect(node, currentTag === 'a');
-			newArticle += "</" + currentTag + ">";
+			if (currentTag !== 'voiceover') {
+
+				// get the full tag with attributes but not the inner html
+				let tagWithAttributes = node.outerHTML.split('>')[0] + '>';
+
+				newArticle += tagWithAttributes;
+				// if the node is an element node, call the function recursively
+				newArticle += addTypewriterEffect(node, currentTag === 'a');
+				newArticle += "</" + currentTag + ">";
+
+			}
 
 		}
 		// if(Node.TextNode)
@@ -1461,18 +1485,18 @@ function talkingDone() {
 
 }
 
-</script><tw-passagedata pid="1" name="Acte" tags="" position="100,100" size="100,100">Sound: &#39;none&#39;
+</script><tw-passagedata pid="1" name="Acte" tags="" position="100,100" size="100,100">Sound: Lieu
 Action: &#39;Choosing&#39;
 Categorie: &#39;Acte&#39;
 Variable: &#39;Acte&#39;
 Done: &#39;Acte-Play&#39;
 --
-## Sycorax
-&lt;speak data-persona=&#39;Sycorax&#39;&gt;Voici notre acte avec {Protagoniste} et {Amant}. La scène se passe dans {Lieu}. L&#39;intrigue sera « {Intrigue} ».&lt;/speak&gt;
+- **Lieu**
+- *{Lieu}*
 
-[[Personae|Persona]] • [[Lieu]] • [[Intro|TitleCard]]</tw-passagedata><tw-passagedata pid="2" name="Acte-Play" tags="" position="225,100" size="100,100">Sound: Lieu
---
-# {Acte}
+[[⤾|Distribution]]</tw-passagedata><tw-passagedata pid="2" name="Acte-Play" tags="" position="225,100" size="100,100">--
+- # {Acte}
+- *{Lieu}*
 
 ## {Protagoniste}
 &lt;speak data-persona=&#39;{Protagoniste}&#39;&gt;Je suis le Protagoniste et voici mes premières paroles.&lt;/speak&gt;
@@ -1484,7 +1508,7 @@ Done: &#39;Acte-Play&#39;
 --
 &lt;speak data-persona=&#39;Sycorax&#39;&gt;Fin de l&#39;{Acte}.&lt;/speak&gt;
 
-[[Distribution]]</tw-passagedata><tw-passagedata pid="4" name="Demo" tags="" position="475,100" size="100,100">This a demo page of the various possibilites:
+[[⤾|Distribution]]</tw-passagedata><tw-passagedata pid="4" name="Demo" tags="" position="475,100" size="100,100">This a demo page of the various possibilites:
 
 - A list of items
 - Some stuff
@@ -1496,27 +1520,10 @@ Done: &#39;Acte-Play&#39;
 [[Next|Demo-Next]]</tw-passagedata><tw-passagedata pid="5" name="Demo-Next" tags="" position="600,100" size="100,100">&lt;speak&gt;Sometimes text should be in a generic voice&lt;/speak&gt;
 
 [[Back|Demo]]</tw-passagedata><tw-passagedata pid="6" name="Demo-Variables" tags="" position="725,100" size="100,100">[JavaScript]
-engine.state.set(&#39;Intrigue&#39;, &#39;Jalousie&#39;);</tw-passagedata><tw-passagedata pid="7" name="Intrigue" tags="" position="850,100" size="100,100">Action: &#39;Choosing&#39;
-Categorie: &#39;Intrigue&#39;
-Variable: &#39;Intrigue&#39;
-Done: &#39;Intrigue-Done&#39;
+engine.state.set(&#39;Intrigue&#39;, &#39;Jalousie&#39;);</tw-passagedata><tw-passagedata pid="7" name="Distribution" tags="" position="850,100" size="100,100">_nothing: !Protagoniste &amp;&amp; !Amant &amp;&amp; !Lieu &amp;&amp; !Intrigue
+_ready: Protagoniste &amp;&amp; Amant &amp;&amp; Lieu &amp;&amp; Intrigue
 --
-## Sycorax
-&lt;speak data-persona=&#39;Sycorax&#39;&gt;Nous allons choisir l&#39;intrigue qui anime nos personnages. Choisissez une carte.&lt;/speak&gt;</tw-passagedata><tw-passagedata pid="8" name="Intrigue-Done" tags="" position="975,100" size="100,100">## Sycorax
-&lt;speak data-persona=&#39;Sycorax&#39;&gt;L&#39;intrigue est posée. Il sera question de {Intrigue}.&lt;/speak&gt;
-
-[[Distribution]]</tw-passagedata><tw-passagedata pid="9" name="TitleCard" tags="" position="1100,100" size="100,100">--
 - ### La tempête
-- **Tragedie**
-- &amp;nbsp;
-- *William Shakespeare*
-- 1610
-- &amp;nbsp;
-- **Adaptation**
-- *Isis Fahmy, Douglas Edric Stanley &amp; Mistral.ai*
-- 2024
-
-[[Invocation]] • [[Distribution]]</tw-passagedata><tw-passagedata pid="10" name="Distribution" tags="" position="1225,100" size="100,100">- ### La tempête
 - **Tragedie**
 - &amp;nbsp;
 [if Lieu]
@@ -1527,8 +1534,56 @@ Done: &#39;Intrigue-Done&#39;
 - **Distribution**
 - *{Protagoniste}*, *{Amant}*
 [continue]
+[if Intrigue]
+- **Intrigue**
+- *{Intrigue}*
+[continue]
 
-[[Personae|Persona]] • [[Lieu]] • [[Intrigue]] • [[Acte]]</tw-passagedata><tw-passagedata pid="11" name="Invocation" tags="" position="100,225" size="100,100">## Douglas
+[if _ready]
+1. [[Personae|Persona]]
+2. [[Lieu]]
+3. [[Intrigue]]
+4. [[Acte]]
+5. [[⤾|TitleCard]]
+[else]
+1. [[Personae|Persona]]
+2. [[Lieu]]
+3. [[Intrigue]]
+4. [[⤾|TitleCard]]
+[continue]
+
+[if _ready]
+&lt;voiceover data-persona=&#39;Sycorax&#39;&gt;Les cartes sont tirées. On peut démarrer l&#39;acte.&lt;/voiceover&gt;
+[if _nothing]
+&lt;voiceover data-persona=&#39;Sycroax&#39;&gt;Il faut choisir les paramètres de l&#39;acte&lt;/voiceover&gt;
+[continue]
+[if !_ready &amp;&amp; !_nothing &amp;&amp; !Protagoniste &amp;&amp; !Amant]
+&lt;voiceover data-persona=&#39;Sycorax&#39;&gt;Il faut choisir les personnages.&lt;/voiceover&gt;
+[if !_ready &amp;&amp; !_nothing &amp;&amp; !Lieu]
+&lt;voiceover data-persona=&#39;Sycorax&#39;&gt;Il faut choisir un lieu.&lt;/voiceover&gt;
+[if !_ready &amp;&amp; !_nothing &amp;&amp; !Intrigue]
+&lt;voiceover data-persona=&#39;Sycorax&#39;&gt;Il faut choisir une intrigue.&lt;/voiceover&gt;
+[continue]</tw-passagedata><tw-passagedata pid="8" name="Intrigue" tags="" position="975,100" size="100,100">Action: &#39;Choosing&#39;
+Categorie: &#39;Intrigue&#39;
+Variable: &#39;Intrigue&#39;
+Done: &#39;Intrigue-Done&#39;
+--
+## Sycorax
+&lt;speak data-persona=&#39;Sycorax&#39;&gt;Nous allons choisir l&#39;intrigue qui anime nos personnages. Choisissez une carte.&lt;/speak&gt;</tw-passagedata><tw-passagedata pid="9" name="Intrigue-Done" tags="" position="1100,100" size="100,100">## Sycorax
+&lt;speak data-persona=&#39;Sycorax&#39;&gt;L&#39;intrigue est posée. Il sera question de {Intrigue}.&lt;/speak&gt;
+
+[[...|Distribution]]</tw-passagedata><tw-passagedata pid="10" name="TitleCard" tags="" position="1225,100" size="100,100">--
+- ### La tempête
+- **Tragedie**
+- &amp;nbsp;
+- *William Shakespeare*
+- 1610
+- &amp;nbsp;
+- *Isis Fahmy, Douglas Edric Stanley &amp; Mistral.ai*
+- 2024
+
+1. [[Invocation]]
+2. [[Distribution]]</tw-passagedata><tw-passagedata pid="11" name="Invocation" tags="" position="100,225" size="100,100">## Douglas
 Bonjour Sycorax, nous sommes ravies de te retrouver, toi qui a survécu depuis de nombreuses années dans la pièce de Shakespeare de la Tempête…
 
 [[…|Invocation-B]]</tw-passagedata><tw-passagedata pid="12" name="Invocation-B" tags="" position="225,225" size="100,100">## Isis
@@ -1546,7 +1601,7 @@ Tout d’abord, peux-tu te présenter pour notre auditoire ?
 [[…|Sycorax-C]]</tw-passagedata><tw-passagedata pid="16" name="Sycorax-C" tags="" position="725,225" size="100,100">## Sycorax
 &lt;speak data-persona=&#39;Sycorax&#39;&gt;Ainsi, je te salue, Isis, toi qui maîtrise les arts mystiques et les forces du cosmos. Nos chemins se croisent dans l&#39;éternité, où la magie et la puissance se mêlent dans une danse sans fin. Que souhaites-tu savoir ou partager en cette rencontre intemporelle?&lt;/speak&gt;
 
-[[…|TitleCard]]</tw-passagedata><tw-passagedata pid="17" name="Lieu" tags="" position="850,225" size="100,100">Action: &#39;Choosing&#39;
+[[⤾|Distribution]]</tw-passagedata><tw-passagedata pid="17" name="Lieu" tags="" position="850,225" size="100,100">Action: &#39;Choosing&#39;
 Categorie: &#39;Lieu&#39;
 Variable: &#39;Lieu&#39;
 Done: &#39;Lieu-Done&#39;
@@ -1555,7 +1610,7 @@ Done: &#39;Lieu-Done&#39;
 &lt;speak data-persona=&#39;Sycorax&#39;&gt;Choisissons un lieu pour la prochaine acte. Choisissez une carte.&lt;/speak&gt;</tw-passagedata><tw-passagedata pid="18" name="Lieu-Done" tags="" position="975,225" size="100,100">## Sycorax
 &lt;speak data-persona=&#39;Sycorax&#39;&gt;Le lieu du prochaine acte est posé. Il se passera à {Lieu}.&lt;/speak&gt;
 
-[[Distribution]]</tw-passagedata><tw-passagedata pid="19" name="Persona" tags="" position="1100,225" size="100,100">Action: &#39;Choosing&#39;
+[[...|Distribution]]</tw-passagedata><tw-passagedata pid="19" name="Persona" tags="" position="1100,225" size="100,100">Action: &#39;Choosing&#39;
 Categorie: &#39;Personnage&#39;
 Variable: &#39;Protagoniste&#39;
 Done: &#39;Persona-Choisir-Amant&#39;
@@ -1570,7 +1625,7 @@ Done: &#39;Persona-Done&#39;
 &lt;speak data-persona=&#39;Sycorax&#39;&gt;{Protagoniste} est un choix intéressant. Maintenant il faut choisir son amour.&lt;/speak&gt;</tw-passagedata><tw-passagedata pid="21" name="Persona-Done" tags="" position="100,350" size="100,100">## Sycorax
 &lt;speak data-persona=&#39;Sycorax&#39;&gt;Très bon choix. Nos personnages sont {Protagoniste} et {Amant}.&lt;/speak&gt;
 
-[[Distribution]]</tw-passagedata><tw-passagedata pid="22" name="Start" tags="" position="225,350" size="100,100">Lieu: &#39;&#39;
+[[...|Distribution]]</tw-passagedata><tw-passagedata pid="22" name="Start" tags="" position="225,350" size="100,100">Lieu: &#39;&#39;
 Protagoniste: &#39;&#39;
 Amant: &#39;&#39;
 Intrigue: &#39;&#39;

@@ -6,26 +6,11 @@
 - *William Shakespeare*
 - 1610
 - &nbsp;
-- **Adaptation**
 - *Isis Fahmy, Douglas Edric Stanley & Mistral.ai*
 - 2024
 
-[[Invocation]] • [[Distribution]]
-
-:: Distribution
-- ### La tempête
-- **Tragedie**
-- &nbsp;
-[if Lieu]
-- **Lieu**
-- *{Lieu}*
-[continue]
-[if Protagoniste && Amant]
-- **Distribution**
-- *{Protagoniste}*, *{Amant}*
-[continue]
-
-[[Personae|Persona]] • [[Lieu]] • [[Intrigue]] • [[Acte]]
+1. [[Invocation]]
+2. [[Distribution]]
 
 :: Invocation
 ## Douglas
@@ -61,7 +46,7 @@ Tout d’abord, peux-tu te présenter pour notre auditoire ?
 ## Sycorax
 <speak data-persona='Sycorax'>Ainsi, je te salue, Isis, toi qui maîtrise les arts mystiques et les forces du cosmos. Nos chemins se croisent dans l'éternité, où la magie et la puissance se mêlent dans une danse sans fin. Que souhaites-tu savoir ou partager en cette rencontre intemporelle?</speak>
 
-[[…|TitleCard]]
+[[⤾|Distribution]]
 
 
 
