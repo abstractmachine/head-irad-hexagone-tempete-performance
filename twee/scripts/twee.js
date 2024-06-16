@@ -75,8 +75,8 @@ async function parseKey(key) {
 			case 'y':
 			case 'z':
 				// if we're in Choosing mode
-				if (engine.state.get('Choisir')) {
-					setCard(key.toUpperCase());
+				if (engine.state.get('Action') == 'Choosing') {
+					chooseCard(key.toUpperCase());
 				}
 				break;
 		
@@ -84,8 +84,6 @@ async function parseKey(key) {
 			break;
 
 	}
-
-	return true;
 
 }
 
@@ -113,7 +111,6 @@ window.onload = function() {
 		// Add event listener for key presses
 		document.addEventListener('keydown', function (e) {
 			parseKey(e.key);
-			return true;
 		});
 
 		restoreVisibility();
@@ -161,7 +158,7 @@ function passageChanged() {
 				restoreVisibility();
 
 				// if we're in choosing mode
-				if (engine.state.get('Choisir')) {
+				if (engine.state.get('Action') == 'Choosing') {
 					choosingMode();
 				}
 
@@ -269,11 +266,9 @@ async function loadCardData() {
 			// create a new array for this category
 			cartes[categorie] = [];
 		}
-		// setCard(categorie, content);
+
 		cartes[categorie].push({'id': id, 'titre': titre, 'contenu': contenu, 'couleur': couleur, 'note': note});
 	}
-
-	return true;
 
 }
 
@@ -295,7 +290,7 @@ function resetCards() {
 	// send message to the parent window
 	window.parent.postMessage({reset: 'true'}, '*');
 	// turn off the choosing mode
-	engine.state.set('Choisir', 'false');
+	// engine.state.set('Choisir', 'false');
 
 }
 
@@ -309,7 +304,7 @@ function toggleCamera() {
 }
 
 
-function setCard(key) {
+function chooseCard(key) {
 
 	let categorie = engine.state.get('Categorie');
 	let variable = engine.state.get('Variable');
@@ -330,10 +325,12 @@ function setCard(key) {
 			engine.state.set(variable, titre);
 
 			// send message to the parent window
-			window.parent.postMessage({setCard: 'true', categorie:variable, contenu:titre}, '*');
+			window.parent.postMessage({choseCard: 'true', categorie:variable, contenu:titre}, '*');
 
 			// get the name of the next passage
 			let nextPassage = engine.state.get('Done');
+			// turn off the choosing mode
+			engine.state.set('Action', 'none');
 			// go to the next passage
 			go(nextPassage);
 			break;
@@ -348,7 +345,7 @@ function setCard(key) {
 function restoreVisibility() {
 
 	// loop through all the <p> elements
-	document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, ul, li, speak').forEach(function(paragraph) {
+	document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, ul, li, speak, voiceover').forEach(function(paragraph) {
 		// reset paragraph opacity to 1
 		paragraph.style.opacity = '1';
 	});
@@ -367,7 +364,7 @@ function speakArticle(article) {
 	// look for all the speech tags in the document
 
 	// Get all the <p> and <h1> elements in the Document (everything else ignored for TTS)
-	let paragraphs = doc.querySelectorAll('p, li, speak, h1, h2, h3, h4, h5, h6');
+	let paragraphs = doc.querySelectorAll('p, li, speak, voiceover, h1, h2, h3, h4, h5, h6');
 
 	// loop through all results
 	for(let i=0; i<paragraphs.length; i++) {
@@ -375,7 +372,7 @@ function speakArticle(article) {
 		let paragraph = paragraphs[i];
 		// get the tag type of the paragraph
 		let tag = paragraph.tagName.toLowerCase();
-		if (tag == 'speak') {
+		if (tag == 'speak' || tag == 'voiceover') {
 			// get the data attribute of the paragraph
 			let data = paragraph.getAttribute('data-persona');
 			// set the speaker to the data attribute of the paragraph
@@ -451,7 +448,7 @@ function parseParagraph(paragraph) {
 
 function dmxOn(speaker) {
 
-	console.log("DMX on: " + speaker);
+	// console.log("DMX on: " + speaker);
 	// depending on the name of the speaker, we can turn on different lights
 	switch (speaker) {
 		case 'Douglas':
@@ -495,7 +492,7 @@ function dmxOn(speaker) {
 
 function dmxOff(speaker) {
 
-	console.log("DMX off: " + speaker);
+	// console.log("DMX off: " + speaker);
 	// depending on the name of the speaker, we can turn on different lights
 	switch (speaker) {
 		case 'Douglas':

@@ -48,10 +48,10 @@ function speak(nom, newText, delayTime = 0) {
 
 	let desiredVoice = '';
 
-	if (newText != '' && newText != ' ') {
-		console.log("nom: ", nom);
-		console.log("newText: ", newText);
-	}
+	// if (newText != '' && newText != ' ') {
+	// 	console.log("nom: ", nom);
+	// 	console.log("newText: ", newText);
+	// }
 
 	switch (nom) {
 		case 'Douglas':
@@ -102,7 +102,7 @@ function speak(nom, newText, delayTime = 0) {
 
 	if (desiredVoice != '') {
 		utterance.voice = desiredVoice;
-		console.log("desiredVoice: ", desiredVoice);
+		// console.log("desiredVoice: ", desiredVoice);
 	}
 
 	utterance.addEventListener("end", (event) => {

@@ -1,14 +1,31 @@
 :: TitleCard
 --
 - ### La tempête
+- **Tragedie**
+- &nbsp;
 - *William Shakespeare*
 - 1610
 - &nbsp;
-- ### Adaptation
+- **Adaptation**
 - *Isis Fahmy, Douglas Edric Stanley & Mistral.ai*
 - 2024
 
-[[Invocation]] • [[Personae|Persona]] • [[Lieu]] • [[Intrigue]] • [[Acte]]
+[[Invocation]] • [[Distribution]]
+
+:: Distribution
+- ### La tempête
+- **Tragedie**
+- &nbsp;
+[if Lieu]
+- **Lieu**
+- *{Lieu}*
+[continue]
+[if Protagoniste && Amant]
+- **Distribution**
+- *{Protagoniste}*, *{Amant}*
+[continue]
+
+[[Personae|Persona]] • [[Lieu]] • [[Intrigue]] • [[Acte]]
 
 :: Invocation
 ## Douglas

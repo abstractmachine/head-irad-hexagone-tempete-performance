@@ -63,13 +63,13 @@ window.addEventListener("message", (event) => {
 	}
 
 
-	if (event.data.hasOwnProperty('setCard')) {
+	if (event.data.hasOwnProperty('choseCard')) {
 		// this is a reset message
-		if (event.data.setCard == 'true') {
+		if (event.data.choseCard == 'true') {
 			// get the category and content
 			let categorie = event.data.categorie;
 			let contenu = event.data.contenu;
-			setCard(categorie, contenu);
+			choseCard(categorie, contenu);
 		}
 	}
 
@@ -105,7 +105,5 @@ window.addEventListener("message", (event) => {
 			}
 		}
 	}
-
-	return true;
 
 });

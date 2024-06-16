@@ -46,6 +46,10 @@ ul, ul li, speak {
 	color: var(--foreground-color);
 }
 
+voiceover {
+	color: pink;
+}
+
 ul {
 	list-style-type: none;
 	margin: 0;

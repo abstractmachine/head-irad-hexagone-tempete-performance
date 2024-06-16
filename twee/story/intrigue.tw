@@ -1,5 +1,5 @@
 :: Intrigue
-Choisir: true
+Action: 'Choosing'
 Categorie: 'Intrigue'
 Variable: 'Intrigue'
 Done: 'Intrigue-Done'
@@ -10,9 +10,7 @@ Done: 'Intrigue-Done'
 
 
 :: Intrigue-Done
-Choisir: false
---
 ## Sycorax
 <speak data-persona='Sycorax'>L'intrigue est posée. Il sera question de {Intrigue}.</speak>
 
-[[Acte]] • [[Intrigue]] • [[Lieu]] • [[Personae|Persona]] • [[Intro|TitleCard]]
+[[Distribution]]

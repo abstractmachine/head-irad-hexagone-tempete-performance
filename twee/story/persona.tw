@@ -1,5 +1,5 @@
 :: Persona
-Choisir: true
+Action: 'Choosing'
 Categorie: 'Personnage'
 Variable: 'Protagoniste'
 Done: 'Persona-Choisir-Amant'
@@ -10,7 +10,7 @@ Done: 'Persona-Choisir-Amant'
 
 
 :: Persona-Choisir-Amant
-Choisir: true
+Action: 'Choosing'
 Categorie: 'Personnage'
 Variable: 'Amant'
 Done: 'Persona-Done'
@@ -22,9 +22,7 @@ Done: 'Persona-Done'
 
 
 :: Persona-Done
-Choisir: false
---
 ## Sycorax
 <speak data-persona='Sycorax'>Très bon choix. Nos personnages sont {Protagoniste} et {Amant}.</speak>
 
-[[Lieu]] • [[Personae|Persona]] • [[Intrigue]] • [[Acte]] • [[Intro|TitleCard]]
+[[Distribution]]

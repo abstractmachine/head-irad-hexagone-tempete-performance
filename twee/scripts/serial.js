@@ -16,8 +16,6 @@ async function initializeSerial() {
 			await connectSerial();
 		}
 	}
-
-	return true;
 }
 
 async function connectSerial() {
@@ -53,8 +51,6 @@ async function connectSerial() {
 		// If there's an error, clear the saved port info
 		localStorage.removeItem('savedPort');
 	}
-
-	return true;
 }
 
 async function attemptAutoConnect(savedPortInfo) {
@@ -89,8 +85,6 @@ async function disconnectSerial() {
 	}
 
 	console.log('Serial port disconnected');
-
-	return true;
 }
 
 async function readLoop() {
@@ -105,8 +99,6 @@ async function readLoop() {
 	} catch (error) {
 		console.error('Read loop error:', error);
 	}
-
-	return true;
 }
 
 async function sendData(channel, value) {
@@ -116,8 +108,6 @@ async function sendData(channel, value) {
 		// Process the write queue
 		processWriteQueue();
 	}
-
-	return true;
 }
 
 async function processWriteQueue() {
@@ -133,8 +123,6 @@ async function processWriteQueue() {
 	} catch (error) {
 		console.error('Error processing write queue:', error);
 	}
-
-	return true;
 }
 
 // // Event listener for any click on the page to reinitialize the serial connection

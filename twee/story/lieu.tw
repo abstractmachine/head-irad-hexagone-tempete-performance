@@ -1,5 +1,5 @@
 :: Lieu
-Choisir: true
+Action: 'Choosing'
 Categorie: 'Lieu'
 Variable: 'Lieu'
 Done: 'Lieu-Done'
@@ -10,9 +10,7 @@ Done: 'Lieu-Done'
 
 
 :: Lieu-Done
-Choisir: false
---
 ## Sycorax
 <speak data-persona='Sycorax'>Le lieu du prochaine acte est posé. Il se passera à {Lieu}.</speak>
 
-[[Intrigue]] • [[Lieu]] • [[Personae|Persona]] • [[Acte]] • [[Intro|TitleCard]]
+[[Distribution]]

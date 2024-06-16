@@ -1,6 +1,6 @@
 :: Acte
 Sound: 'none'
-Choisir: true
+Action: 'Choosing'
 Categorie: 'Acte'
 Variable: 'Acte'
 Done: 'Acte-Play'
@@ -12,7 +12,6 @@ Done: 'Acte-Play'
 
 :: Acte-Play
 Sound: Lieu
-Choisir: false
 --
 # {Acte}
 
@@ -29,4 +28,4 @@ Sound: 'none'
 --
 <speak data-persona='Sycorax'>Fin de l'{Acte}.</speak>
 
-[[Acte]] • [[Intrigue]] • [[Lieu]] • [[Personae|Persona]] • [[Intro|TitleCard]]
+[[Distribution]]

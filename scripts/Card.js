@@ -31,7 +31,7 @@ function addRemainingCards() {
 }
 
 
-function setCard(categorie, content) {
+function choseCard(categorie, content) {
 
 	let foundCategorie = false;
 
