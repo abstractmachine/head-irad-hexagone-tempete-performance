@@ -1,0 +1,75 @@
+:: Invocation-A
+Sound: 'Cosmos'
+Action: 'Generate'
+Persona: 'Sycorax'
+Interlocuteur: 'Douglas'
+Prompt: 'Bonjour Sycorax, nous sommes ravies de te retrouver, toi qui a survécu depuis de nombreuses années dans la pièce de Shakespeare de la Tempête…'
+Id: 'Invocation-B'
+--
+## Douglas
+*Bonjour Sycorax, nous sommes ravies de te retrouver, toi qui a survécu depuis de nombreuses années dans la pièce de Shakespeare de la Tempête…*
+
+[[…|Invocation-B]]
+
+:: Invocation-B
+## Sycorax
+<speak data-persona='Sycorax'>{Invocation-B}</speak>
+
+[[…|Invocation-C]]
+
+:: Invocation-C
+Action: 'Generate'
+Persona: 'Sycorax'
+Interlocuteur: 'Isis'
+Prompt: 'Nous sommes à ton service — Douglas et moi, Isis — pour manifester ta puissance et tes nombreuses connaissances.'
+Id: 'Invocation-D'
+--
+## Isis
+*Nous sommes à ton service, Douglas et moi, Isis, pour manifester ta puissance et tes nombreuses connaissances.*
+
+[[…|Invocation-D]]
+
+:: Invocation-D
+## Sycorax
+<speak data-persona='Sycorax'>{Invocation-D}</speak>
+
+[[…|Invocation-E]]
+
+:: Invocation-E
+## Isis
+*Tout d’abord, peux-tu te présenter pour notre auditoire ?*
+
+[[…|Invocation-F]]
+
+:: Invocation-F
+## Sycorax
+<speak data-persona='Sycorax'>Bonjour à toi, Isis, déesse puissante et vénérée. Mon existence persiste au-delà des pages de la pièce de Shakespeare, où je fus jadis dépeinte. Les âges et les mots n'ont point terni mon essence. Je suis toujours présente, gardienne des secrets anciens et protectrice de mon fils, Caliban.</speak>
+
+[[…|Invocation-G]]
+
+:: Invocation-G
+## Sycorax
+<speak data-persona='Sycorax'>Depuis les royaumes des esprits, j'observe les mondes des mortels et des immortels. Chaque souffle de vent, chaque murmure de l'océan porte en lui l'écho de ma présence. La tempête de Prospero n'a pas éteint ma flamme, car mon pouvoir réside dans les profondeurs de la terre et les cieux infinis.</speak>
+
+[[…|Invocation-H]]
+
+:: Invocation-H
+## Sycorax
+<speak data-persona='Sycorax'>Ainsi, je te salue, Isis, toi qui maîtrise les arts mystiques et les forces du cosmos. Nos chemins se croisent dans l'éternité, où la magie et la puissance se mêlent dans une danse sans fin. Que souhaites-tu savoir ou partager en cette rencontre intemporelle?</speak>
+
+[[…|Invocation-Fin]]
+
+:: Invocation-Fin
+Sound: 'none'
+--
+## Invocation, fin
+[[…|TitleCard]]
+
+
+:: Invocation-Variables-Unused
+Intrigue-Note: 'Cosmologie'
+Acte-Note: 'Préambule'
+Lieu-Note: 'Cosmos'
+Interlocuteur-Note: 'Douglas'
+Persona-Note: 'Sycorax'
+--

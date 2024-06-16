@@ -1,5 +1,5 @@
 var synth;
-let personnageTalking = '';
+let personaTalking = '';
 let talkingText = '';
 let validVoices = {};
 let utterances = [];
@@ -44,7 +44,7 @@ function isTalking() {
 // use Chrome Text-To-Speech to read the text
 function speak(nom, newText, delayTime = 0) {
 
-	personnageTalking = nom;
+	personaTalking = nom;
 
 	let desiredVoice = '';
 
@@ -97,6 +97,9 @@ function speak(nom, newText, delayTime = 0) {
 		return;
 	}
 
+	// there is a prononciation issue with the character 'ô' in the French language
+	newText = fixText(newText);
+
 	let utterance = new SpeechSynthesisUtterance(newText);
 	utterance.lang = "fr-FR";
 
@@ -111,7 +114,7 @@ function speak(nom, newText, delayTime = 0) {
 		// find this utterance in the array
 		let index = utterances.indexOf(event.currentTarget);
 		utterances.splice(index, 1);
-		personnageTalking = '';
+		personaTalking = '';
 	});
 
 	let utteranceDelay = Math.max(250, delayTime*1000);
@@ -127,8 +130,8 @@ function speak(nom, newText, delayTime = 0) {
 
 function talkingDone() {
 
-	// tell the dmx controller to turn off the lights for the personnage
-	dmxOff(personnageTalking);
+	// tell the dmx controller to turn off the lights for the persona
+	dmxOff(personaTalking);
 
 }
 

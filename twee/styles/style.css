@@ -4,7 +4,7 @@
 	/* declare variable */
 	--foreground-color: white;
 	--background-color: transparent;
-	--link-color: rgb(128, 126, 126);
+	--link-color: rgb(128, 128, 128);
 	/* --link-color-decoration: rgba(255, 255, 255, 0.5); */
 	--link-color-highlight: rgba(255, 0, 0, 1.0);
 	--link-background-color: trasparent;
@@ -51,7 +51,11 @@ ul, ul li, speak {
 }
 
 voiceover {
-	color: pink;
+	color: transparent;
+}
+
+.hidden {
+	display: none;
 }
 
 ul {
@@ -65,6 +69,7 @@ ol {
 	margin: 0;
 	padding: 0;
 	margin-bottom: 1.3em;
+	color: var(--link-color);
 }
 
 ol li {
@@ -72,7 +77,7 @@ ol li {
 	display: inline;
 }
 
-/* insert a character after each list item, but not the last */
-ol li:not(:last-child):after {
-	content: " • ";
+/* insert a character after each list item, but not the last two */
+ol li:after {
+	content: "  ";
 }

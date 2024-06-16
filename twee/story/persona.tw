@@ -1,6 +1,6 @@
 :: Persona
 Action: 'Choosing'
-Categorie: 'Personnage'
+Categorie: 'Persona'
 Variable: 'Protagoniste'
 Done: 'Persona-Choisir-Amant'
 --
@@ -11,7 +11,7 @@ Done: 'Persona-Choisir-Amant'
 
 :: Persona-Choisir-Amant
 Action: 'Choosing'
-Categorie: 'Personnage'
+Categorie: 'Persona'
 Variable: 'Amant'
 Done: 'Persona-Done'
 --

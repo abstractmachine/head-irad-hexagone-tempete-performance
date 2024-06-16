@@ -1,4 +1,5 @@
 :: Distribution
+Sound: 'none'
 _nothing: !Protagoniste && !Amant && !Lieu && !Intrigue
 _ready: Protagoniste && Amant && Lieu && Intrigue
 --

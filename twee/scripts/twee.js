@@ -7,7 +7,7 @@ let currentCharIndex = 0;
 let previousCharIndex = 0;
 let selectedLinkIndex = -1;
 let currentSound = "";
-
+let lastPassageName = "";
 let cartes = {};
 
 
@@ -15,12 +15,6 @@ async function parseKey(key) {
 
 	// switch to handle the key presses
 	switch (key) {
-
-		case '§':
-			let phrase = 'Bonjour. Parlez-moi comme si je suis un personnage de la Tempête de Shakespeare.';
-			// fetchStream(phrase);
-			fetchPhrase(phrase, 'shakespeare');
-			break;
 
 		case '=':
 			if (!port) {
@@ -124,6 +118,13 @@ window.onload = function() {
 // Function to handle passage changes
 function passageChanged() {
 
+	while (generatedData.length > 0) {
+		// get the last generated data
+		let data = generatedData.pop();
+		// set the data in the engine
+		engine.state.set(data.id, data.response);
+	}
+
 	// cancel any previous speaking utterances
 	cancelSpeech();
 	// reset any selected link index
@@ -135,12 +136,15 @@ function passageChanged() {
 	const current = engine.story.passageNamed(name);
 
 	if (current) {
+
 		// Delay the execution of the code inside the setTimeout
 		setTimeout(function() {
+
 			let articles = document.getElementsByTagName('article');
 
 			// If you want to access the first 'article' element
 			if (articles.length > 0) {
+
 				let firstArticle = articles[0];
 				// start with a 0 index for the character count
 				resetTypewriterTime();
@@ -172,9 +176,24 @@ function passageChanged() {
 						playSound(engine.state.get('Sound'));
 					}
 				}
+				// if ('Sound')
+
 			}
+
+			// check to see if we need to generate a prompt
+			let thisPassage = engine.story.passageNamed(passage.name);
+
+			// if this is a different passage
+			if (thisPassage != lastPassageName && thisPassage  != undefined) {
+				lastPassageName = thisPassage;
+				if (engine.state.get('Action') == 'Generate') {
+					generateText();
+				}
+			}
+
 		}, 10); // Delay of 0 milliseconds
 	}
+
 
 }
 
@@ -281,6 +300,8 @@ function storyReset() {
 	resetCards();
 	// tell the Twee engine to reset
 	restart();
+
+	lastPassageName = "";
 
 }
 
