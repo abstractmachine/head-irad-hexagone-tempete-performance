@@ -155,8 +155,6 @@ async function fetchPhrase(messages, id, persona) {
 	request.push(messages[0].role + ': ' + messages[0].content); // system
 	request.push(messages[1].role + ': ' + messages[1].content); // user
 
-	console.log(request);
-
 	const url = 'https://api.openai.com/v1/chat/completions';
 	const data = {
 		model: model,
@@ -318,8 +316,6 @@ function getUserPrompt(speaker, content, persona) {
 		user += persona.toUpperCase() + '\n';
 	}
 
-	console.log(user);
-
 	return user;
 
 }
@@ -352,6 +348,52 @@ function getNote(categorie) {
 		if (cartesTrouvees[i].titre == titre) {
 			return cartesTrouvees[i].note;
 		}
+	}
+
+}
+
+
+function parseGeneratedList(id) {
+
+	// get the text
+	generatedList = engine.state.get(id);
+
+	// first check to see that the list starts with the two characters "1."
+	// if it doesn't, we need to add it
+	if (generatedList.substring(0, 2) != '1.') {
+		generatedList = '1. ' + generatedList;
+	}
+
+	// split the text into an array of objects.
+	// Each number 1., 2., 3. will be an element in the array
+	// and the word after the space will be the name of the character
+	// the rest of the text will be the 'content' of the object
+	let generatedArray = generatedList.split(/\d+\.\s/);
+	
+	// go through each element of the array
+	for (let i = 0; i < generatedArray.length; i++) {
+		// if the element is empty, remove it
+		if (generatedArray[i] == '') {
+			generatedArray.splice(i, 1);
+		}
+	}
+
+	// remember the number of dialogues
+	engine.state.set('DialogueCount', generatedArray.length);
+
+	// loop through the array
+	for (let i = 0; i < generatedArray.length; i++) {
+		// get the line number
+		let lineNumber = i+1;
+		// get the name of the character which is at the beginning, followed by a space
+		let name = generatedArray[i].split(' ')[0];
+		// the rest of the sentence is the content
+		let content = generatedArray[i].slice(name.length + 1);
+
+		// create a Twine variable with the name of the character and the number
+		engine.state.set('DialogueSpeaker' + lineNumber, name);
+		engine.state.set('DialogueContent' + lineNumber, content);
+
 	}
 
 }

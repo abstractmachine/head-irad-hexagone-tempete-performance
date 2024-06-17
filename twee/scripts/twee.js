@@ -176,20 +176,7 @@ function passageChanged() {
 				// if we have a story
 				if (engine.state.get('Story') == true) {
 					engine.state.set('Story', false);
-
-					let nomProtagoniste = engine.state.get('Protagoniste');
-					let nomAmant = engine.state.get('Amant');
-					let intrigue = engine.state.get('Intrigue');
-
-					if (nomProtagoniste || nomAmant || intrigue) {
-						let protagonisteMotivation = motivations[nomProtagoniste][intrigue];
-						let amantMotivation = motivations[nomAmant][intrigue];
-						engine.state.set('ProtagonisteMotivation', protagonisteMotivation);
-						engine.state.set('AmantMotivation', amantMotivation);
-						console.log(engine.state.get('ProtagonisteMotivation'));
-						console.log(engine.state.get('AmantMotivation'));
-					}
-
+					getStory();
 				}
 
 				// if we're in choosing mode
@@ -199,6 +186,14 @@ function passageChanged() {
 
 				if (engine.state.get('Action') == 'ResetHistory') {
 					resetHistory();
+					engine.state.set('Action', 'none');
+				}
+
+				if (engine.state.get('Action') == 'Parse') {
+					id = engine.state.get('Id');
+					if (id) {
+						parseGeneratedList(id);
+					}
 					engine.state.set('Action', 'none');
 				}
 
@@ -230,6 +225,27 @@ function passageChanged() {
 		}, 10); // Delay of 0 milliseconds
 	}
 
+
+}
+
+
+function getStory() {
+	
+	// get the current names of our two characters
+	let nomProtagoniste = engine.state.get('Protagoniste');
+	let nomAmant = engine.state.get('Amant');
+	// get the current intrigue
+	let intrigue = engine.state.get('Intrigue');
+
+	// make sure we got all three
+	if (nomProtagoniste || nomAmant || intrigue) {
+		// get the cross-referenced motivations for each character's relation to the intrigue
+		let protagonisteMotivation = motivations[nomProtagoniste][intrigue];
+		let amantMotivation = motivations[nomAmant][intrigue];
+		// record in a variable type that can be easily sent to the AI
+		engine.state.set('ProtagonisteMotivation', protagonisteMotivation);
+		engine.state.set('AmantMotivation', amantMotivation);
+	}
 
 }
 

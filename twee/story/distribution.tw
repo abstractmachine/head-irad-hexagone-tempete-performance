@@ -48,16 +48,22 @@ _ready: Protagoniste && Amant && Lieu && Intrigue
 :: Distribution-Deroulement
 Action: 'Generate'
 Persona: 'Sycorax'
-Prompt: "Maintenant que les cartes sont tirées, comment vois-tu le déroulement de cette scène ? Nous avons une intrigue — " + Intrigue + " — qui se passe dans " + Lieu + ", avec " + Protagoniste + " et " + Amant + " comme personnages principaux. Quelle est la première scène qui te vient à l’esprit ? Vous allez me décrire l’histoire de cette scène avec ces deux personnages dans ce lieu " + Lieu + ". La motivation de " + Protagoniste + " est ceci: " + ProtagonisteMotivation + " La motivation de " + Amant + ", l'autre personnage dans la scène, est: " + AmantMotivation + " Que vont faire alors nos deux personnages pendant cette scène ? Décris-moi le déroulement de cette scène sans rapporter de dialogue: décris-moi les actions, les mouvements, les émotions, les pensées des personnages — sans citations."
-Id: 'Distribution-Story'
+Prompt: "Maintenant que les cartes sont tirées, comment vois-tu le déroulement de cette scène ? Nous avons une intrigue — " + Intrigue + " — qui se passe dans " + Lieu + ", avec " + Protagoniste + " et " + Amant + " comme personnages principaux. Quelle est la première scène qui te vient à l’esprit ? Tu vas me décrire l’histoire de cette scène avec ces deux personnages dans ce lieu " + Lieu + ". Il faut une scène avec des rebondissement intriguants et inattendus, car une scène trop monotone est ennuyeuse. Il faut aussi du conflit, même quand les personnages sont heureux. On doit comprendre les conflits qui les anime. La motivation de " + Protagoniste + " est ceci: " + ProtagonisteMotivation + " La motivation de " + Amant + ", l'autre personnage dans la scène, est: " + AmantMotivation + " Que vont faire alors nos deux personnages pendant cette scène ? Décris-moi le déroulement de cette scène sans rapporter de dialogue: décris-moi les actions, les mouvements, les émotions, les pensées des personnages — sans citations."
+Id: 'DistributionStory'
 --
 ## Douglas
-*Maintenant que les cartes sont tirées, comment vois-tu le déroulement de cette scène ? Nous avons une intrigue — {Intrigue} — qui se passe dans {Lieu}, avec {Protagoniste} et {Amant} comme personnages principaux. Sycorax, quelle est la première scène qui te vient à l'esprit ?*
+*Maintenant que les cartes sont tirées, comment vois-tu le déroulement de cette scène ? Nous avons une intrigue — {Intrigue} — qui se passe dans {Lieu}, avec {Protagoniste} et {Amant} comme personnages principaux. Sycorax, vois-tu comment transformer ça en une scène ?*
 
 [[…|Distribution-Story]]
 
 :: Distribution-Story
+Lines: 12
+Action: 'Generate'
+Persona: 'Sycorax'
+Prompt: "J’aimerais une liste de " + Lines + " paroles, jamais plus longues que 200 caractères, avec les paroles de nos deux personnages : " + Protagoniste + " et " + Amant + ". Ces paroles doivent être des répliques de dialogue qui pourraient être prononcées par ces personnages dans la scène que tu viens de décrire. Ces répliques doivent être en lien avec les motivations que tu as évoquées pour ces personnages. Restez dans la motivation générale de la scène telle que tu as décrite.\n\nOrganises ces répliques dans l’ordre où elles pourraient être prononcées dans la scène sur des lignes numérotés de 1 à " + Lines + ".\n\n" + "Je te rappelle que l'intrigue est " + Intrigue + " et que le lieu est " + Lieu + ".\n\nVoici le scénario que tu as décrit: " + DistributionStory + "\n\bVoici le format textuel de ces dialogues. Commencez toujoirs par le chiffre 1. suivi par le nom du personnage, sa parole, puis une nouvelle ligne avec numéro 2. et ainsi de suite. Voici un exemple\n\n" + "1. " + Protagoniste + "\nLe dialogue de " + Protagoniste + "ira ici\n2. " + Amant + "\nLe dialogue de " + Amant + "ira ici\n3. …\n\nMerci de me créer maintenant ces dialogues.\n\n"
+Id: 'Distribution-Dialogue'
+--
 ## Sycorax
-<speak data-persona='Sycorax'>{Distribution-Story}</speak>
+<speak data-persona='Sycorax'>Oui. Je vois l'avenir, le présent, et le passé de cette scène. Je vois les mouvements, les émotions, les pensées des personnages. Je vois {Intrigue}.</speak>
 
-[[…|Distribution]]
+[[…|Acte]]

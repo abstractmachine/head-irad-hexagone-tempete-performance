@@ -4,7 +4,15 @@ Sound: 'none'
 ## Isis
 *Invoquons l'esprit de Sycorax*
 
+[[…|Invocation-Second]]
+
+
+:: Invocation-Second
+## Douglas
+*Oui, invoquons la sorcière*
+
 [[…|Invocation-Appel]]
+
 
 :: Invocation-Appel
 ## Douglas
@@ -18,6 +26,7 @@ Sycorax ?
 
 [[…|Invocation-Response]]
 
+
 :: Invocation-Response
 Sound: 'Cosmos'
 --
@@ -26,6 +35,7 @@ Sound: 'Cosmos'
 حاضر
 
 [[…|Invocation-A]]
+
 
 :: Invocation-A
 Action: 'Generate'
@@ -39,11 +49,13 @@ Id: 'Invocation-B'
 
 [[…|Invocation-B]]
 
+
 :: Invocation-B
 ## Sycorax
 <speak data-persona='Sycorax'>{Invocation-B}</speak>
 
 [[…|Invocation-C]]
+
 
 :: Invocation-C
 Action: 'Generate'
@@ -57,11 +69,13 @@ Id: 'Invocation-D'
 
 [[…|Invocation-D]]
 
+
 :: Invocation-D
 ## Sycorax
 <speak data-persona='Sycorax'>{Invocation-D}</speak>
 
 [[…|Invocation-E]]
+
 
 :: Invocation-E
 Action: 'Generate'
@@ -74,11 +88,13 @@ Id: 'Invocation-F'
 
 [[…|Invocation-F]]
 
+
 :: Invocation-F
 ## Sycorax
 <speak data-persona='Sycorax'>{Invocation-F}</speak>
 
 [[…|Invocation-Recul]]
+
 
 :: Invocation-Recul
 Action: 'Generate'
@@ -92,11 +108,13 @@ Id: 'Invocation-Rehabilitation'
 
 [[…|Invocation-Rehabilitation]]
 
+
 :: Invocation-Rehabilitation
 ## Sycorax
 <speak data-persona="Sycorax">{Invocation-Rehabilitation}</speak>
 
 [[…|Invocation-Passions-Humaines]]
+
 
 :: Invocation-Passions-Humaines
 ## Douglas
@@ -114,11 +132,13 @@ Id: 'Invocation-Passions-Amour-Reponse'
 
 [[…|Invocation-Passions-Amour-Reponse]]
 
+
 :: Invocation-Passions-Amour-Reponse
 ## Sycorax
 <speak data-persona="Sycorax">{Invocation-Passions-Amour-Reponse}</speak>
 
 [[…|Invocation-Fin]]
+
 
 :: Invocation-Passions-Vengeance
 Action: 'Generate'
@@ -132,11 +152,13 @@ Aujourd'hui se pose encore — comme au temps de Shakespeare — la question d
 
 [[…|Invocation-Passions-Vengeance-Reponse]]
 
+
 :: Invocation-Passions-Vengeance-Reponse
 ## Sycorax
 <speak data-persona="Sycorax">{Invocation-Passions-Vengeance-Reponse}</speak>
 
 [[…|Invocation-Fin]]
+
 
 :: Invocation-Passions-Puissance
 Action: 'Generate'
@@ -149,6 +171,7 @@ Id: 'Invocation-Passions-Puissance-Reponse'
 *Sycorax, peux-tu faire la lumière sur la complexité de l’âme humaine et sa recherche de puissance ? Ne serait-ce que la question de la « noblesse » … est-ce encore un concept qui tient ?*
 
 [[…|Invocation-Passions-Puissance-Reponse]]
+
 
 :: Invocation-Passions-Puissance-Reponse
 ## Sycorax

@@ -1,27 +1,48 @@
 :: Acte
 Sound: Lieu
-Action: 'Choosing'
-Categorie: 'Acte'
-Variable: 'Acte'
-Done: 'Acte-Play'
+Action: 'Parse'
+Id: 'Distribution-Dialogue'
+DialogueIndex: 0
 --
 - ## Lieu
 - *{Lieu}*
 
-[[⤾|Distribution]]
+[[...|Acte-Dialogue-A]]
 
-:: Acte-Play
+:: Acte-Dialogue-A
+DialogueIndex: DialogueIndex + 1
+SpeakerId: 'DialogueSpeaker' + DialogueIndex
+ParoleId: 'DialogueContent' + DialogueIndex
 --
-- ##{Acte}
-- *{Lieu}*
+[JavaScript]
+engine.state.set('speaker', engine.state.get(SpeakerId));
+engine.state.set('dialogue', engine.state.get(ParoleId));
+[continue]
+## {speaker}
+<speak data-persona='{speaker}'>{dialogue}</speak>
 
-## {Protagoniste}
-<speak data-persona='{Protagoniste}'>Je suis le Protagoniste et voici mes premières paroles.</speak>
+[if DialogueIndex < DialogueCount]
+[[…|Acte-Dialogue-B]]
+[else]
+[[…|Acte-Fin]]
 
-## {Amant}
-<speak data-persona='{Amant}'>Je suis l'Amant et voici mes premières paroles.</speak>
+:: Acte-Dialogue-B
+DialogueIndex: DialogueIndex + 1
+SpeakerId: 'DialogueSpeaker' + DialogueIndex
+ParoleId: 'DialogueContent' + DialogueIndex
+--
+[JavaScript]
+engine.state.set('speaker', engine.state.get(SpeakerId));
+engine.state.set('dialogue', engine.state.get(ParoleId));
+[continue]
+## {speaker}
+<speak data-persona='{speaker}'>{dialogue}</speak>
 
-[[Fin|Acte-Fin]]
+[if DialogueIndex < DialogueCount]
+[[…|Acte-Dialogue-A]]
+[else]
+[[…|Acte-Fin]]
+
 
 :: Acte-Fin
 Sound: 'none'
@@ -31,7 +52,7 @@ Amant: ''
 Lieu: ''
 Intrigue: ''
 --
-<speak data-persona='Sycorax'>Fin de l'{Acte}.</speak>
+<speak data-persona='Sycorax'>Fin de l'acte.</speak>
 
 [[⤾|Distribution]]
 
