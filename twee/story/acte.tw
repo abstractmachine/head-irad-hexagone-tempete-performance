@@ -29,3 +29,8 @@ Sound: 'none'
 <speak data-persona='Sycorax'>Fin de l'{Acte}.</speak>
 
 [[⤾|Distribution]]
+
+:: Acte-Reset
+Action: 'ResetHistory'
+--
+[[⤾|Distribution]]

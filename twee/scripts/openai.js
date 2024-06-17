@@ -9,6 +9,9 @@ let history = [];
 
 function restartHistory() {
 	history = [];
+}
+
+function insertSystemPrompt() {
 	// create the opening system instructions
 	let system = getSystemPrefix();
 	// push into the history array
@@ -48,6 +51,11 @@ async function generateText() {
 		if (messages != null) {
 			hideLinks();
 			fetchPhrase(messages, id, persona);
+
+			// if the history is empty, we should add the system prompt
+			if (history.length == 0) {
+				insertSystemPrompt();
+			}
 
 			// add the messages to the history
 			history.push( { role: 'user', content: messages[1].content } );

@@ -174,6 +174,11 @@ function passageChanged() {
 					choosingMode();
 				}
 
+				if (engine.state.get('Action') == 'ResetHistory') {
+					resetHistory();
+					engine.state.set('Action', 'none');
+				}
+
 				// if we're playing a sound
 				if (engine.state.get('Sound')) {
 					// get the sound name

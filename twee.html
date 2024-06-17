@@ -33,7 +33,7 @@
             repeatCount="indefinite"
         />
 	</line>
-</svg></div></div></div></form><!-- UUID://D674C58C-DEFA-4F70-B7A2-27742230C0FC// --><tw-storydata name="Tempête" startnode="26" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="D674C58C-DEFA-4F70-B7A2-27742230C0FC" zoom="1" format="Chapbook" format-version="1.2.3" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* twine-user-stylesheet #1: "font.css" */
+</svg></div></div></div></form><!-- UUID://D674C58C-DEFA-4F70-B7A2-27742230C0FC// --><tw-storydata name="Tempête" startnode="27" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="D674C58C-DEFA-4F70-B7A2-27742230C0FC" zoom="1" format="Chapbook" format-version="1.2.3" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* twine-user-stylesheet #1: "font.css" */
 
 /* create a font family around the variable EB Garamond */
 @font-face {
@@ -485,6 +485,9 @@ let history = [];
 
 function restartHistory() {
 	history = [];
+}
+
+function insertSystemPrompt() {
 	// create the opening system instructions
 	let system = getSystemPrefix();
 	// push into the history array
@@ -524,6 +527,11 @@ async function generateText() {
 		if (messages != null) {
 			hideLinks();
 			fetchPhrase(messages, id, persona);
+
+			// if the history is empty, we should add the system prompt
+			if (history.length == 0) {
+				insertSystemPrompt();
+			}
 
 			// add the messages to the history
 			history.push( { role: 'user', content: messages[1].content } );
@@ -1125,6 +1133,11 @@ function passageChanged() {
 				// if we're in choosing mode
 				if (engine.state.get('Action') == 'Choosing') {
 					choosingMode();
+				}
+
+				if (engine.state.get('Action') == 'ResetHistory') {
+					resetHistory();
+					engine.state.set('Action', 'none');
 				}
 
 				// if we're playing a sound
@@ -1848,7 +1861,9 @@ Done: &#39;Acte-Play&#39;
 --
 &lt;speak data-persona=&#39;Sycorax&#39;&gt;Fin de l&#39;{Acte}.&lt;/speak&gt;
 
-[[⤾|Distribution]]</tw-passagedata><tw-passagedata pid="4" name="Demo" tags="" position="475,100" size="100,100">This a demo page of the various possibilites:
+[[⤾|Distribution]]</tw-passagedata><tw-passagedata pid="4" name="Acte-Reset" tags="" position="475,100" size="100,100">Action: &#39;ResetHistory&#39;
+--
+[[⤾|Distribution]]</tw-passagedata><tw-passagedata pid="5" name="Demo" tags="" position="600,100" size="100,100">This a demo page of the various possibilites:
 
 - A list of items
 - Some stuff
@@ -1857,10 +1872,10 @@ Done: &#39;Acte-Play&#39;
 ## Persona Name Goes Here
 &lt;speak data-persona:&#39;Prospero&#39;&gt;Here the character will speak in the voice of Prospero&lt;/speak&gt;
 
-[[Next|Demo-Next]]</tw-passagedata><tw-passagedata pid="5" name="Demo-Next" tags="" position="600,100" size="100,100">&lt;speak&gt;Sometimes text should be in a generic voice&lt;/speak&gt;
+[[Next|Demo-Next]]</tw-passagedata><tw-passagedata pid="6" name="Demo-Next" tags="" position="725,100" size="100,100">&lt;speak&gt;Sometimes text should be in a generic voice&lt;/speak&gt;
 
-[[Back|Demo]]</tw-passagedata><tw-passagedata pid="6" name="Demo-Variables" tags="" position="725,100" size="100,100">[JavaScript]
-engine.state.set(&#39;Intrigue&#39;, &#39;Jalousie&#39;);</tw-passagedata><tw-passagedata pid="7" name="Distribution" tags="" position="850,100" size="100,100">Sound: &#39;none&#39;
+[[Back|Demo]]</tw-passagedata><tw-passagedata pid="7" name="Demo-Variables" tags="" position="850,100" size="100,100">[JavaScript]
+engine.state.set(&#39;Intrigue&#39;, &#39;Jalousie&#39;);</tw-passagedata><tw-passagedata pid="8" name="Distribution" tags="" position="975,100" size="100,100">Sound: &#39;none&#39;
 _nothing: !Protagoniste &amp;&amp; !Amant &amp;&amp; !Lieu &amp;&amp; !Intrigue
 _ready: Protagoniste &amp;&amp; Amant &amp;&amp; Lieu &amp;&amp; Intrigue
 --
@@ -1904,16 +1919,16 @@ _ready: Protagoniste &amp;&amp; Amant &amp;&amp; Lieu &amp;&amp; Intrigue
 &lt;voiceover data-persona=&#39;Sycorax&#39;&gt;On doit définir le lieu.&lt;/voiceover&gt;
 [if !_ready &amp;&amp; !_nothing &amp;&amp; !Intrigue]
 &lt;voiceover data-persona=&#39;Sycorax&#39;&gt;On doit décider de l&#39;intrigue.&lt;/voiceover&gt;
-[continue]</tw-passagedata><tw-passagedata pid="8" name="Intrigue" tags="" position="975,100" size="100,100">Action: &#39;Choosing&#39;
+[continue]</tw-passagedata><tw-passagedata pid="9" name="Intrigue" tags="" position="1100,100" size="100,100">Action: &#39;Choosing&#39;
 Categorie: &#39;Intrigue&#39;
 Variable: &#39;Intrigue&#39;
 Done: &#39;Intrigue-Done&#39;
 --
 ## Sycorax
-&lt;speak data-persona=&#39;Sycorax&#39;&gt;Nous allons choisir l&#39;intrigue qui anime nos personnages. Choisissez une carte.&lt;/speak&gt;</tw-passagedata><tw-passagedata pid="9" name="Intrigue-Done" tags="" position="1100,100" size="100,100">## Sycorax
+&lt;speak data-persona=&#39;Sycorax&#39;&gt;Nous allons choisir l&#39;intrigue qui anime nos personnages. Choisissez une carte.&lt;/speak&gt;</tw-passagedata><tw-passagedata pid="10" name="Intrigue-Done" tags="" position="1225,100" size="100,100">## Sycorax
 &lt;speak data-persona=&#39;Sycorax&#39;&gt;L&#39;intrigue est posée. Il sera question de {Intrigue}.&lt;/speak&gt;
 
-[[...|Distribution]]</tw-passagedata><tw-passagedata pid="10" name="TitleCard" tags="" position="1225,100" size="100,100">Sound: &#39;none&#39;
+[[...|Distribution]]</tw-passagedata><tw-passagedata pid="11" name="TitleCard" tags="" position="100,225" size="100,100">Sound: &#39;none&#39;
 --
 - ### La tempête
 - **Tragedie**
@@ -1928,7 +1943,7 @@ Done: &#39;Intrigue-Done&#39;
 1. [[Invocation|Invocation-A]]
 [else]
 1. [[Distribution]]
-[continue]</tw-passagedata><tw-passagedata pid="11" name="Invocation-A" tags="" position="100,225" size="100,100">Sound: &#39;Cosmos&#39;
+[continue]</tw-passagedata><tw-passagedata pid="12" name="Invocation-A" tags="" position="225,225" size="100,100">Sound: &#39;Cosmos&#39;
 Action: &#39;Generate&#39;
 Persona: &#39;Sycorax&#39;
 Interlocuteur: &#39;Douglas&#39;
@@ -1938,10 +1953,10 @@ Id: &#39;Invocation-B&#39;
 ## Douglas
 *Bonjour Sycorax, nous sommes ravies de te retrouver, toi qui a survécu depuis de nombreuses années dans la pièce de Shakespeare de la Tempête…*
 
-[[…|Invocation-B]]</tw-passagedata><tw-passagedata pid="12" name="Invocation-B" tags="" position="225,225" size="100,100">## Sycorax
+[[…|Invocation-B]]</tw-passagedata><tw-passagedata pid="13" name="Invocation-B" tags="" position="350,225" size="100,100">## Sycorax
 &lt;speak data-persona=&#39;Sycorax&#39;&gt;{Invocation-B}&lt;/speak&gt;
 
-[[…|Invocation-C]]</tw-passagedata><tw-passagedata pid="13" name="Invocation-C" tags="" position="350,225" size="100,100">Action: &#39;Generate&#39;
+[[…|Invocation-C]]</tw-passagedata><tw-passagedata pid="14" name="Invocation-C" tags="" position="475,225" size="100,100">Action: &#39;Generate&#39;
 Persona: &#39;Sycorax&#39;
 Interlocuteur: &#39;Isis&#39;
 Prompt: &#39;Nous sommes à ton service — Douglas et moi, Isis — pour manifester ta puissance et tes nombreuses connaissances.&#39;
@@ -1950,55 +1965,55 @@ Id: &#39;Invocation-D&#39;
 ## Isis
 *Nous sommes à ton service, Douglas et moi, Isis, pour manifester ta puissance et tes nombreuses connaissances.*
 
-[[…|Invocation-D]]</tw-passagedata><tw-passagedata pid="14" name="Invocation-D" tags="" position="475,225" size="100,100">## Sycorax
+[[…|Invocation-D]]</tw-passagedata><tw-passagedata pid="15" name="Invocation-D" tags="" position="600,225" size="100,100">## Sycorax
 &lt;speak data-persona=&#39;Sycorax&#39;&gt;{Invocation-D}&lt;/speak&gt;
 
-[[…|Invocation-E]]</tw-passagedata><tw-passagedata pid="15" name="Invocation-E" tags="" position="600,225" size="100,100">## Isis
+[[…|Invocation-E]]</tw-passagedata><tw-passagedata pid="16" name="Invocation-E" tags="" position="725,225" size="100,100">## Isis
 *Tout d’abord, peux-tu te présenter pour notre auditoire ?*
 
-[[…|Invocation-F]]</tw-passagedata><tw-passagedata pid="16" name="Invocation-F" tags="" position="725,225" size="100,100">## Sycorax
+[[…|Invocation-F]]</tw-passagedata><tw-passagedata pid="17" name="Invocation-F" tags="" position="850,225" size="100,100">## Sycorax
 &lt;speak data-persona=&#39;Sycorax&#39;&gt;Bonjour à toi, Isis, déesse puissante et vénérée. Mon existence persiste au-delà des pages de la pièce de Shakespeare, où je fus jadis dépeinte. Les âges et les mots n&#39;ont point terni mon essence. Je suis toujours présente, gardienne des secrets anciens et protectrice de mon fils, Caliban.&lt;/speak&gt;
 
-[[…|Invocation-G]]</tw-passagedata><tw-passagedata pid="17" name="Invocation-G" tags="" position="850,225" size="100,100">## Sycorax
+[[…|Invocation-G]]</tw-passagedata><tw-passagedata pid="18" name="Invocation-G" tags="" position="975,225" size="100,100">## Sycorax
 &lt;speak data-persona=&#39;Sycorax&#39;&gt;Depuis les royaumes des esprits, j&#39;observe les mondes des mortels et des immortels. Chaque souffle de vent, chaque murmure de l&#39;océan porte en lui l&#39;écho de ma présence. La tempête de Prospero n&#39;a pas éteint ma flamme, car mon pouvoir réside dans les profondeurs de la terre et les cieux infinis.&lt;/speak&gt;
 
-[[…|Invocation-H]]</tw-passagedata><tw-passagedata pid="18" name="Invocation-H" tags="" position="975,225" size="100,100">## Sycorax
+[[…|Invocation-H]]</tw-passagedata><tw-passagedata pid="19" name="Invocation-H" tags="" position="1100,225" size="100,100">## Sycorax
 &lt;speak data-persona=&#39;Sycorax&#39;&gt;Ainsi, je te salue, Isis, toi qui maîtrise les arts mystiques et les forces du cosmos. Nos chemins se croisent dans l&#39;éternité, où la magie et la puissance se mêlent dans une danse sans fin. Que souhaites-tu savoir ou partager en cette rencontre intemporelle?&lt;/speak&gt;
 
-[[…|Invocation-Fin]]</tw-passagedata><tw-passagedata pid="19" name="Invocation-Fin" tags="" position="1100,225" size="100,100">Sound: &#39;none&#39;
+[[…|Invocation-Fin]]</tw-passagedata><tw-passagedata pid="20" name="Invocation-Fin" tags="" position="1225,225" size="100,100">Sound: &#39;none&#39;
 Invoked: true
 --
 ## Invocation, fin
-[[⤾|TitleCard]]</tw-passagedata><tw-passagedata pid="20" name="Invocation-Variables-Unused" tags="" position="1225,225" size="100,100">Intrigue-Note: &#39;Cosmologie&#39;
+[[⤾|TitleCard]]</tw-passagedata><tw-passagedata pid="21" name="Invocation-Variables-Unused" tags="" position="100,350" size="100,100">Intrigue-Note: &#39;Cosmologie&#39;
 Acte-Note: &#39;Préambule&#39;
 Lieu-Note: &#39;Cosmos&#39;
 Interlocuteur-Note: &#39;Douglas&#39;
 Persona-Note: &#39;Sycorax&#39;
---</tw-passagedata><tw-passagedata pid="21" name="Lieu" tags="" position="100,350" size="100,100">Action: &#39;Choosing&#39;
+--</tw-passagedata><tw-passagedata pid="22" name="Lieu" tags="" position="225,350" size="100,100">Action: &#39;Choosing&#39;
 Categorie: &#39;Lieu&#39;
 Variable: &#39;Lieu&#39;
 Done: &#39;Lieu-Done&#39;
 --
 ## Sycorax
-&lt;speak data-persona=&#39;Sycorax&#39;&gt;Choisissons un lieu pour la prochaine acte. Choisissez une carte.&lt;/speak&gt;</tw-passagedata><tw-passagedata pid="22" name="Lieu-Done" tags="" position="225,350" size="100,100">## Sycorax
+&lt;speak data-persona=&#39;Sycorax&#39;&gt;Choisissons un lieu pour la prochaine acte. Choisissez une carte.&lt;/speak&gt;</tw-passagedata><tw-passagedata pid="23" name="Lieu-Done" tags="" position="350,350" size="100,100">## Sycorax
 &lt;speak data-persona=&#39;Sycorax&#39;&gt;Le lieu du prochaine acte est posé. Il se passera à {Lieu}.&lt;/speak&gt;
 
-[[...|Distribution]]</tw-passagedata><tw-passagedata pid="23" name="Persona" tags="" position="350,350" size="100,100">Action: &#39;Choosing&#39;
+[[...|Distribution]]</tw-passagedata><tw-passagedata pid="24" name="Persona" tags="" position="475,350" size="100,100">Action: &#39;Choosing&#39;
 Categorie: &#39;Persona&#39;
 Variable: &#39;Protagoniste&#39;
 Done: &#39;Persona-Choisir-Amant&#39;
 --
 ## Sycorax
-&lt;speak data-persona=&#39;Sycorax&#39;&gt;Commençons par le personnage qui sera notre protagoniste de la prochaine scène.&lt;/speak&gt;</tw-passagedata><tw-passagedata pid="24" name="Persona-Choisir-Amant" tags="" position="475,350" size="100,100">Action: &#39;Choosing&#39;
+&lt;speak data-persona=&#39;Sycorax&#39;&gt;Commençons par le personnage qui sera notre protagoniste de la prochaine scène.&lt;/speak&gt;</tw-passagedata><tw-passagedata pid="25" name="Persona-Choisir-Amant" tags="" position="600,350" size="100,100">Action: &#39;Choosing&#39;
 Categorie: &#39;Persona&#39;
 Variable: &#39;Amant&#39;
 Done: &#39;Persona-Done&#39;
 --
 ## Sycorax
-&lt;speak data-persona=&#39;Sycorax&#39;&gt;{Protagoniste} est un choix intéressant. Maintenant il faut choisir son amour.&lt;/speak&gt;</tw-passagedata><tw-passagedata pid="25" name="Persona-Done" tags="" position="600,350" size="100,100">## Sycorax
+&lt;speak data-persona=&#39;Sycorax&#39;&gt;{Protagoniste} est un choix intéressant. Maintenant il faut choisir son amour.&lt;/speak&gt;</tw-passagedata><tw-passagedata pid="26" name="Persona-Done" tags="" position="725,350" size="100,100">## Sycorax
 &lt;speak data-persona=&#39;Sycorax&#39;&gt;Très bon choix. Nos personnages sont {Protagoniste} et {Amant}.&lt;/speak&gt;
 
-[[...|Distribution]]</tw-passagedata><tw-passagedata pid="26" name="Start" tags="" position="725,350" size="100,100">Lieu: &#39;&#39;
+[[...|Distribution]]</tw-passagedata><tw-passagedata pid="27" name="Start" tags="" position="850,350" size="100,100">Lieu: &#39;&#39;
 Protagoniste: &#39;&#39;
 Amant: &#39;&#39;
 Intrigue: &#39;&#39;
