@@ -1,10 +1,10 @@
 :: Distribution
 Sound: 'none'
+Story: true
 _nothing: !Protagoniste && !Amant && !Lieu && !Intrigue
 _ready: Protagoniste && Amant && Lieu && Intrigue
 --
 - ### La tempête
-- **Tragedie**
 - &nbsp;
 [if Lieu]
 - **Lieu**
@@ -20,10 +20,10 @@ _ready: Protagoniste && Amant && Lieu && Intrigue
 [continue]
 
 [if _ready]
-1. [[Personae|Persona]]
+1. [[Personnages|Persona]]
 2. [[Lieu]]
 3. [[Intrigue]]
-4. [[Acte]]
+4. [[Déroulement|Distribution-Deroulement]]
 5. [[⤾|TitleCard]]
 [else]
 1. [[Personae|Persona]]
@@ -33,9 +33,9 @@ _ready: Protagoniste && Amant && Lieu && Intrigue
 [continue]
 
 [if _ready]
-<voiceover data-persona='Sycorax'>Les cartes sont tirées. On peut démarrer la tragédie.</voiceover>
+<voiceover data-persona='Sycorax'>Les cartes sont tirées. On peut débuter la pièce.</voiceover>
 [if _nothing]
-<voiceover data-persona='Sycroax'>Il faut choisir les paramètres de la tragédie.</voiceover>
+<voiceover data-persona='Sycroax'>Il faut choisir les paramètres du texte dramatique.</voiceover>
 [continue]
 [if !_ready && !_nothing && !Protagoniste && !Amant]
 <voiceover data-persona='Sycorax'>On doit définir les personnages.</voiceover>
@@ -44,3 +44,20 @@ _ready: Protagoniste && Amant && Lieu && Intrigue
 [if !_ready && !_nothing && !Intrigue]
 <voiceover data-persona='Sycorax'>On doit décider de l'intrigue.</voiceover>
 [continue]
+
+:: Distribution-Deroulement
+Action: 'Generate'
+Persona: 'Sycorax'
+Prompt: "Maintenant que les cartes sont tirées, comment vois-tu le déroulement de cette scène ? Nous avons une intrigue — " + Intrigue + " — qui se passe dans " + Lieu + ", avec " + Protagoniste + " et " + Amant + " comme personnages principaux. Quelle est la première scène qui te vient à l’esprit ? Vous allez me décrire l’histoire de cette scène avec ces deux personnages dans ce lieu " + Lieu + ". La motivation de " + Protagoniste + " est ceci: " + ProtagonisteMotivation + " La motivation de " + Amant + ", l'autre personnage dans la scène, est: " + AmantMotivation + " Que vont faire alors nos deux personnages pendant cette scène ? Décris-moi le déroulement de cette scène sans rapporter de dialogue: décris-moi les actions, les mouvements, les émotions, les pensées des personnages — sans citations."
+Id: 'Distribution-Story'
+--
+## Douglas
+*Maintenant que les cartes sont tirées, comment vois-tu le déroulement de cette scène ? Nous avons une intrigue — {Intrigue} — qui se passe dans {Lieu}, avec {Protagoniste} et {Amant} comme personnages principaux. Sycorax, quelle est la première scène qui te vient à l'esprit ?*
+
+[[…|Distribution-Story]]
+
+:: Distribution-Story
+## Sycorax
+<speak data-persona='Sycorax'>{Distribution-Story}</speak>
+
+[[…|Distribution]]

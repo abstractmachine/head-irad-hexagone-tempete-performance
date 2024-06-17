@@ -3,6 +3,7 @@ let sound;
 
 function soundPlay(name) {
 
+	soundReset();
 	let path = "assets/sounds/"  + name + ".wav";
 	sound = loadSound(path, soundLoaded, soundError);
 	currentSound = name;
@@ -10,7 +11,7 @@ function soundPlay(name) {
 }
 
 function soundLoaded() {
-	sound.setVolume(0.5);
+	sound.setVolume(0.75);
 	sound.setLoop(true);
 	sound.play();
 }

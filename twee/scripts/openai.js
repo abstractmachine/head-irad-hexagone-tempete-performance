@@ -11,7 +11,7 @@ function restartHistory() {
 	history = [];
 }
 
-function insertSystemPrompt() {
+function insertSystemPromptIntoHistory() {
 	// create the opening system instructions
 	let system = getSystemPrefix();
 	// push into the history array
@@ -49,13 +49,17 @@ async function generateText() {
 	
 		// go get the generated phrase from the API
 		if (messages != null) {
-			hideLinks();
-			fetchPhrase(messages, id, persona);
 
 			// if the history is empty, we should add the system prompt
 			if (history.length == 0) {
-				insertSystemPrompt();
+				insertSystemPromptIntoHistory();
 			}
+
+			// hide any links on the page, the time to generate the text
+			hideLinks();
+
+			// go talk to API
+			fetchPhrase(messages, id, persona);
 
 			// add the messages to the history
 			history.push( { role: 'user', content: messages[1].content } );
@@ -132,14 +136,8 @@ function createMessages(persona) {
 
 	// create the messages object
 	let messages = [
-		{
-			role: 'system',
-			content: system
-		},
-		{
-			role: 'user',
-			content: user
-		}
+		{role: 'system', content: system},
+		{role: 'user', content: user}
 	];
 
 	return messages;
@@ -147,14 +145,24 @@ function createMessages(persona) {
 
 async function fetchPhrase(messages, id, persona) {
 
+	let request = [];
+	// loop through the history
+	for(let i = 0; i < history.length; i++) {
+		// add the role and the content to the request
+		request.push(history[i].role + ': ' + history[i].content);
+	}
+	// now append the new system and user messages
+	request.push(messages[0].role + ': ' + messages[0].content); // system
+	request.push(messages[1].role + ': ' + messages[1].content); // user
+
+	console.log(request);
+
 	const url = 'https://api.openai.com/v1/chat/completions';
 	const data = {
 		model: model,
 		messages: messages,
 		temperature: 0.7
 	};
-
-	// console.log('Sending request with Id: ' + id);
 
 	fetch(url, {
 		method: 'POST',
@@ -194,9 +202,9 @@ function parseResponse(response, id, persona) {
 	generatedData.push( { id: id, response: response } );
 
 	// push the persona at the head of the response
-	updatedResponse = persona.toUpperCase() + '\n' + response;
+	responseWithAppendedPersonaName = persona.toUpperCase() + '\n' + response;
 	// add the response to the history
-	history.push( { role: 'assistant', content: updatedResponse } );
+	history.push( { role: 'assistant', content: responseWithAppendedPersonaName } );
 
 }
 
@@ -270,7 +278,7 @@ function unhideLinks() {
 
 function getSystemPrefix() {
 
-	let prefix = "Nous allons re-écrire ensemble une version contemporaine transformée de la Tempête de Shakespeare, en utilisant le langage de l'époque. Vous parlez toujours en français, jamais Anglais. Vous allez toujours parler comme si vous êtes un personnage de la Tempête de Shakespeare. Je vais vous donnez votre nom et vous allez parler comme si vous êtes ce personnage.";
+	let prefix = "Nous allons re-écrire ensemble une version contemporaine transformée de la Tempête de Shakespeare, en utilisant le langage de l'époque. Vous parlez toujours en français, jamais Anglais. Vous allez toujours parler comme si vous êtes un personnage de la Tempête de Shakespeare. Je vais vous donnez votre nom et vous allez parler comme si vous êtes ce personnage. Vos paroles ne doivent pas dépasser 600 signes.";
 
 	return prefix;
 
@@ -309,6 +317,8 @@ function getUserPrompt(speaker, content, persona) {
 	if (persona != '') {
 		user += persona.toUpperCase() + '\n';
 	}
+
+	console.log(user);
 
 	return user;
 

@@ -33,3 +33,4 @@ Or directly:
 
 ## TODO
 - Créer une scène "1" (?) qui est l'état par défaut lorsqu'il n'y a plus de lumière particulière
+- Corriger les espacements pendant l'acte

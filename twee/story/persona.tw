@@ -16,7 +16,7 @@ Variable: 'Amant'
 Done: 'Persona-Done'
 --
 ## Sycorax
-<speak data-persona='Sycorax'>{Protagoniste} est un choix intéressant. Maintenant il faut choisir son amour.</speak>
+<speak data-persona='Sycorax'>{Protagoniste} est un choix intéressant. Maintenant il faut choisir le deuxième personnage de la scène.</speak>
 
 
 

@@ -1,17 +1,13 @@
 :: TitleCard
-Sound: 'none'
+Sound: 'Tempête'
 --
 - ### La tempête
-- **Tragedie**
-- &nbsp;
 - *William Shakespeare*
 - 1610
 - &nbsp;
-- *Isis Fahmy, Douglas Edric Stanley & Mistral.ai*
+- **Adaptation, mise en scène & scénographie**
+- *Isis Fahmy, Douglas Edric Stanley & GPT-4o*
 - 2024
 
-[if !Invoked]
-1. [[Invocation|Invocation-A]]
-[else]
-1. [[Distribution]]
-[continue]
+1. [[Invocation]]
+2. [[Distribution]]

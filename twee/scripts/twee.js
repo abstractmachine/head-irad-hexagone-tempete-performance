@@ -2,13 +2,14 @@ config.body.transition.name = 'none';
 
 let openAIKey = "";
 let currentSpeaker = "";
-let delayTime = 0.02;
+let delayTime = 0.065;
 let currentCharIndex = 0;
 let previousCharIndex = 0;
 let selectedLinkIndex = -1;
 let currentSound = "";
 let lastPassageName = "";
 let cartes = {};
+let motivations = {};
 
 
 async function parseKey(key) {
@@ -93,6 +94,9 @@ window.onload = function() {
 	// cancel any speech that is currently happening
 	cancelSpeech();
 
+	// these are the motivations of the various characters
+	loadMotivationData();
+
 	// get the data array of all the cards
 	loadCardData();
 
@@ -168,6 +172,25 @@ function passageChanged() {
 				// this is because we want to avoid the render flash before the start of the typewriter effect
 				// we need to do this after the typewriter effect has been applied
 				restoreVisibility();
+
+				// if we have a story
+				if (engine.state.get('Story') == true) {
+					engine.state.set('Story', false);
+
+					let nomProtagoniste = engine.state.get('Protagoniste');
+					let nomAmant = engine.state.get('Amant');
+					let intrigue = engine.state.get('Intrigue');
+
+					if (nomProtagoniste || nomAmant || intrigue) {
+						let protagonisteMotivation = motivations[nomProtagoniste][intrigue];
+						let amantMotivation = motivations[nomAmant][intrigue];
+						engine.state.set('ProtagonisteMotivation', protagonisteMotivation);
+						engine.state.set('AmantMotivation', amantMotivation);
+						console.log(engine.state.get('ProtagonisteMotivation'));
+						console.log(engine.state.get('AmantMotivation'));
+					}
+
+				}
 
 				// if we're in choosing mode
 				if (engine.state.get('Action') == 'Choosing') {
@@ -260,6 +283,50 @@ function resetSounds() {
 	window.parent.postMessage({sound: 'true', type: 'reset'}, '*');
 
 	currentSound = "";
+
+}
+
+
+
+async function loadMotivationData() {
+
+	// load the file named 'head-hexagone-performance-tempete-motivations.csv'
+	// this file contains the data for the motivations
+	// the data is in the format: Personnage,Motivation
+	// the data is loaded into the motivations object
+
+	const csv = await fetch('assets/data/head-hexagone-performance-tempete-PersonnagesIntrigues.csv');
+	const text = await csv.text();
+	const csvData = d3.csvParse(text);
+	let jsonData = JSON.parse(JSON.stringify(csvData));
+		
+	motivations = {};
+
+	// go through each row of the csv data
+	for (let i = 0; i < jsonData.length; i++) {
+
+		// get the name of the 'Personnage'
+		let personnage = jsonData[i]['Personnage'];
+
+		motivations[personnage] = {};
+		motivations[personnage]['Assassinat'] = jsonData[i]['Assassinat'];
+		motivations[personnage]['Coup-de-foudre'] = jsonData[i]['Coup-de-foudre'];
+		motivations[personnage]['Désobéisance'] = jsonData[i]['Désobéisance'];
+		motivations[personnage]['Vengeance'] = jsonData[i]['Vengeance'];
+		motivations[personnage]['Renoncement'] = jsonData[i]['Renoncement'];
+		motivations[personnage]['Révélation'] = jsonData[i]['Révélation'];
+
+		engine.state.set(personnage + '-' + 'Assassinat', motivations[personnage]['Assassinat']);
+		engine.state.set(personnage + '-' + 'Coup-de-foudre', motivations[personnage]['Coup-de-foudre']);
+		engine.state.set(personnage + '-' + 'Désobéisance', motivations[personnage]['Désobéisance']);
+		engine.state.set(personnage + '-' + 'Vengeance', motivations[personnage]['Vengeance']);
+		engine.state.set(personnage + '-' + 'Renoncement', motivations[personnage]['Renoncement']);
+		engine.state.set(personnage + '-' + 'Révélation', motivations[personnage]['Révélation']);
+
+	}
+
+	engine.state.set('ProtagonisteMotivation', '');
+	engine.state.set('AmantMotivation', '');
 
 }
 
@@ -667,6 +734,8 @@ function resetHighlight() {
 }
 
 
+
+
 function clickOnHighlight() {
 
 	// start by getting the article element
@@ -684,6 +753,8 @@ function clickOnHighlight() {
 	}
 
 }
+
+
 
 
 function highlightLink(key) {
@@ -722,6 +793,8 @@ function highlightLink(key) {
 }
 
 
+
+
 // receive card changes from twee iframe
 window.addEventListener("message", (event) => {
 
@@ -735,6 +808,8 @@ window.addEventListener("message", (event) => {
 	}
 
 });
+
+
 
 
 // post a message to the parent window looking for the OPEN_AI_API_KEY

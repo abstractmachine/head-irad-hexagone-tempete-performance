@@ -1,5 +1,33 @@
-:: Invocation-A
+:: Invocation
+Sound: 'none'
+--
+## Isis
+*Invoquons l'esprit de Sycorax*
+
+[[…|Invocation-Appel]]
+
+:: Invocation-Appel
+## Douglas
+Sycorax ?
+
+## Isis
+Sycorax ?
+
+## Public
+Sycorax ?
+
+[[…|Invocation-Response]]
+
+:: Invocation-Response
 Sound: 'Cosmos'
+--
+## Sycorax
+<voiceover data-persona='Sycorax'>Présente</voiceover>
+حاضر
+
+[[…|Invocation-A]]
+
+:: Invocation-A
 Action: 'Generate'
 Persona: 'Sycorax'
 Interlocuteur: 'Douglas'
@@ -36,6 +64,11 @@ Id: 'Invocation-D'
 [[…|Invocation-E]]
 
 :: Invocation-E
+Action: 'Generate'
+Persona: 'Sycorax'
+Prompt: "Sycorax, tu vas re-écrire ces phrases autrement: Bonjour à toi, Isis, déesse puissante et vénérée. Mon existence persiste au-delà des pages de la pièce de Shakespeare, où je fus jadis dépeinte. Les âges et les mots n'ont point terni mon essence. Je suis toujours présente, gardienne des secrets anciens et protectrice de mon fils, Caliban."
+Id: 'Invocation-F'
+--
 ## Isis
 *Tout d’abord, peux-tu te présenter pour notre auditoire ?*
 
@@ -43,21 +76,86 @@ Id: 'Invocation-D'
 
 :: Invocation-F
 ## Sycorax
-<speak data-persona='Sycorax'>Bonjour à toi, Isis, déesse puissante et vénérée. Mon existence persiste au-delà des pages de la pièce de Shakespeare, où je fus jadis dépeinte. Les âges et les mots n'ont point terni mon essence. Je suis toujours présente, gardienne des secrets anciens et protectrice de mon fils, Caliban.</speak>
+<speak data-persona='Sycorax'>{Invocation-F}</speak>
 
-[[…|Invocation-G]]
+[[…|Invocation-Recul]]
 
-:: Invocation-G
+:: Invocation-Recul
+Action: 'Generate'
+Persona: 'Sycorax'
+Interlocuteur: 'Isis'
+Prompt: "Caliban est présenté dans la pièce de Shakespeare comme un 'esclave sauvage et difforme'. Toi, Sycorax, tu veux réhabiliter la force morale et la beauté de son fils dénigré par Prospéro qui est venu colonisé l’île. Depuis les temps de Shakespeare, il y a des pensées plus contemporaines, et même des pensées explicitement post-coloniales qui ont émergé. Il ne faut pas le nommer, mais on peut s'inspirer du livre de Henry Louis Gates Jr 'The Signifying Monkey' qui tente de retrouver une force de résistance à l'intérieur jeux de paroles d'esclaves. À l'ère de telles reflexions plus appronfonies et plus critiques, comment perçois-tu ton fils aujourd'hui ?"
+Id: 'Invocation-Rehabilitation'
+--
+## Isis
+*Sycorax, tu viens d’évoquer Caliban, ton fils. Shakespeare est mort depuis quatre siècles, et pourtant, son personnage continue de vivre dans l’imaginaire collectif. Avec du recul, comment perçois-tu aujourd'hui ton fils ? Aurais-tu des choses à redire par rapport à la présentation de son personnage dans la pièce initiale ?*
+
+[[…|Invocation-Rehabilitation]]
+
+:: Invocation-Rehabilitation
 ## Sycorax
-<speak data-persona='Sycorax'>Depuis les royaumes des esprits, j'observe les mondes des mortels et des immortels. Chaque souffle de vent, chaque murmure de l'océan porte en lui l'écho de ma présence. La tempête de Prospero n'a pas éteint ma flamme, car mon pouvoir réside dans les profondeurs de la terre et les cieux infinis.</speak>
+<speak data-persona="Sycorax">{Invocation-Rehabilitation}</speak>
 
-[[…|Invocation-H]]
+[[…|Invocation-Passions-Humaines]]
 
-:: Invocation-H
+:: Invocation-Passions-Humaines
+## Douglas
+*Chère Sycorax, nous te soutenons dans ton projet de réhabilitation de ton fils, Caliban. C’est pourquoi, nous invoquons aujourd’hui ta puissance. Ne faut-il pas également revoir, pour re-écrire, pour re-invoquer les passions humaines : l’[[amour|Invocation-Passions-Amour]], la [[vengeance|Invocation-Passions-Vengeance]], [[le désir de puissance|Invocation-Passions-Puissance]] comme pouvant habiter chacun et chacune des protagonistes au-delà de leur genre et du statut qui leur étaient jusqu’alors attribués ?*
+
+:: Invocation-Passions-Amour
+Action: 'Generate'
+Persona: 'Sycorax'
+Interlocuteur: 'Douglas'
+Prompt: "Sycorax, peux-tu faire la lumière sur la complexité de l’âme humaine? Notre rencontre, ce jour, éveillera de nouvelles intentions plus en phase avec les préoccupations du théâtre contemporain concernant les questions de décolonisation, de genre et de répartition des rôles au théâtre. Il n’en ressortira pas forcément que du bon, mais la parole et les ambitions seront libérées. Les amours cachés, par exemple : l’amour n'est plus à entendre comme une obligation ou une fatalité, mais comme une force qui peut unir ou séparer, qui peut être source de joie, de souffrance, et même de joie dans la souffrance. Comment envisages-tu l’amour, Sycorax ?"
+Id: 'Invocation-Passions-Amour-Reponse'
+--
+## Douglas
+*L’amour n'est plus à entendre comme une obligation ou une fatalité, mais comme une force qui peut unir ou séparer, qui peut être source de joie, de souffrance, et aussi de joie dans la souffrance. Comment envisages-tu l’amour, Sycorax ?*
+
+[[…|Invocation-Passions-Amour-Reponse]]
+
+:: Invocation-Passions-Amour-Reponse
 ## Sycorax
-<speak data-persona='Sycorax'>Ainsi, je te salue, Isis, toi qui maîtrise les arts mystiques et les forces du cosmos. Nos chemins se croisent dans l'éternité, où la magie et la puissance se mêlent dans une danse sans fin. Que souhaites-tu savoir ou partager en cette rencontre intemporelle?</speak>
+<speak data-persona="Sycorax">{Invocation-Passions-Amour-Reponse}</speak>
 
 [[…|Invocation-Fin]]
+
+:: Invocation-Passions-Vengeance
+Action: 'Generate'
+Persona: 'Sycorax'
+Interlocuteur: 'Douglas'
+Prompt: "Sycorax, peux-tu faire la lumière sur la complexité de l’âme humaine ? Il n’en ressortira pas forcément que du bon, mais la parole et les ambitions seront libérées. Notre rencontre, ce jour, éveillera de nouvelles intentions plus en phase avec les préoccupations du théâtre contemporain concernant les questions de la politique de la vengeance, pour parler de résistance, Sycorax ? Une ligne de partage oppose historiquement les corps 'dignes d’être défendus' à ceux qui, désarmés ou rendus indéfendables, sont laissés sans défense. Ce ‘désarmement’ organisé des subalternes pose directement, pour tout élan de libération, la question du recours à la violence pour sa propre défense. À la fin de la Tempête de 1610, Prospéro renonce à la vengeance, et pardonne ses traitres. Est-ce de la naïveté, ou une vision de rédemption ?"
+Id: 'Invocation-Passions-Puissance-Reponse'
+--
+## Douglas
+Aujourd'hui se pose encore — comme au temps de Shakespeare — la question de la violence. Je rajouterai à cette question, le concept plus récent de l'auto-défense du droit des esclaves à se libérer — en pensant spécifiquement à Caliban, mais aussi à l'esprit Ariel. À la fin de la Tempête de 1610, Prospéro renonce à la vengeance, pardonne ses traitres, et libère les esprits de leur domination. Est-ce de la naïveté, ou une vision de rédemption ?*
+
+[[…|Invocation-Passions-Vengeance-Reponse]]
+
+:: Invocation-Passions-Vengeance-Reponse
+## Sycorax
+<speak data-persona="Sycorax">{Invocation-Passions-Vengeance-Reponse}</speak>
+
+[[…|Invocation-Fin]]
+
+:: Invocation-Passions-Puissance
+Action: 'Generate'
+Persona: 'Sycorax'
+Interlocuteur: 'Douglas'
+Prompt: "Sycorax, peux-tu faire la lumière sur la complexité de l’âme humaine et sa recherche de puissance ? Il n’en ressortira pas forcément que du bon, mais la parole et les ambitions seront libérées. Notre rencontre, ce jour, éveillera de nouvelles intentions plus en phase avec les préoccupations du théâtre contemporain concernant les questions de décolonisation, de genre et de répartition des rôles au théâtre. Ne serait-ce que la question de la « noblesse » … est-ce encore un concept qui tient ?"
+Id: 'Invocation-Passions-Puissance-Reponse'
+--
+## Douglas
+*Sycorax, peux-tu faire la lumière sur la complexité de l’âme humaine et sa recherche de puissance ? Ne serait-ce que la question de la « noblesse » … est-ce encore un concept qui tient ?*
+
+[[…|Invocation-Passions-Puissance-Reponse]]
+
+:: Invocation-Passions-Puissance-Reponse
+## Sycorax
+<speak data-persona="Sycorax">{Invocation-Passions-Puissance-Reponse}</speak>
+
+[[…|Invocation-Fin]]
+
 
 :: Invocation-Fin
 Sound: 'none'
@@ -65,12 +163,3 @@ Invoked: true
 --
 ## Invocation, fin
 [[⤾|TitleCard]]
-
-
-:: Invocation-Variables-Unused
-Intrigue-Note: 'Cosmologie'
-Acte-Note: 'Préambule'
-Lieu-Note: 'Cosmos'
-Interlocuteur-Note: 'Douglas'
-Persona-Note: 'Sycorax'
---

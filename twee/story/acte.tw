@@ -5,14 +5,14 @@ Categorie: 'Acte'
 Variable: 'Acte'
 Done: 'Acte-Play'
 --
-- **Lieu**
+- ## Lieu
 - *{Lieu}*
 
 [[⤾|Distribution]]
 
 :: Acte-Play
 --
-- # {Acte}
+- ##{Acte}
 - *{Lieu}*
 
 ## {Protagoniste}
@@ -25,10 +25,17 @@ Done: 'Acte-Play'
 
 :: Acte-Fin
 Sound: 'none'
+Acte: ''
+Protagoniste: ''
+Amant: ''
+Lieu: ''
+Intrigue: ''
 --
 <speak data-persona='Sycorax'>Fin de l'{Acte}.</speak>
 
 [[⤾|Distribution]]
+
+:: Acte-Commentaire
 
 :: Acte-Reset
 Action: 'ResetHistory'
