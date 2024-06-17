@@ -5,6 +5,23 @@ const url = "https://api.openai.com/v1/chat/completions";
 const model = "gpt-4o";
 
 let generatedData = [];
+let history = [];
+
+function restartHistory() {
+	history = [];
+	// create the opening system instructions
+	let system = getSystemPrefix();
+	// push into the history array
+	history.push( { role: 'system', content: system } );
+}
+
+function printHistory() {
+	console.log("--------------------");
+	for (let i = 0; i < history.length; i++) {
+		console.log(history[i]);
+	}
+	console.log("--------------------");
+}
 
 async function generateText() {
 
@@ -21,13 +38,19 @@ async function generateText() {
 
 	} else {
 
+		// get whoever is talking
+		let persona = engine.state.get('Persona');
+
 		// create the prompt
-		let messages = createMessages();
+		let messages = createMessages(persona);
 	
 		// go get the generated phrase from the API
 		if (messages != null) {
 			hideLinks();
-			fetchPhrase(messages, id);
+			fetchPhrase(messages, id, persona);
+
+			// add the messages to the history
+			history.push( { role: 'user', content: messages[1].content } );
 		}
 
 	}
@@ -41,10 +64,7 @@ async function generateText() {
 
 }
 
-function createMessages() {
-
-	// get whoever is talking
-	let persona = engine.state.get('Persona');
+function createMessages(persona) {
 
 	// we have to have someone talking
 	if (persona == undefined || persona == '') {
@@ -117,7 +137,7 @@ function createMessages() {
 	return messages;
 }
 
-async function fetchPhrase(messages, id) {
+async function fetchPhrase(messages, id, persona) {
 
 	const url = 'https://api.openai.com/v1/chat/completions';
 	const data = {
@@ -140,7 +160,7 @@ async function fetchPhrase(messages, id) {
 	.then(data => 
 	{
 		let response = data.choices[0].message.content;
-		parseResponse(response, id);
+		parseResponse(response, id, persona);
 	})
 	.catch((error) => {
 		console.error('Error:', error);
@@ -149,7 +169,7 @@ async function fetchPhrase(messages, id) {
 
 }
 
-function parseResponse(response, id) {
+function parseResponse(response, id, persona) {
 
 	unhideLinks();
 
@@ -164,6 +184,11 @@ function parseResponse(response, id) {
 
 	// push into the generated data array
 	generatedData.push( { id: id, response: response } );
+
+	// push the persona at the head of the response
+	updatedResponse = persona.toUpperCase() + '\n' + response;
+	// add the response to the history
+	history.push( { role: 'assistant', content: updatedResponse } );
 
 }
 

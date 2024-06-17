@@ -42,6 +42,10 @@ async function parseKey(key) {
 			storyReset();
 			break;
 
+		case '§':
+			printHistory();
+			break;
+
 		case 'a':
 			case 'b':
 			case 'c':
@@ -89,7 +93,11 @@ window.onload = function() {
 	// cancel any speech that is currently happening
 	cancelSpeech();
 
+	// get the data array of all the cards
 	loadCardData();
+
+	// create a history
+	restartHistory();
 
 	// Check if the init function exists and call it to initialize the engine
 	if (typeof init === 'function') {
@@ -300,6 +308,8 @@ function storyReset() {
 	resetCards();
 	// tell the Twee engine to reset
 	restart();
+	// reset AI History
+	restartHistory();
 
 	lastPassageName = "";
 
