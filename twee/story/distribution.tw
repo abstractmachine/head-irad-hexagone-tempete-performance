@@ -7,15 +7,15 @@ _ready: Protagoniste && Amant && Lieu && Intrigue
 ### La tempête
 *Drammaturgie*
 
-[if Lieu]
+[if Lieu !== '']
 ## Lieu
 *{Lieu}*
 [continue]
-[if Protagoniste && Amant]
+[if Protagoniste !== '' && Amant !== '']
 ## Distribution
 *{Protagoniste}*, *{Amant}*
 [continue]
-[if Intrigue]
+[if Intrigue !== '']
 ## Intrigue
 *{Intrigue}*
 [continue]
@@ -46,10 +46,11 @@ _ready: Protagoniste && Amant && Lieu && Intrigue
 <voiceover data-persona='Sycorax'>On doit décider de l'intrigue.</voiceover>
 [continue]
 
+
 :: Distribution-Deroulement
 Action: 'Generate'
 Persona: 'Sycorax'
-Prompt: "Maintenant que les cartes sont tirées, comment vois-tu le déroulement de cette scène ? Nous avons une intrigue — " + Intrigue + " — qui se passe dans " + Lieu + ", avec " + Protagoniste + " et " + Amant + " comme personnages principaux. Quelle est la première scène qui te vient à l’esprit ?\n\nTu vas me décrire l’histoire de cette scène avec ces deux personnages dans ce lieu " + Lieu + ". Il faut une scène avec des rebondissement intriguants et inattendus, car une scène trop monotone et sans conflit intérieur et sans surprise est ennuyeuse.\n\nIl faut du conflit, surtout intérieur, même quand les personnages sont heureux. On doit comprendre les conflits qui les anime. Un des deux personnages doit être dans un conflit intérieur que l'autre personnage arrive à résoudre d'une manière étonnante.\n\nLes personnages ayant accès à la magie — Prospero, Ariel, Caliban, mais même la fille de Prospero, Mirand — ont accès à la magie pour résoudre leurs difficultés.\n\nLa motivation de " + Protagoniste + " est ceci: " + ProtagonisteMotivation + " La motivation de " + Amant + ", l'autre personnage dans la scène, est: " + AmantMotivation + " Que vont faire alors nos deux personnages pendant cette scène ? Décris-moi le déroulement de cette scène sans rapporter de dialogue: décris-moi les actions, les mouvements, les émotions, les pensées des personnages — sans citations."
+Prompt: "Maintenant que les cartes sont tirées, comment vois-tu le déroulement de cette scène ? Nous avons une intrigue — " + Intrigue + " — qui se passe dans " + Lieu + ", avec " + Protagoniste + " et " + Amant + " comme personnages principaux. Quelle est la première scène qui te vient à l’esprit ?\n\nTu vas me décrire l’histoire de cette scène avec ces deux personnages dans ce lieu " + Lieu + ". Il faut une scène avec des rebondissement intriguants et inattendus, car une scène trop monotone et sans conflit intérieur et sans surprise est ennuyeuse.\n\nIl faut du conflit, surtout intérieur, même quand les personnages sont heureux. On doit comprendre les conflits qui les anime. Un des deux personnages doit être dans un conflit intérieur que l'autre personnage arrive à résoudre d'une manière étonnante.\n\nLes personnages ayant accès à la magie — Prospero, Ariel, Caliban — ont accès à la magie pour résoudre leurs difficultés.\n\nLa motivation de " + Protagoniste + " est ceci: " + ProtagonisteMotivation + " La motivation de " + Amant + ", l'autre personnage dans la scène, est: " + AmantMotivation + " Que vont faire alors nos deux personnages pendant cette scène ? Décris-moi le déroulement de cette scène sans rapporter de dialogue: décris-moi les actions, les mouvements, les émotions, les pensées des personnages — sans citations."
 Id: 'DistributionStory'
 --
 ### La tempête
@@ -59,6 +60,7 @@ Id: 'DistributionStory'
 *Maintenant que les cartes sont tirées, comment vois-tu le déroulement de cette scène ? {Intrigue}, {Lieu}, {Protagoniste}, {Amant}. Saurais-tu réunir tous ces éléments, Sycorax ?*
 
 [[…|Distribution-Story]]
+
 
 :: Distribution-Story
 Lines: 12
@@ -83,6 +85,7 @@ Which: random.d4
 [continue]
 
 [JavaScript]
+// log the current story
 console.log(engine.state.get('DistributionStory'));
 [continue]
 

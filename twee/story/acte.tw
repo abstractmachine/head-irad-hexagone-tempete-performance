@@ -9,6 +9,11 @@ DialogueIndex: 0
 
 [[...|Acte-Dialogue-A]]
 
+[JavaScript]
+// log the current dialogues
+console.log(engine.state.get('Distribution-Dialogue'));
+[continue]
+
 :: Acte-Dialogue-A
 DialogueIndex: DialogueIndex + 1
 SpeakerId: 'DialogueSpeaker' + DialogueIndex
@@ -28,7 +33,6 @@ engine.state.set('dialogue', engine.state.get(ParoleId));
 [[…|Acte-Dialogue-B]]
 [else]
 [[…|Acte-Fin]]
-
 
 
 :: Acte-Dialogue-B
@@ -54,17 +58,12 @@ engine.state.set('dialogue', engine.state.get(ParoleId));
 
 :: Acte-Fin
 Sound: 'none'
-Acte: ''
-Protagoniste: ''
-Amant: ''
-Lieu: ''
-Intrigue: ''
+Action: 'ResetCards'
 --
 <speak data-persona='Sycorax'>Fin de l'acte.</speak>
 
 [[⤾|Distribution]]
 
-:: Acte-Commentaire
 
 :: Acte-Reset
 Action: 'ResetHistory'

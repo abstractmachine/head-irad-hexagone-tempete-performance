@@ -26,6 +26,16 @@ function printHistory() {
 	console.log("--------------------");
 }
 
+function printStoryVariables() {
+
+	console.log(engine.state.get('Protagoniste'));
+	console.log(engine.state.get('Amant'));
+	console.log(engine.state.get('Lieu'));
+	console.log(engine.state.get('Intrigue'));
+	console.log("--------------------");
+
+}
+
 async function generateText() {
 
 	// we need to turn off the generate flag

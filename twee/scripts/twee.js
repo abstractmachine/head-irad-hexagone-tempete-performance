@@ -47,6 +47,10 @@ async function parseKey(key) {
 			printHistory();
 			break;
 
+		case '$':
+			printStoryVariables();
+			break;
+
 		case 'a':
 			case 'b':
 			case 'c':
@@ -182,6 +186,12 @@ function passageChanged() {
 				// if we're in choosing mode
 				if (engine.state.get('Action') == 'Choosing') {
 					choosingMode();
+				}
+
+				// if we're done with an acte and have to reset the selected cards
+				if (engine.state.get('Action') == 'ResetCards') {
+					resetCards();
+					engine.state.set('ResetCards', false);
 				}
 
 				if (engine.state.get('Action') == 'ResetHistory') {
@@ -418,6 +428,11 @@ function storyReset() {
 
 
 function resetCards() {
+
+	engine.state.set('Protagoniste', '');
+	engine.state.set('Amant', '');
+	engine.state.set('Intrigue', '');
+	engine.state.set('Lieu', '');
 
 	// send message to the parent window
 	window.parent.postMessage({reset: 'true'}, '*');
