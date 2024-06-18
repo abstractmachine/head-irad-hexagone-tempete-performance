@@ -54,7 +54,7 @@ Prompt: "Maintenant que les cartes sont tirées, comment vois-tu le déroulement
 Id: 'DistributionStory'
 --
 ### La tempête
-*Distribution*
+*Déroulement*
 
 ## Douglas
 *Maintenant que les cartes sont tirées, comment vois-tu le déroulement de cette scène ? {Intrigue}, {Lieu}, {Protagoniste}, {Amant}. Saurais-tu réunir tous ces éléments, Sycorax ?*
@@ -71,7 +71,7 @@ Id: 'Distribution-Dialogue'
 Which: random.d4
 --
 ### La tempête
-*Distribution*
+*Déroulement*
 
 ## Sycorax
 [if Which == 1]
