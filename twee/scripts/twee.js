@@ -711,6 +711,8 @@ function addTypewriterEffect(article, ignoreTypewriter = false) {
 	var newArticle = "";
 	var currentTag = "";
 
+	let animationDelay;
+
 	// go through each child node of the article
 	for (let i = 0; i < article.childNodes.length; i++) {
 
@@ -725,7 +727,7 @@ function addTypewriterEffect(article, ignoreTypewriter = false) {
 				// const waveClass = 'wave-' + ascii;
 				const classesAttribute = "typewriter";
 				// create a 10% of wobble in the delay, so it's not too uniform. 
-				let animationDelay = calcualteCharacterDelay(currentCharIndex++);
+				animationDelay = calcualteCharacterDelay(currentCharIndex++);
 				// create a style tag that will be applied to the span tag to fade in
 				let style = 'animation-delay: ' + animationDelay + 's;'
 				let span = "";
@@ -748,6 +750,17 @@ function addTypewriterEffect(article, ignoreTypewriter = false) {
 			currentTag = node.tagName.toLowerCase();
 
 			if (currentTag !== 'voiceover') {
+
+				const classesAttribute = "typewriter";
+
+				// create a 10% of wobble in the delay, so it's not too uniform. 
+				animationDelay = calcualteCharacterDelay(currentCharIndex);
+				let animationStyle = 'animation-delay: ' + animationDelay + 's;'
+
+				// add a class to the node
+				node.classList.add(classesAttribute);
+				// add a style to the node
+				node.style = animationStyle;
 
 				// get the full tag with attributes but not the inner html
 				let tagWithAttributes = node.outerHTML.split('>')[0] + '>';

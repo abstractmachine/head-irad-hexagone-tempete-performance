@@ -405,6 +405,12 @@ function parseGeneratedList(id) {
 		// the rest of the sentence is the content
 		let content = generatedArray[i].slice(name.length + 1);
 
+		// if the content ends with the words 'SYCORAX', we should remove it
+		if (content.endsWith('SYCORAX')) {
+			content = content.slice(0, -7);
+			console.log('Removed SYCORAX');
+		}
+
 		// create a Twine variable with the name of the character and the number
 		engine.state.set('DialogueSpeaker' + lineNumber, name);
 		engine.state.set('DialogueContent' + lineNumber, content);

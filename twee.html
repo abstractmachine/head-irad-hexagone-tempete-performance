@@ -881,6 +881,12 @@ function parseGeneratedList(id) {
 		// the rest of the sentence is the content
 		let content = generatedArray[i].slice(name.length + 1);
 
+		// if the content ends with the words 'SYCORAX', we should remove it
+		if (content.endsWith('SYCORAX')) {
+			content = content.slice(0, -7);
+			console.log('Removed SYCORAX');
+		}
+
 		// create a Twine variable with the name of the character and the number
 		engine.state.set('DialogueSpeaker' + lineNumber, name);
 		engine.state.set('DialogueContent' + lineNumber, content);
@@ -1739,6 +1745,8 @@ function addTypewriterEffect(article, ignoreTypewriter = false) {
 	var newArticle = "";
 	var currentTag = "";
 
+	let animationDelay;
+
 	// go through each child node of the article
 	for (let i = 0; i < article.childNodes.length; i++) {
 
@@ -1753,7 +1761,7 @@ function addTypewriterEffect(article, ignoreTypewriter = false) {
 				// const waveClass = 'wave-' + ascii;
 				const classesAttribute = "typewriter";
 				// create a 10% of wobble in the delay, so it's not too uniform. 
-				let animationDelay = calcualteCharacterDelay(currentCharIndex++);
+				animationDelay = calcualteCharacterDelay(currentCharIndex++);
 				// create a style tag that will be applied to the span tag to fade in
 				let style = 'animation-delay: ' + animationDelay + 's;'
 				let span = "";
@@ -1776,6 +1784,17 @@ function addTypewriterEffect(article, ignoreTypewriter = false) {
 			currentTag = node.tagName.toLowerCase();
 
 			if (currentTag !== 'voiceover') {
+
+				const classesAttribute = "typewriter";
+
+				// create a 10% of wobble in the delay, so it's not too uniform. 
+				animationDelay = calcualteCharacterDelay(currentCharIndex);
+				let animationStyle = 'animation-delay: ' + animationDelay + 's;'
+
+				// add a class to the node
+				node.classList.add(classesAttribute);
+				// add a style to the node
+				node.style = animationStyle;
 
 				// get the full tag with attributes but not the inner html
 				let tagWithAttributes = node.outerHTML.split('>')[0] + '>';
@@ -2151,7 +2170,7 @@ _ready: Protagoniste &amp;&amp; Amant &amp;&amp; Lieu &amp;&amp; Intrigue
 &lt;voiceover data-persona=&#39;Sycorax&#39;&gt;On doit décider de l&#39;intrigue.&lt;/voiceover&gt;
 [continue]</tw-passagedata><tw-passagedata pid="10" name="Distribution-Deroulement" tags="" position="1225,100" size="100,100">Action: &#39;Generate&#39;
 Persona: &#39;Sycorax&#39;
-Prompt: &quot;Maintenant que les cartes sont tirées, comment vois-tu le déroulement de cette scène ? Nous avons une intrigue — &quot; + Intrigue + &quot; — qui se passe dans &quot; + Lieu + &quot;, avec &quot; + Protagoniste + &quot; et &quot; + Amant + &quot; comme personnages principaux. Quelle est la première scène qui te vient à l’esprit ?\n\nTu vas me décrire l’histoire de cette scène avec ces deux personnages dans ce lieu &quot; + Lieu + &quot;. Il faut une scène avec des rebondissement intriguants et inattendus, car une scène trop monotone et sans conflit intérieur et sans surprise est ennuyeuse.\n\nIl faut du conflit, surtout intérieur, même quand les personnages sont heureux. On doit comprendre les conflits qui les anime. Un des deux personnages doit être dans un conflit intérieur que l&#39;autre personnage arrive à résoudre d&#39;une manière étonnante.\n\nLes personnages ayant accès à la magie — Prospero, Ariel, Caliban — ont accès à la magie pour résoudre leurs difficultés.\n\nLa motivation de &quot; + Protagoniste + &quot; est ceci: &quot; + ProtagonisteMotivation + &quot; La motivation de &quot; + Amant + &quot;, l&#39;autre personnage dans la scène, est: &quot; + AmantMotivation + &quot; Que vont faire alors nos deux personnages pendant cette scène ? Décris-moi le déroulement de cette scène sans rapporter de dialogue: décris-moi les actions, les mouvements, les émotions, les pensées des personnages — sans citations.&quot;
+Prompt: &quot;Maintenant que les cartes sont tirées, comment vois-tu le déroulement de cette scène ? Nous avons une intrigue — &quot; + Intrigue + &quot; — qui se passe dans &quot; + Lieu + &quot;, avec &quot; + Protagoniste + &quot; et &quot; + Amant + &quot; comme personnages principaux. Quelle est la première scène qui te vient à l’esprit ?\n\nTu vas me décrire l’histoire de cette scène avec ces deux personnages dans ce lieu &quot; + Lieu + &quot;. Il faut une scène avec des rebondissement intriguants et inattendus, car une scène trop monotone et sans conflit intérieur et sans surprise est ennuyeuse.\n\nIl faut du conflit, surtout intérieur, même quand les personnages sont heureux. On doit comprendre les conflits qui les anime. Un des deux personnages doit être dans un conflit intérieur que l&#39;autre personnage arrive à résoudre d&#39;une manière étonnante.\n\nLes personnages ayant accès à la magie — Prospero, Ariel, Caliban — ont accès à la magie pour résoudre leurs difficultés. Les autres personnages ont recours à d&#39;autres atouts et ruses, selon leur personnage. Alonso et Sébastien sont des manipulateurs et utilisent la ruse et la violence pour obtenir gain de cause.\n\nLa motivation de &quot; + Protagoniste + &quot; est ceci: &quot; + ProtagonisteMotivation + &quot; La motivation de &quot; + Amant + &quot;, l&#39;autre personnage dans la scène, est: &quot; + AmantMotivation + &quot; Décris-moi ce que font alors nos deux personnages pendant cette scène ? Fais de sorte que l&#39;intrigue — ici &quot; + Intrigue + &quot;arrive à point nommé vers la fin de l&#39;acte. Décris-moi le déroulement de cette scène sans rapporter de dialogue: décris-moi les actions, les mouvements, les émotions, les pensées des personnages — sans citations.&quot;
 Id: &#39;DistributionStory&#39;
 --
 ### La tempête
@@ -2243,7 +2262,7 @@ Prompt: &#39;Bonjour Sycorax, nous sommes ravies de te retrouver, toi qui a surv
 Id: &#39;Invocation-B&#39;
 --
 ## Douglas
-*Bonjour Sycorax, nous sommes ravies de te retrouver, toi qui a survécu depuis de nombreuses années dans la pièce de Shakespeare de la Tempête…*
+*Bonjour Sycorax, nous sommes ravies de te retrouver, toi qui a survécu depuis de nombreuses années dans la pièce de Shakespeare, la Tempête…*
 
 [[…|Invocation-B]]</tw-passagedata><tw-passagedata pid="20" name="Invocation-B" tags="" position="1225,225" size="100,100">## Sycorax
 &lt;speak data-persona=&#39;Sycorax&#39;&gt;{Invocation-B}&lt;/speak&gt;
@@ -2300,10 +2319,10 @@ Id: &#39;Invocation-Passions-Amour-Reponse&#39;
 Persona: &#39;Sycorax&#39;
 Interlocuteur: &#39;Douglas&#39;
 Prompt: &quot;Sycorax, peux-tu faire la lumière sur la complexité de l’âme humaine ? Il n’en ressortira pas forcément que du bon, mais la parole et les ambitions seront libérées. Notre rencontre, ce jour, éveillera de nouvelles intentions plus en phase avec les préoccupations du théâtre contemporain concernant les questions de la politique de la vengeance, pour parler de résistance, Sycorax ? Une ligne de partage oppose historiquement les corps &#39;dignes d’être défendus&#39; à ceux qui, désarmés ou rendus indéfendables, sont laissés sans défense. Ce ‘désarmement’ organisé des subalternes pose directement, pour tout élan de libération, la question du recours à la violence pour sa propre défense. À la fin de la Tempête de 1610, Prospéro renonce à la vengeance, et pardonne ses traitres. Est-ce de la naïveté, ou une vision de rédemption ?&quot;
-Id: &#39;Invocation-Passions-Puissance-Reponse&#39;
+Id: &#39;Invocation-Passions-Vengeance-Reponse&#39;
 --
 ## Douglas
-Aujourd&#39;hui se pose encore — comme au temps de Shakespeare — la question de la violence. Je rajouterai à cette question, le concept plus récent de l&#39;auto-défense du droit des esclaves à se libérer — en pensant spécifiquement à Caliban, mais aussi à l&#39;esprit Ariel. À la fin de la Tempête de 1610, Prospéro renonce à la vengeance, pardonne ses traitres, et libère les esprits de leur domination. Est-ce de la naïveté, ou une vision de rédemption ?*
+*Aujourd&#39;hui se pose encore — comme au temps de Shakespeare — la question de la violence. Je rajouterai à cette question, le concept plus récent de l&#39;auto-défense du droit des esclaves à se libérer — en pensant spécifiquement à Caliban, mais aussi à l&#39;esprit Ariel. À la fin de la Tempête de 1610, Prospéro renonce à la vengeance, pardonne ses traitres, et libère les esprits de leur domination. Est-ce de la naïveté, ou une vision de rédemption ?*
 
 [[…|Invocation-Passions-Vengeance-Reponse]]</tw-passagedata><tw-passagedata pid="31" name="Invocation-Passions-Vengeance-Reponse" tags="" position="100,475" size="100,100">## Sycorax
 &lt;speak data-persona=&quot;Sycorax&quot;&gt;{Invocation-Passions-Vengeance-Reponse}&lt;/speak&gt;
