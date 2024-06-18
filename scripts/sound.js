@@ -11,7 +11,15 @@ function soundPlay(name) {
 }
 
 function soundLoaded() {
-	sound.setVolume(0.6);
+
+	sound.setVolume(0.5);
+	switch(currentSound) {
+		case "Tempête":
+			sound.setVolume(0.1);
+		case "Plage":
+			sound.setVolume(0.4);
+	};
+
 	sound.setLoop(true);
 	sound.play();
 }

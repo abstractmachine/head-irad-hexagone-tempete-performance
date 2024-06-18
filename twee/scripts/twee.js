@@ -237,6 +237,19 @@ function getStory() {
 	// get the current intrigue
 	let intrigue = engine.state.get('Intrigue');
 
+	switch(intrigue) {
+		case 'Révélation':
+			intrigue = 'Revelation';
+			break;
+		case 'Désobéisance':
+			intrigue = 'Desobeisance';
+			break;
+		case 'Coup-de-foudre':
+		case 'Coup de foudre':
+			intrigue = 'CoupDeFoudre';
+			break;
+	}
+
 	// make sure we got all three
 	if (nomProtagoniste || nomAmant || intrigue) {
 		// get the cross-referenced motivations for each character's relation to the intrigue

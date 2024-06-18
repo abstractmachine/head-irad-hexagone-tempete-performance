@@ -103,6 +103,17 @@ function speak(nom, newText, delayTime = 0) {
 	let utterance = new SpeechSynthesisUtterance(newText);
 	utterance.lang = "fr-FR";
 
+	utterance.volume = 1.0;
+
+	switch (nom) {
+		case 'Sycorax':
+			utterance.volume = 0.4;
+			break;
+		case 'Miranda':
+			utterance.volume = 0.8;
+			break;
+	}
+
 	if (desiredVoice != '') {
 		utterance.voice = desiredVoice;
 		// console.log("desiredVoice: ", desiredVoice);

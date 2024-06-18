@@ -1250,6 +1250,19 @@ function getStory() {
 	// get the current intrigue
 	let intrigue = engine.state.get('Intrigue');
 
+	switch(intrigue) {
+		case 'Révélation':
+			intrigue = 'Revelation';
+			break;
+		case 'Désobéisance':
+			intrigue = 'Desobeisance';
+			break;
+		case 'Coup-de-foudre':
+		case 'Coup de foudre':
+			intrigue = 'CoupDeFoudre';
+			break;
+	}
+
 	// make sure we got all three
 	if (nomProtagoniste || nomAmant || intrigue) {
 		// get the cross-referenced motivations for each character's relation to the intrigue
@@ -1949,6 +1962,17 @@ function speak(nom, newText, delayTime = 0) {
 	let utterance = new SpeechSynthesisUtterance(newText);
 	utterance.lang = "fr-FR";
 
+	utterance.volume = 1.0;
+
+	switch (nom) {
+		case 'Sycorax':
+			utterance.volume = 0.4;
+			break;
+		case 'Miranda':
+			utterance.volume = 0.8;
+			break;
+	}
+
 	if (desiredVoice != '') {
 		utterance.voice = desiredVoice;
 		// console.log("desiredVoice: ", desiredVoice);
@@ -2091,7 +2115,7 @@ _ready: Protagoniste &amp;&amp; Amant &amp;&amp; Lieu &amp;&amp; Intrigue
 [if _ready]
 &lt;voiceover data-persona=&#39;Sycorax&#39;&gt;Les cartes sont tirées. On peut débuter la pièce.&lt;/voiceover&gt;
 [if _nothing]
-&lt;voiceover data-persona=&#39;Sycroax&#39;&gt;Il faut choisir les paramètres du texte dramatique.&lt;/voiceover&gt;
+&lt;voiceover data-persona=&#39;Sycorax&#39;&gt;Il faut choisir les paramètres du texte dramatique.&lt;/voiceover&gt;
 [continue]
 [if !_ready &amp;&amp; !_nothing &amp;&amp; !Protagoniste &amp;&amp; !Amant]
 &lt;voiceover data-persona=&#39;Sycorax&#39;&gt;On doit définir les personnages.&lt;/voiceover&gt;
@@ -2101,7 +2125,7 @@ _ready: Protagoniste &amp;&amp; Amant &amp;&amp; Lieu &amp;&amp; Intrigue
 &lt;voiceover data-persona=&#39;Sycorax&#39;&gt;On doit décider de l&#39;intrigue.&lt;/voiceover&gt;
 [continue]</tw-passagedata><tw-passagedata pid="14" name="Distribution-Deroulement" tags="" position="475,225" size="100,100">Action: &#39;Generate&#39;
 Persona: &#39;Sycorax&#39;
-Prompt: &quot;Maintenant que les cartes sont tirées, comment vois-tu le déroulement de cette scène ? Nous avons une intrigue — &quot; + Intrigue + &quot; — qui se passe dans &quot; + Lieu + &quot;, avec &quot; + Protagoniste + &quot; et &quot; + Amant + &quot; comme personnages principaux. Quelle est la première scène qui te vient à l’esprit ? Tu vas me décrire l’histoire de cette scène avec ces deux personnages dans ce lieu &quot; + Lieu + &quot;. Il faut une scène avec des rebondissement intriguants et inattendus, car une scène trop monotone est ennuyeuse. Il faut aussi du conflit, même quand les personnages sont heureux. On doit comprendre les conflits qui les anime. La motivation de &quot; + Protagoniste + &quot; est ceci: &quot; + ProtagonisteMotivation + &quot; La motivation de &quot; + Amant + &quot;, l&#39;autre personnage dans la scène, est: &quot; + AmantMotivation + &quot; Que vont faire alors nos deux personnages pendant cette scène ? Décris-moi le déroulement de cette scène sans rapporter de dialogue: décris-moi les actions, les mouvements, les émotions, les pensées des personnages — sans citations.&quot;
+Prompt: &quot;Maintenant que les cartes sont tirées, comment vois-tu le déroulement de cette scène ? Nous avons une intrigue — &quot; + Intrigue + &quot; — qui se passe dans &quot; + Lieu + &quot;, avec &quot; + Protagoniste + &quot; et &quot; + Amant + &quot; comme personnages principaux. Quelle est la première scène qui te vient à l’esprit ?\n\nTu vas me décrire l’histoire de cette scène avec ces deux personnages dans ce lieu &quot; + Lieu + &quot;. Il faut une scène avec des rebondissement intriguants et inattendus, car une scène trop monotone et sans conflit intérieur et sans surprise est ennuyeuse.\n\nIl faut du conflit, surtout intérieur, même quand les personnages sont heureux. On doit comprendre les conflits qui les anime. Un des deux personnages doit être dans un conflit intérieur que l&#39;autre personnage arrive à résoudre d&#39;une manière étonnante.\n\nLa motivation de &quot; + Protagoniste + &quot; est ceci: &quot; + ProtagonisteMotivation + &quot; La motivation de &quot; + Amant + &quot;, l&#39;autre personnage dans la scène, est: &quot; + AmantMotivation + &quot; Que vont faire alors nos deux personnages pendant cette scène ? Décris-moi le déroulement de cette scène sans rapporter de dialogue: décris-moi les actions, les mouvements, les émotions, les pensées des personnages — sans citations.&quot;
 Id: &#39;DistributionStory&#39;
 --
 ## Douglas
@@ -2115,6 +2139,10 @@ Id: &#39;Distribution-Dialogue&#39;
 --
 ## Sycorax
 &lt;speak data-persona=&#39;Sycorax&#39;&gt;Oui. Je vois l&#39;avenir, le présent, et le passé de cette scène. Je vois les mouvements, les émotions, les pensées des personnages. Je vois {Intrigue}.&lt;/speak&gt;
+
+[JavaScript]
+console.log(engine.state.get(&#39;DistributionStory&#39;));
+[continue]
 
 [[…|Acte]]</tw-passagedata><tw-passagedata pid="16" name="Intrigue" tags="" position="725,225" size="100,100">Action: &#39;Choosing&#39;
 Categorie: &#39;Intrigue&#39;
