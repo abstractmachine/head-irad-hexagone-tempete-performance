@@ -1,9 +1,13 @@
 :: Persona
+Sound: 'Cosmos'
 Action: 'Choosing'
 Categorie: 'Persona'
 Variable: 'Protagoniste'
 Done: 'Persona-Choisir-Amant'
 --
+### La tempête
+*Personnages*
+
 ## Sycorax
 <speak data-persona='Sycorax'>Commençons par le personnage qui sera notre protagoniste de la prochaine scène.</speak>
 
@@ -15,6 +19,9 @@ Categorie: 'Persona'
 Variable: 'Amant'
 Done: 'Persona-Done'
 --
+### La tempête
+*Personnages*
+
 ## Sycorax
 <speak data-persona='Sycorax'>{Protagoniste} est un choix intéressant. Maintenant il faut choisir le deuxième personnage de la scène.</speak>
 
@@ -22,6 +29,9 @@ Done: 'Persona-Done'
 
 
 :: Persona-Done
+### La tempête
+*Personnages*
+
 ## Sycorax
 <speak data-persona='Sycorax'>Très bon choix. Nos personnages sont {Protagoniste} et {Amant}.</speak>
 

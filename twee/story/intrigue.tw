@@ -1,15 +1,22 @@
 :: Intrigue
+Sound: 'Cosmos'
 Action: 'Choosing'
 Categorie: 'Intrigue'
 Variable: 'Intrigue'
 Done: 'Intrigue-Done'
 --
+### La tempête
+*Intrigue*
+
 ## Sycorax
 <speak data-persona='Sycorax'>Nous allons choisir l'intrigue qui anime nos personnages. Choisissez une carte.</speak>
 
 
 
 :: Intrigue-Done
+### La tempête
+*Intrigue*
+
 ## Sycorax
 <speak data-persona='Sycorax'>L'intrigue est posée. Il sera question de {Intrigue}.</speak>
 

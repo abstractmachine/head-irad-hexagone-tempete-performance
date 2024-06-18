@@ -199,6 +199,11 @@ function parseResponse(response, id, persona) {
 	// push into the generated data array
 	generatedData.push( { id: id, response: response } );
 
+	// if the final word of the text is 'SYCORAX', we should remove it
+	if (response.endsWith('SYCORAX')) {
+		response = response.slice(0, -7);
+	}
+
 	// push the persona at the head of the response
 	responseWithAppendedPersonaName = persona.toUpperCase() + '\n' + response;
 	// add the response to the history

@@ -1,22 +1,23 @@
 :: Distribution
-Sound: 'none'
+Sound: 'Cosmos'
 Story: true
 _nothing: !Protagoniste && !Amant && !Lieu && !Intrigue
 _ready: Protagoniste && Amant && Lieu && Intrigue
 --
-- ### La tempête
-- &nbsp;
+### La tempête
+*Drammaturgie*
+
 [if Lieu]
-- **Lieu**
-- *{Lieu}*
+## Lieu
+*{Lieu}*
 [continue]
 [if Protagoniste && Amant]
-- **Distribution**
-- *{Protagoniste}*, *{Amant}*
+## Distribution
+*{Protagoniste}*, *{Amant}*
 [continue]
 [if Intrigue]
-- **Intrigue**
-- *{Intrigue}*
+## Intrigue
+*{Intrigue}*
 [continue]
 
 [if _ready]
@@ -26,7 +27,7 @@ _ready: Protagoniste && Amant && Lieu && Intrigue
 4. [[Déroulement|Distribution-Deroulement]]
 5. [[⤾|TitleCard]]
 [else]
-1. [[Personae|Persona]]
+1. [[Personnages|Persona]]
 2. [[Lieu]]
 3. [[Intrigue]]
 4. [[⤾|TitleCard]]
@@ -48,11 +49,14 @@ _ready: Protagoniste && Amant && Lieu && Intrigue
 :: Distribution-Deroulement
 Action: 'Generate'
 Persona: 'Sycorax'
-Prompt: "Maintenant que les cartes sont tirées, comment vois-tu le déroulement de cette scène ? Nous avons une intrigue — " + Intrigue + " — qui se passe dans " + Lieu + ", avec " + Protagoniste + " et " + Amant + " comme personnages principaux. Quelle est la première scène qui te vient à l’esprit ?\n\nTu vas me décrire l’histoire de cette scène avec ces deux personnages dans ce lieu " + Lieu + ". Il faut une scène avec des rebondissement intriguants et inattendus, car une scène trop monotone et sans conflit intérieur et sans surprise est ennuyeuse.\n\nIl faut du conflit, surtout intérieur, même quand les personnages sont heureux. On doit comprendre les conflits qui les anime. Un des deux personnages doit être dans un conflit intérieur que l'autre personnage arrive à résoudre d'une manière étonnante.\n\nLa motivation de " + Protagoniste + " est ceci: " + ProtagonisteMotivation + " La motivation de " + Amant + ", l'autre personnage dans la scène, est: " + AmantMotivation + " Que vont faire alors nos deux personnages pendant cette scène ? Décris-moi le déroulement de cette scène sans rapporter de dialogue: décris-moi les actions, les mouvements, les émotions, les pensées des personnages — sans citations."
+Prompt: "Maintenant que les cartes sont tirées, comment vois-tu le déroulement de cette scène ? Nous avons une intrigue — " + Intrigue + " — qui se passe dans " + Lieu + ", avec " + Protagoniste + " et " + Amant + " comme personnages principaux. Quelle est la première scène qui te vient à l’esprit ?\n\nTu vas me décrire l’histoire de cette scène avec ces deux personnages dans ce lieu " + Lieu + ". Il faut une scène avec des rebondissement intriguants et inattendus, car une scène trop monotone et sans conflit intérieur et sans surprise est ennuyeuse.\n\nIl faut du conflit, surtout intérieur, même quand les personnages sont heureux. On doit comprendre les conflits qui les anime. Un des deux personnages doit être dans un conflit intérieur que l'autre personnage arrive à résoudre d'une manière étonnante.\n\nLes personnages ayant accès à la magie — Prospero, Ariel, Caliban, mais même la fille de Prospero, Mirand — ont accès à la magie pour résoudre leurs difficultés.\n\nLa motivation de " + Protagoniste + " est ceci: " + ProtagonisteMotivation + " La motivation de " + Amant + ", l'autre personnage dans la scène, est: " + AmantMotivation + " Que vont faire alors nos deux personnages pendant cette scène ? Décris-moi le déroulement de cette scène sans rapporter de dialogue: décris-moi les actions, les mouvements, les émotions, les pensées des personnages — sans citations."
 Id: 'DistributionStory'
 --
+### La tempête
+*Distribution*
+
 ## Douglas
-*Maintenant que les cartes sont tirées, comment vois-tu le déroulement de cette scène ? Nous avons une intrigue — {Intrigue} — qui se passe dans {Lieu}, avec {Protagoniste} et {Amant} comme personnages principaux. Sycorax, vois-tu comment transformer ça en une scène ?*
+*Maintenant que les cartes sont tirées, comment vois-tu le déroulement de cette scène ? {Intrigue}, {Lieu}, {Protagoniste}, {Amant}. Saurais-tu réunir tous ces éléments, Sycorax ?*
 
 [[…|Distribution-Story]]
 
@@ -62,9 +66,21 @@ Action: 'Generate'
 Persona: 'Sycorax'
 Prompt: "J’aimerais une liste de " + Lines + " paroles, jamais plus longues que 200 caractères, avec les paroles de nos deux personnages : " + Protagoniste + " et " + Amant + ". Ces paroles doivent être des répliques de dialogue qui pourraient être prononcées par ces personnages dans la scène que tu viens de décrire. Ces répliques doivent être en lien avec les motivations que tu as évoquées pour ces personnages. Restez dans la motivation générale de la scène telle que tu as décrite.\n\nOrganises ces répliques dans l’ordre où elles pourraient être prononcées dans la scène sur des lignes numérotés de 1 à " + Lines + ".\n\n" + "Je te rappelle que l'intrigue est " + Intrigue + " et que le lieu est " + Lieu + ".\n\nVoici le scénario que tu as décrit: " + DistributionStory + "\n\bVoici le format textuel de ces dialogues. Commencez toujoirs par le chiffre 1. suivi par le nom du personnage, sa parole, puis une nouvelle ligne avec numéro 2. et ainsi de suite. Voici un exemple\n\n" + "1. " + Protagoniste + "\nLe dialogue de " + Protagoniste + "ira ici\n2. " + Amant + "\nLe dialogue de " + Amant + "ira ici\n3. …\n\nMerci de me créer maintenant ces dialogues.\n\n"
 Id: 'Distribution-Dialogue'
+Which: random.d4
 --
+### La tempête
+*Distribution*
+
 ## Sycorax
-<speak data-persona='Sycorax'>Oui. Je vois l'avenir, le présent, et le passé de cette scène. Je vois les mouvements, les émotions, les pensées des personnages. Je vois {Intrigue}.</speak>
+[if Which == 1]
+<speak data-persona='Sycorax'>Oui. Je vois l'avenir, le présent, et le passé de cette scène. Je vois les mouvements, les émotions, les pensées des personnages {Protagoniste} et {Amant}. Je vois {Intrigue}.</speak>
+[if Which == 2]
+<speak data-persona='Sycorax'>Effectivement. Je perçois jusqu'au loin la scène qui se tisse entre {Protagoniste} et {Amant}. L’intrigue qui les anime : {Intrigue}.</speak>
+[if Which == 3]
+<speak data-persona='Sycorax'>Tout à fait. J'entend déjà les paroles de {Protagoniste} et de {Amant}. J'entend des histoires de {Intrigue}.</speak>
+[if Which == 4]
+<speak data-persona='Sycorax'>Écoutes bien, et tu veras bien dans ton œil intérieur cette scène de {Lieu} où {Protagoniste} et {Amant} parlent déjà de {Intrigue}.</speak>
+[continue]
 
 [JavaScript]
 console.log(engine.state.get('DistributionStory'));

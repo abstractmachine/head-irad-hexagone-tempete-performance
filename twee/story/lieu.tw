@@ -1,15 +1,22 @@
 :: Lieu
+Sound: 'Cosmos'
 Action: 'Choosing'
 Categorie: 'Lieu'
 Variable: 'Lieu'
 Done: 'Lieu-Done'
 --
+### La tempête
+*Lieu*
+
 ## Sycorax
 <speak data-persona='Sycorax'>Choisissons un lieu pour la prochaine acte. Choisissez une carte.</speak>
 
 
 
 :: Lieu-Done
+### La tempête
+*Lieu*
+
 ## Sycorax
 <speak data-persona='Sycorax'>Le lieu du prochaine acte est posé. Il se passera à {Lieu}.</speak>
 

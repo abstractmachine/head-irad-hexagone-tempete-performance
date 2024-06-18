@@ -202,12 +202,18 @@ class Card {
 		rect(0, 0, this.width, this.height, this.corner);
 		pop();
 
+		let cardTitle = this.categorie;
+
+		if (cardTitle == "Protagoniste" || cardTitle == "Amant") {
+			cardTitle = "Personnage";
+		}
+
 		push();
 		translate(0,0,1);
 		// white
 		fill(this.hue,0,100,100);
 		noStroke();
-		text(this.categorie, 0, 0, this.width, this.height);
+		text(cardTitle, 0, 0, this.width, this.height);
 		pop();
 
 		push();

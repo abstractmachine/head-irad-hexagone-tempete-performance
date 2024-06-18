@@ -18,6 +18,9 @@ ParoleId: 'DialogueContent' + DialogueIndex
 engine.state.set('speaker', engine.state.get(SpeakerId));
 engine.state.set('dialogue', engine.state.get(ParoleId));
 [continue]
+- ## Lieu
+- *{Lieu}*
+
 ## {speaker}
 <speak data-persona='{speaker}'>{dialogue}</speak>
 
@@ -25,6 +28,8 @@ engine.state.set('dialogue', engine.state.get(ParoleId));
 [[…|Acte-Dialogue-B]]
 [else]
 [[…|Acte-Fin]]
+
+
 
 :: Acte-Dialogue-B
 DialogueIndex: DialogueIndex + 1
@@ -35,6 +40,9 @@ ParoleId: 'DialogueContent' + DialogueIndex
 engine.state.set('speaker', engine.state.get(SpeakerId));
 engine.state.set('dialogue', engine.state.get(ParoleId));
 [continue]
+- ## Lieu
+- *{Lieu}*
+
 ## {speaker}
 <speak data-persona='{speaker}'>{dialogue}</speak>
 
