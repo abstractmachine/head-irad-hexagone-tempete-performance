@@ -62,10 +62,10 @@ Action: 'ResetCards'
 --
 <speak data-persona='Sycorax'>Fin de l'acte.</speak>
 
-[[⤾|Distribution]]
+[[⤾|TitleCard]]
 
 
 :: Acte-Reset
 Action: 'ResetHistory'
 --
-[[⤾|Distribution]]
+[[⤾|TitleCard]]

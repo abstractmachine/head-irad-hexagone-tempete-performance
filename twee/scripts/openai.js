@@ -144,6 +144,10 @@ function createMessages(persona) {
 		user += getUserPrompt(interlocuteur, prompt, persona);
 	}
 
+	console.log("=====================================");
+	console.log(prompt);
+	console.log("=====================================");
+
 	// create the messages object
 	let messages = [
 		{role: 'system', content: system},

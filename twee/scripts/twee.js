@@ -422,6 +422,8 @@ function storyReset() {
 	// reset AI History
 	restartHistory();
 
+	engine.state.set('StoryHistory', "");
+
 	lastPassageName = "";
 
 }

@@ -1,0 +1,36 @@
+:: Epilogue
+Action: 'Generate'
+Persona: 'Sycorax'
+Interlocuteur: 'Isis'
+Prompt: "Nous arrivons à la fin de notre histoire. Nous avons ré-écrit la Tempête avec l'histoire suivante:\n\n" + StoryHistory + "\n\nMaintenant, à partir de cette nouvelle version, nous devons ré-écrire l'epiloque de Propsero. Voici un extrait du discours originel de Prospero. Tu dois nous re-écrire cet epilogue à partir de notre ré-écriture des intrigues\n\n\"Vous, fées des collines et des ruisseaux, des lacs tranquilles et des bocages ; j’ai brisé le chêne orgueilleux de Jupiter avec le trait de sa foudre ; à mon ordre, les tombeaux ont réveillé leurs habitants endormis ; ils se sont ouverts et les ont laissés fuir, tant mon art a de puissance ! Mais j’abjure ici cette rude magie ; et quand je vous aurai demandé, comme je le fais en ce moment, quelques airs d’une musique céleste pour produire sur leurs sens l’effet que je médite et que doit accomplir ce prodige aérien, aussitôt je brise ma baguette ; je l’ensevelis à plusieurs toises dans la terre, et plus avant que n’est jamais descendue la sonde je noierai sous les eaux mon livre magique.\"\n\nTu va nous re-écrire ce discours de Prospero, en prenant en compte l'historique précédente de notre re-écriture. Propero doit faire un résumé de notre histoire et conclure en demandant pardon pour ses erreurs passées et en promettant de ne plus jamais utiliser la magie. Tu dois écrire ce discours en utilisant le style de Prospero, en respectant son caractère et sa personnalité."
+Id: 'EpilogueProspero'
+--
+## Isis
+*Je sens la fin de notre voyage approcher. Sycorax, peux-tu convoquer Prospero et voir comment il souhaite conclure notre histoire ?*
+
+[[…|Epilogue-Sycorax]]
+
+
+
+:: Epilogue-Sycorax
+## Sycorax
+<speak data-persona='Sycorax'>Bien sûr, Isis. Je vais le chercher.</speak>
+
+[[…|Epilogue-Prospero]]
+
+
+
+:: Epilogue-Prospero
+Sound: 'Plage'
+--
+## Prospero
+<speak data-persona="Prospero">{EpilogueProspero}</speak>
+
+[[…|Epilogue-Fin]]
+
+
+
+:: Epilogue-Fin
+<speak data-persona="Sycorax">Fin</speak>
+
+1. [[⤾|TitleCard]]
