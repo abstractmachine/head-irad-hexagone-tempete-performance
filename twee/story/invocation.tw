@@ -137,7 +137,7 @@ Id: 'Invocation-Passions-Amour-Reponse'
 ## Sycorax
 <speak data-persona="Sycorax">{Invocation-Passions-Amour-Reponse}</speak>
 
-[[…|Invocation-Fin]]
+[[…|Invocation-Tempete-Resumee]]
 
 
 :: Invocation-Passions-Vengeance
@@ -157,7 +157,7 @@ Id: 'Invocation-Passions-Vengeance-Reponse'
 ## Sycorax
 <speak data-persona="Sycorax">{Invocation-Passions-Vengeance-Reponse}</speak>
 
-[[…|Invocation-Fin]]
+[[…|Invocation-Tempete-Resumee]]
 
 
 :: Invocation-Passions-Puissance
@@ -176,6 +176,39 @@ Id: 'Invocation-Passions-Puissance-Reponse'
 :: Invocation-Passions-Puissance-Reponse
 ## Sycorax
 <speak data-persona="Sycorax">{Invocation-Passions-Puissance-Reponse}</speak>
+
+[[…|Invocation-Tempete-Resumee]]
+
+
+:: Invocation-Tempete-Resumee
+Action: 'Generate'
+Persona: 'Sycorax'
+Interlocuteur: 'Isis'
+Prompt: "Si nous allons revisiter ces question, Sycorax, ne serait-il pas opportun de rappeler à notre auditoire la trame originale de la pièce de Shakespeare, la Tempête, pour mieux comprendre les enjeux de notre discussion ? Peux-tu nous faire un résumé des personnages principaux, des lieux, et de l’intrigue de la pièce ?"
+Id: 'Invocation-Tempete-Resumee-Reponse'
+--
+## Isis
+*Si nous allons revisiter ces question, Sycorax, ne serait-il pas opportun de rappeler à notre auditoire la trame originale de la pièce de Shakespeare, la Tempête, pour mieux comprendre les enjeux de notre discussion ?*
+
+[[…|Invocation-Tempete-Resumee-Reponse]]
+
+
+:: Invocation-Tempete-Resumee-Reponse
+## Sycorax
+<speak data-persona="Sycorax">{Invocation-Tempete-Resumee-Reponse}</speak>
+
+[[…|Invocation-Tempete-Conclusion]]
+
+:: Invocation-Tempete-Conclusion
+## Isis
+*Merci pour ce rappel. Il est peut-être temps d'invoquer à nouveau cette Tempête. Sycorax, peux-tu nous aider à convoquer les éléments, les esprits, les passions, les puissances ?*
+
+[[…|Invocation-Tempete-Conclusion-Ok]]
+
+
+:: Invocation-Tempete-Conclusion-Ok
+## Sycorax
+<speak data-persona="Sycorax">Oui.</speak>
 
 [[…|Invocation-Fin]]
 
