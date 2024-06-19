@@ -9,6 +9,11 @@ Sound: 'Tempête'
 - *Isis Fahmy, Douglas Edric Stanley & GPT-4o*
 - 2024
 
+[if EpilogueReady]
 1. [[Invocation]]
 2. [[Distribution]]
-2. [[Epilogue]]
+3. [[Epilogue]]
+[else]
+1. [[Invocation]]
+2. [[Distribution]]
+[continue]

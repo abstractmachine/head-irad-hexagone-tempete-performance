@@ -1,4 +1,4 @@
-p, p.typewriter, speak {
+p, p.typewriter, speak, h1, h2, h3, h4, h5, h6, a {
 	opacity: 0;
 }
 
