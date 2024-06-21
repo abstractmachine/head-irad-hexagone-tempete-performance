@@ -422,3 +422,38 @@ function parseGeneratedList(id) {
 	}
 
 }
+
+
+
+function sentencizeGeneratedText(id) {
+
+	// get the block of text
+	generatedBlock = engine.state.get(id);
+
+	// split the text into an array of objects with each sentence its own entry
+
+	// Regular expression to split the text at sentence boundaries.
+    // Adjust the regular expression to handle more edge cases as needed.
+    const sentenceBoundaryRegex = /(?<=[.?!])\s+(?=[A-Z])/g;
+
+    // Split the paragraph into sentences using the regular expression.
+    let sentences = generatedBlock.split(sentenceBoundaryRegex);
+
+    // Trim each sentence and filter out any empty strings.
+    sentences = sentences.map(sentence => sentence.trim()).filter(sentence => sentence.length > 0);
+
+	// remember the number of dialogues
+	engine.state.set('DialogueCount', sentences.length);
+
+	// loop through the array
+	for (let i = 0; i < sentences.length; i++) {
+
+		// get the line number
+		let lineNumber = i+1;
+
+		// create a Twine variable with the name of the character and the number
+		engine.state.set('DialogueContent' + lineNumber, sentences);
+
+	}
+
+}

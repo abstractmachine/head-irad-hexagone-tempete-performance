@@ -83,9 +83,21 @@ class Card {
 
 	constructor(index, hue, categorie) {
 
+		if (hue == 60) {
+			this.front = color(0,0,100,100);
+			this.back = color(0,0,0,100);
+		} else if (hue == 180) {
+			this.front = color(0,0,100,100);
+			this.back = color(0,0,0,100);
+		} else {
+			this.front = color(0,0,100,100);
+			this.back = color(0,0,100,100);
+		}
+
 		this.index = index;
 		this.hue = hue;
 		this.saturation = 100;
+		this.brightness = 100;
 		this.categorie = categorie;
 		this.content = "";
 		this.resize();
@@ -197,7 +209,7 @@ class Card {
 
 		push();
 		translate(0,0,0.5);
-		fill(this.hue,this.saturation,100,100);
+		fill(this.hue,this.saturation,this.brightness,100);
 		noStroke();
 		rect(0, 0, this.width, this.height, this.corner);
 		pop();
@@ -211,7 +223,7 @@ class Card {
 		push();
 		translate(0,0,1);
 		// white
-		fill(this.hue,0,100,100);
+		fill(this.back);
 		noStroke();
 		text(cardTitle, 0, 0, this.width, this.height);
 		pop();
@@ -226,8 +238,8 @@ class Card {
 		push();
 		translate(0,0,-2);
 		rotateY(PI);
-		// white
-		fill(this.hue,0,100,100);
+		// foreground
+		fill(this.front);
 		noStroke();
 		text(this.content, 0, 0, this.width, this.height);
 		pop();

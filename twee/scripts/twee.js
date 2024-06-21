@@ -207,6 +207,14 @@ function passageChanged() {
 					engine.state.set('Action', 'none');
 				}
 
+				if (engine.state.get('Action') == 'Sentencize') {
+					id = engine.state.get('Id');
+					if (id) {
+						sentencizeGeneratedText(id);
+					}
+					engine.state.set('Action', 'none');
+				}
+
 				// if we're playing a sound
 				if (engine.state.get('Sound')) {
 					// get the sound name
@@ -601,37 +609,37 @@ function dmxOn(speaker) {
 	// depending on the name of the speaker, we can turn on different lights
 	switch (speaker) {
 		case 'Douglas':
-			sendData(10, 'on');
+			sendData(3, 'on');
 			return;
 		case 'Isis':
-			sendData(11, 'on');
+			sendData(4, 'on');
 			return;
 		case 'Sycorax':
-			sendData(9, 'on');
-			break;
-		case 'Miranda':
-			sendData(1, 'on');
-			break;
-		case 'Ariel':
 			sendData(2, 'on');
 			break;
+		case 'Miranda':
+			sendData(5, 'on');
+			break;
+		case 'Ariel':
+			sendData(5, 'on');
+			break;
 		case 'Ferdinand':
-			sendData(3, 'on');
+			sendData(5, 'on');
 			break;
 		case 'Prospero':
-			sendData(4, 'on');
+			sendData(5, 'on');
 			break;
 		case 'Antonio':
 			sendData(5, 'on');
 			break;
 		case 'Sébastien':
-			sendData(6, 'on');
+			sendData(5, 'on');
 			break;
 		case 'Alonso':
-			sendData(7, 'on');
+			sendData(5, 'on');
 			break;
 		case 'Caliban':
-			sendData(8, 'on');
+			sendData(5, 'on');
 			break;
 	}
 	//switch(speaker)
@@ -645,37 +653,37 @@ function dmxOff(speaker) {
 	// depending on the name of the speaker, we can turn on different lights
 	switch (speaker) {
 		case 'Douglas':
-			sendData(10, 'off');
+			sendData(3, 'off');
 			return;
 		case 'Isis':
-			sendData(11, 'off');
+			sendData(4, 'off');
 			return;
 		case 'Sycorax':
-			sendData(9, 'off');
-			break;
-		case 'Miranda':
-			sendData(1, 'off');
-			break;
-		case 'Ariel':
 			sendData(2, 'off');
 			break;
+		case 'Miranda':
+			sendData(5, 'off');
+			break;
+		case 'Ariel':
+			sendData(5, 'off');
+			break;
 		case 'Ferdinand':
-			sendData(3, 'off');
+			sendData(5, 'off');
 			break;
 		case 'Prospero':
-			sendData(4, 'off');
+			sendData(5, 'off');
 			break;
 		case 'Antonio':
 			sendData(5, 'off');
 			break;
 		case 'Sébastien':
-			sendData(6, 'off');
+			sendData(5, 'off');
 			break;
 		case 'Alonso':
-			sendData(7, 'off');
+			sendData(5, 'off');
 			break;
 		case 'Caliban':
-			sendData(8, 'off');
+			sendData(5, 'off');
 			break;
 	}
 	//switch(speaker)

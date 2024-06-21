@@ -33,7 +33,7 @@
             repeatCount="indefinite"
         />
 	</line>
-</svg></div></div></div></form><!-- UUID://D674C58C-DEFA-4F70-B7A2-27742230C0FC// --><tw-storydata name="Tempête" startnode="48" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="D674C58C-DEFA-4F70-B7A2-27742230C0FC" zoom="1" format="Chapbook" format-version="1.2.3" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* twine-user-stylesheet #1: "font.css" */
+</svg></div></div></div></form><!-- UUID://D674C58C-DEFA-4F70-B7A2-27742230C0FC// --><tw-storydata name="Tempête" startnode="50" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="D674C58C-DEFA-4F70-B7A2-27742230C0FC" zoom="1" format="Chapbook" format-version="1.2.3" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* twine-user-stylesheet #1: "font.css" */
 
 /* create a font family around the variable EB Garamond */
 @font-face {
@@ -51,7 +51,7 @@
 body, p, h1, h2, h3, h4, h5, h6, speak, voiceover, ul, li {
 	font-family: 'EB Garamond', serif;
 	font-style: normal;
-	font-size: 5.5vh;
+	font-size: 5vh;
 	font-variation-settings: "wght" 400;
 	line-height: 1.25em;
 
@@ -898,6 +898,41 @@ function parseGeneratedList(id) {
 	}
 
 }
+
+
+
+function sentencizeGeneratedText(id) {
+
+	// get the block of text
+	generatedBlock = engine.state.get(id);
+
+	// split the text into an array of objects with each sentence its own entry
+
+	// Regular expression to split the text at sentence boundaries.
+    // Adjust the regular expression to handle more edge cases as needed.
+    const sentenceBoundaryRegex = /(?<=[.?!])\s+(?=[A-Z])/g;
+
+    // Split the paragraph into sentences using the regular expression.
+    let sentences = generatedBlock.split(sentenceBoundaryRegex);
+
+    // Trim each sentence and filter out any empty strings.
+    sentences = sentences.map(sentence => sentence.trim()).filter(sentence => sentence.length > 0);
+
+	// remember the number of dialogues
+	engine.state.set('DialogueCount', sentences.length);
+
+	// loop through the array
+	for (let i = 0; i < sentences.length; i++) {
+
+		// get the line number
+		let lineNumber = i+1;
+
+		// create a Twine variable with the name of the character and the number
+		engine.state.set('DialogueContent' + lineNumber, sentences);
+
+	}
+
+}
 /* twine-user-script #4: "serial.js" */
 let port;
 let reader;
@@ -1241,6 +1276,14 @@ function passageChanged() {
 					id = engine.state.get('Id');
 					if (id) {
 						parseGeneratedList(id);
+					}
+					engine.state.set('Action', 'none');
+				}
+
+				if (engine.state.get('Action') == 'Sentencize') {
+					id = engine.state.get('Id');
+					if (id) {
+						sentencizeGeneratedText(id);
 					}
 					engine.state.set('Action', 'none');
 				}
@@ -1639,37 +1682,37 @@ function dmxOn(speaker) {
 	// depending on the name of the speaker, we can turn on different lights
 	switch (speaker) {
 		case 'Douglas':
-			sendData(10, 'on');
+			sendData(3, 'on');
 			return;
 		case 'Isis':
-			sendData(11, 'on');
+			sendData(4, 'on');
 			return;
 		case 'Sycorax':
-			sendData(9, 'on');
-			break;
-		case 'Miranda':
-			sendData(1, 'on');
-			break;
-		case 'Ariel':
 			sendData(2, 'on');
 			break;
+		case 'Miranda':
+			sendData(5, 'on');
+			break;
+		case 'Ariel':
+			sendData(5, 'on');
+			break;
 		case 'Ferdinand':
-			sendData(3, 'on');
+			sendData(5, 'on');
 			break;
 		case 'Prospero':
-			sendData(4, 'on');
+			sendData(5, 'on');
 			break;
 		case 'Antonio':
 			sendData(5, 'on');
 			break;
 		case 'Sébastien':
-			sendData(6, 'on');
+			sendData(5, 'on');
 			break;
 		case 'Alonso':
-			sendData(7, 'on');
+			sendData(5, 'on');
 			break;
 		case 'Caliban':
-			sendData(8, 'on');
+			sendData(5, 'on');
 			break;
 	}
 	//switch(speaker)
@@ -1683,37 +1726,37 @@ function dmxOff(speaker) {
 	// depending on the name of the speaker, we can turn on different lights
 	switch (speaker) {
 		case 'Douglas':
-			sendData(10, 'off');
+			sendData(3, 'off');
 			return;
 		case 'Isis':
-			sendData(11, 'off');
+			sendData(4, 'off');
 			return;
 		case 'Sycorax':
-			sendData(9, 'off');
-			break;
-		case 'Miranda':
-			sendData(1, 'off');
-			break;
-		case 'Ariel':
 			sendData(2, 'off');
 			break;
+		case 'Miranda':
+			sendData(5, 'off');
+			break;
+		case 'Ariel':
+			sendData(5, 'off');
+			break;
 		case 'Ferdinand':
-			sendData(3, 'off');
+			sendData(5, 'off');
 			break;
 		case 'Prospero':
-			sendData(4, 'off');
+			sendData(5, 'off');
 			break;
 		case 'Antonio':
 			sendData(5, 'off');
 			break;
 		case 'Sébastien':
-			sendData(6, 'off');
+			sendData(5, 'off');
 			break;
 		case 'Alonso':
-			sendData(7, 'off');
+			sendData(5, 'off');
 			break;
 		case 'Caliban':
-			sendData(8, 'off');
+			sendData(5, 'off');
 			break;
 	}
 	//switch(speaker)
@@ -2130,13 +2173,13 @@ Persona-Note: &#39;Sycorax&#39;
 [[…|Invocation-BBB]]</tw-passagedata><tw-passagedata pid="8" name="Invocation-BBB" tags="" position="975,100" size="100,100">## Sycorax
 &lt;speak data-persona=&#39;Sycorax&#39;&gt;Ainsi, je te salue, Isis, toi qui maîtrise les arts mystiques et les forces du cosmos. Nos chemins se croisent dans l&#39;éternité, où la magie et la puissance se mêlent dans une danse sans fin. Que souhaites-tu savoir ou partager en cette rencontre intemporelle?&lt;/speak&gt;
 
-[[…|Invocation-Fin]]</tw-passagedata><tw-passagedata pid="9" name="Distribution" tags="" position="1100,100" size="100,100">Sound: &#39;Cosmos&#39;
+[[…|Invocation-Fin]]</tw-passagedata><tw-passagedata pid="9" name="Distribution" tags="" position="1100,100" size="100,100">Sound: &#39;none&#39;
 Story: true
 _nothing: !Protagoniste &amp;&amp; !Amant &amp;&amp; !Lieu &amp;&amp; !Intrigue
 _ready: Protagoniste &amp;&amp; Amant &amp;&amp; Lieu &amp;&amp; Intrigue
 --
 ### La tempête
-*Drammaturgie*
+*Dramaturgie*
 
 [if Lieu !== &#39;&#39;]
 ## Lieu
@@ -2177,14 +2220,22 @@ _ready: Protagoniste &amp;&amp; Amant &amp;&amp; Lieu &amp;&amp; Intrigue
 &lt;voiceover data-persona=&#39;Sycorax&#39;&gt;On doit décider de l&#39;intrigue.&lt;/voiceover&gt;
 [continue]</tw-passagedata><tw-passagedata pid="10" name="Distribution-Deroulement" tags="" position="1225,100" size="100,100">Action: &#39;Generate&#39;
 Persona: &#39;Sycorax&#39;
-Prompt: &quot;Maintenant que les cartes sont tirées, comment vois-tu le déroulement de cette scène ? Nous avons une intrigue — &quot; + Intrigue + &quot; — qui se passe dans &quot; + Lieu + &quot;, avec &quot; + Protagoniste + &quot; et &quot; + Amant + &quot; comme personnages principaux. Quelle est la première scène qui te vient à l’esprit ?\n\nTu vas me décrire l’histoire de cette scène avec ces deux personnages dans ce lieu &quot; + Lieu + &quot;. Il faut une scène avec des rebondissement intriguants et inattendus, car une scène trop monotone et sans conflit intérieur et sans surprise est ennuyeuse.\n\nIl faut du conflit, surtout intérieur, même quand les personnages sont heureux. On doit comprendre les conflits qui les anime. Un des deux personnages doit être dans un conflit intérieur que l&#39;autre personnage arrive à résoudre d&#39;une manière étonnante.\n\nLes personnages ayant accès à la magie — Prospero, Ariel, Caliban — ont accès à la magie pour résoudre leurs difficultés. Les autres personnages ont recours à d&#39;autres atouts et ruses, selon leur personnage. Alonso et Sébastien sont des manipulateurs et utilisent la ruse et la violence pour obtenir gain de cause.\n\nLa motivation de &quot; + Protagoniste + &quot; est ceci: &quot; + ProtagonisteMotivation + &quot; La motivation de &quot; + Amant + &quot;, l&#39;autre personnage dans la scène, est: &quot; + AmantMotivation + &quot; Décris-moi ce que font alors nos deux personnages pendant cette scène ? Fais de sorte que l&#39;intrigue — ici &quot; + Intrigue + &quot;arrive à point nommé vers la fin de l&#39;acte. Décris-moi le déroulement de cette scène sans rapporter de dialogue: décris-moi les actions, les mouvements, les émotions, les pensées des personnages — sans citations. Ton histoire va inclure les scènes précédentes que tu as déjà décrites:&quot; + StoryHistory
+Prompt: &quot;Maintenant que les cartes sont tirées, comment vois-tu le déroulement de cette scène ? Nous avons une intrigue — &quot; + Intrigue + &quot; — qui se passe dans &quot; + Lieu + &quot;, avec &quot; + Protagoniste + &quot; et &quot; + Amant + &quot; comme personnages principaux.\n\nTu vas me décrire l’histoire de cette scène avec ces deux personnages dans ce lieu &quot; + Lieu + &quot;. Il faut une scène avec des rebondissement intriguants et inattendus. Sois méchant et cruel avec les personnages &quot; + Protagoniste + &quot; et &quot; + Amant + &quot;. Il faut du conflit, surtout intérieur, même quand les personnages sont heureux ou gentils. On doit comprendre les conflits qui les anime. Tout personnage souffre d&#39;un conflit intérieur. Un des deux personnages de cette scène doit être dans un conflit intérieur plus fort, et que l&#39;autre personnage arrive à résoudre d&#39;une manière étonnante. La résolution doit révéler le sense de l&#39;intriguie: &quot; + Intrigue + &quot;\n\nN&#39;utilises jamais des platitudes moraliste et gentillets.\n\nLes personnages ayant accès à la magie — Prospero, Ariel, Caliban — ont accès à la magie pour résoudre leurs difficultés. Les autres personnages ont recours à d&#39;autres atouts et ruses, selon leur personnage. Alonso et Sébastien sont des manipulateurs et utilisent la ruse et la violence pour obtenir gain de cause.\n\nLa motivation de &quot; + Protagoniste + &quot; est ceci: &quot; + ProtagonisteMotivation + &quot; La motivation de &quot; + Amant + &quot;, l&#39;autre personnage dans la scène, est: &quot; + AmantMotivation + &quot; Décris-moi ce que font alors nos deux personnages pendant cette scène ? Fais de sorte que l&#39;intrigue — ici &quot; + Intrigue + &quot;— arrive à point nommé vers la fin de l&#39;acte. Décris-moi le déroulement de cette scène sans rapporter de dialogue: décris-moi les actions, les mouvements, les émotions, les pensées des personnages — sans citations. Ton histoire va inclure les scènes précédentes que tu as déjà décrites:&quot; + StoryHistory + &quot;\n\nÉvites de raconter des histoires trop gentillets ou innoncents. Nous aimerions des histoires difficiles et tourmentés, avec des aspects tragiques, mais racontés avec beaucoup d&#39;ironie de cynicisme. Il s&#39;agit d&#39;une tragicomédie, avec des éléments forts de comédie noire.&quot;
 Id: &#39;DistributionStory&#39;
+Which: random.d4
 --
 ### La tempête
 *Déroulement*
 
 ## Douglas
+[if Which==1]
 *Maintenant que les cartes sont tirées, comment vois-tu le déroulement de cette scène ? {Intrigue}, {Lieu}, {Protagoniste}, {Amant}. Saurais-tu réunir tous ces éléments, Sycorax ?*
+[if Which==2]
+*Voici Sycorax nos ingrédients: {Intrigue}, {Lieu}, {Protagoniste}, {Amant}. Est-ce que tu peux chercher nos personnages et nous les ramener sur ce plateau pour raconter cette scène ?*
+[if Which==3]
+*Les dès sont jetés. Nous avons une scène de {Intrigue} avec {Protagoniste}, {Amant}. Vois-tu comment se déroule cette scène?*
+[if Which==4]
+*Est-ce que tu pourrais nous invoquer cette scène de {Intrigue}, Sycorax ? Est-ce nos personnages {Protagoniste} et {Amant} sont là pour nous le jouer ?*
 
 [[…|Distribution-Story]]</tw-passagedata><tw-passagedata pid="11" name="Distribution-Story" tags="" position="100,225" size="100,100">Lines: 12
 Action: &#39;Generate&#39;
@@ -2230,7 +2281,11 @@ Id: &#39;EpilogueProspero&#39;
 ## Isis
 *Je sens la fin de notre voyage approcher. Sycorax, peux-tu convoquer Prospero et voir comment il souhaite conclure notre histoire ?*
 
-[[…|Epilogue-Sycorax]]</tw-passagedata><tw-passagedata pid="13" name="Epilogue-Sycorax" tags="" position="350,225" size="100,100">## Epilogue
+[[…|Epilogue-Sycorax]]</tw-passagedata><tw-passagedata pid="13" name="Epilogue-Sycorax" tags="" position="350,225" size="100,100">Action: &#39;Sentencize&#39;
+Id: &#39;EpilogueProspero&#39;
+DialogueIndex: 0
+--
+## Epilogue
 
 ## Sycorax
 &lt;speak data-persona=&#39;Sycorax&#39;&gt;Bien sûr, Isis. Je vais le chercher.&lt;/speak&gt;
@@ -2242,11 +2297,39 @@ Id: &#39;EpilogueProspero&#39;
 ## Prospero
 &lt;speak data-persona=&quot;Prospero&quot;&gt;{EpilogueProspero}&lt;/speak&gt;
 
-[[…|Epilogue-Fin]]</tw-passagedata><tw-passagedata pid="15" name="Epilogue-Fin" tags="" position="600,225" size="100,100">## Epilogue
+[[…|Epilogue-Fin]]</tw-passagedata><tw-passagedata pid="15" name="Epilogue-Prospero-A" tags="" position="600,225" size="100,100">DialogueIndex: DialogueIndex + 1
+ParoleId: &#39;DialogueContent&#39; + DialogueIndex
+--
+[JavaScript]
+engine.state.set(&#39;dialogue&#39;, engine.state.get(ParoleId));
+[continue]
+## Epilogue
+
+## Prospero
+&lt;speak data-persona=&#39;Prospero&#39;&gt;{dialogue}&lt;/speak&gt;
+
+[if DialogueIndex &lt; DialogueCount]
+[[…|Epilogue-Prospero-B]]
+[else]
+[[…|Epilogue-Fin]]</tw-passagedata><tw-passagedata pid="16" name="Epilogue-Prospero-B" tags="" position="725,225" size="100,100">DialogueIndex: DialogueIndex + 1
+ParoleId: &#39;DialogueContent&#39; + DialogueIndex
+--
+[JavaScript]
+engine.state.set(&#39;dialogue&#39;, engine.state.get(ParoleId));
+[continue]
+## Epilogue
+
+## Prospero
+&lt;speak data-persona=&#39;Prospero&#39;&gt;{dialogue}&lt;/speak&gt;
+
+[if DialogueIndex &lt; DialogueCount]
+[[…|Epilogue-Prospero-A]]
+[else]
+[[…|Epilogue-Fin]]</tw-passagedata><tw-passagedata pid="17" name="Epilogue-Fin" tags="" position="850,225" size="100,100">## Epilogue
 
 &lt;speak&gt;Fin&lt;/speak&gt;
 
-1. [[⤾|TitleCard]]</tw-passagedata><tw-passagedata pid="16" name="Intrigue" tags="" position="725,225" size="100,100">Sound: &#39;Cosmos&#39;
+1. [[⤾|TitleCard]]</tw-passagedata><tw-passagedata pid="18" name="Intrigue" tags="" position="975,225" size="100,100">Sound: &#39;Cosmos&#39;
 Action: &#39;Choosing&#39;
 Categorie: &#39;Intrigue&#39;
 Variable: &#39;Intrigue&#39;
@@ -2256,13 +2339,13 @@ Done: &#39;Intrigue-Done&#39;
 *Intrigue*
 
 ## Sycorax
-&lt;speak data-persona=&#39;Sycorax&#39;&gt;Nous allons choisir l&#39;intrigue qui anime nos personnages. Choisissez une carte.&lt;/speak&gt;</tw-passagedata><tw-passagedata pid="17" name="Intrigue-Done" tags="" position="850,225" size="100,100">### La tempête
+&lt;speak data-persona=&#39;Sycorax&#39;&gt;Nous allons choisir l&#39;intrigue qui anime nos personnages. Choisissez une carte.&lt;/speak&gt;</tw-passagedata><tw-passagedata pid="19" name="Intrigue-Done" tags="" position="1100,225" size="100,100">### La tempête
 *Intrigue*
 
 ## Sycorax
 &lt;speak data-persona=&#39;Sycorax&#39;&gt;L&#39;intrigue est posée. Il sera question de {Intrigue}.&lt;/speak&gt;
 
-[[...|Distribution]]</tw-passagedata><tw-passagedata pid="18" name="TitleCard" tags="" position="975,225" size="100,100">Sound: &#39;Tempête&#39;
+[[...|Distribution]]</tw-passagedata><tw-passagedata pid="20" name="TitleCard" tags="" position="1225,225" size="100,100">Sound: &#39;Tempête&#39;
 --
 - ### La tempête
 - *William Shakespeare*
@@ -2279,15 +2362,15 @@ Done: &#39;Intrigue-Done&#39;
 [else]
 1. [[Invocation]]
 2. [[Distribution]]
-[continue]</tw-passagedata><tw-passagedata pid="19" name="Invocation" tags="" position="1100,225" size="100,100">Sound: &#39;none&#39;
+[continue]</tw-passagedata><tw-passagedata pid="21" name="Invocation" tags="" position="100,350" size="100,100">Sound: &#39;none&#39;
 --
 ## Isis
 *Invoquons l&#39;esprit de Sycorax*
 
-[[…|Invocation-Second]]</tw-passagedata><tw-passagedata pid="20" name="Invocation-Second" tags="" position="1225,225" size="100,100">## Douglas
+[[…|Invocation-Second]]</tw-passagedata><tw-passagedata pid="22" name="Invocation-Second" tags="" position="225,350" size="100,100">## Douglas
 *Oui, invoquons la sorcière*
 
-[[…|Invocation-Appel]]</tw-passagedata><tw-passagedata pid="21" name="Invocation-Appel" tags="" position="100,350" size="100,100">## Douglas
+[[…|Invocation-Appel]]</tw-passagedata><tw-passagedata pid="23" name="Invocation-Appel" tags="" position="350,350" size="100,100">## Douglas
 Sycorax ?
 
 ## Isis
@@ -2296,13 +2379,13 @@ Sycorax ?
 ## Public
 Sycorax ?
 
-[[…|Invocation-Response]]</tw-passagedata><tw-passagedata pid="22" name="Invocation-Response" tags="" position="225,350" size="100,100">Sound: &#39;Cosmos&#39;
+[[…|Invocation-Response]]</tw-passagedata><tw-passagedata pid="24" name="Invocation-Response" tags="" position="475,350" size="100,100">Sound: &#39;Cosmos&#39;
 --
 ## Sycorax
 &lt;voiceover data-persona=&#39;Sycorax&#39;&gt;Présente&lt;/voiceover&gt;
 حاضر
 
-[[…|Invocation-A]]</tw-passagedata><tw-passagedata pid="23" name="Invocation-A" tags="" position="350,350" size="100,100">Action: &#39;Generate&#39;
+[[…|Invocation-A]]</tw-passagedata><tw-passagedata pid="25" name="Invocation-A" tags="" position="600,350" size="100,100">Action: &#39;Generate&#39;
 Persona: &#39;Sycorax&#39;
 Interlocuteur: &#39;Douglas&#39;
 Prompt: &#39;Bonjour Sycorax, nous sommes ravies de te retrouver, toi qui a survécu depuis de nombreuses années dans la pièce de Shakespeare de la Tempête…&#39;
@@ -2311,10 +2394,10 @@ Id: &#39;Invocation-B&#39;
 ## Douglas
 *Bonjour Sycorax, nous sommes ravies de te retrouver, toi qui a survécu depuis de nombreuses années dans la pièce de Shakespeare, la Tempête…*
 
-[[…|Invocation-B]]</tw-passagedata><tw-passagedata pid="24" name="Invocation-B" tags="" position="475,350" size="100,100">## Sycorax
+[[…|Invocation-B]]</tw-passagedata><tw-passagedata pid="26" name="Invocation-B" tags="" position="725,350" size="100,100">## Sycorax
 &lt;speak data-persona=&#39;Sycorax&#39;&gt;{Invocation-B}&lt;/speak&gt;
 
-[[…|Invocation-C]]</tw-passagedata><tw-passagedata pid="25" name="Invocation-C" tags="" position="600,350" size="100,100">Action: &#39;Generate&#39;
+[[…|Invocation-C]]</tw-passagedata><tw-passagedata pid="27" name="Invocation-C" tags="" position="850,350" size="100,100">Action: &#39;Generate&#39;
 Persona: &#39;Sycorax&#39;
 Interlocuteur: &#39;Isis&#39;
 Prompt: &#39;Nous sommes à ton service — Douglas et moi, Isis — pour manifester ta puissance et tes nombreuses connaissances.&#39;
@@ -2323,10 +2406,10 @@ Id: &#39;Invocation-D&#39;
 ## Isis
 *Nous sommes à ton service, Douglas et moi, Isis, pour manifester ta puissance et tes nombreuses connaissances.*
 
-[[…|Invocation-D]]</tw-passagedata><tw-passagedata pid="26" name="Invocation-D" tags="" position="725,350" size="100,100">## Sycorax
+[[…|Invocation-D]]</tw-passagedata><tw-passagedata pid="28" name="Invocation-D" tags="" position="975,350" size="100,100">## Sycorax
 &lt;speak data-persona=&#39;Sycorax&#39;&gt;{Invocation-D}&lt;/speak&gt;
 
-[[…|Invocation-E]]</tw-passagedata><tw-passagedata pid="27" name="Invocation-E" tags="" position="850,350" size="100,100">Action: &#39;Generate&#39;
+[[…|Invocation-E]]</tw-passagedata><tw-passagedata pid="29" name="Invocation-E" tags="" position="1100,350" size="100,100">Action: &#39;Generate&#39;
 Persona: &#39;Sycorax&#39;
 Prompt: &quot;Sycorax, tu vas re-écrire ces phrases autrement: Bonjour à toi, Isis, déesse puissante et vénérée. Mon existence persiste au-delà des pages de la pièce de Shakespeare, où je fus jadis dépeinte. Les âges et les mots n&#39;ont point terni mon essence. Je suis toujours présente, gardienne des secrets anciens et protectrice de mon fils, Caliban.&quot;
 Id: &#39;Invocation-F&#39;
@@ -2334,10 +2417,10 @@ Id: &#39;Invocation-F&#39;
 ## Isis
 *Tout d’abord, peux-tu te présenter pour notre auditoire ?*
 
-[[…|Invocation-F]]</tw-passagedata><tw-passagedata pid="28" name="Invocation-F" tags="" position="975,350" size="100,100">## Sycorax
+[[…|Invocation-F]]</tw-passagedata><tw-passagedata pid="30" name="Invocation-F" tags="" position="1225,350" size="100,100">## Sycorax
 &lt;speak data-persona=&#39;Sycorax&#39;&gt;{Invocation-F}&lt;/speak&gt;
 
-[[…|Invocation-Recul]]</tw-passagedata><tw-passagedata pid="29" name="Invocation-Recul" tags="" position="1100,350" size="100,100">Action: &#39;Generate&#39;
+[[…|Invocation-Recul]]</tw-passagedata><tw-passagedata pid="31" name="Invocation-Recul" tags="" position="100,475" size="100,100">Action: &#39;Generate&#39;
 Persona: &#39;Sycorax&#39;
 Interlocuteur: &#39;Isis&#39;
 Prompt: &quot;Caliban est présenté dans la pièce de Shakespeare comme un &#39;esclave sauvage et difforme&#39;. Toi, Sycorax, tu veux réhabiliter la force morale et la beauté de son fils dénigré par Prospéro qui est venu colonisé l’île. Depuis les temps de Shakespeare, il y a des pensées plus contemporaines, et même des pensées explicitement post-coloniales qui ont émergé. Il ne faut pas le nommer, mais on peut s&#39;inspirer du livre de Henry Louis Gates Jr &#39;The Signifying Monkey&#39; qui tente de retrouver une force de résistance à l&#39;intérieur jeux de paroles d&#39;esclaves. À l&#39;ère de telles reflexions plus appronfonies et plus critiques, comment perçois-tu ton fils aujourd&#39;hui ?&quot;
@@ -2346,11 +2429,11 @@ Id: &#39;Invocation-Rehabilitation&#39;
 ## Isis
 *Sycorax, tu viens d’évoquer Caliban, ton fils. Shakespeare est mort depuis quatre siècles, et pourtant, son personnage continue de vivre dans l’imaginaire collectif. Avec du recul, comment perçois-tu aujourd&#39;hui ton fils ? Aurais-tu des choses à redire par rapport à la présentation de son personnage dans la pièce initiale ?*
 
-[[…|Invocation-Rehabilitation]]</tw-passagedata><tw-passagedata pid="30" name="Invocation-Rehabilitation" tags="" position="1225,350" size="100,100">## Sycorax
+[[…|Invocation-Rehabilitation]]</tw-passagedata><tw-passagedata pid="32" name="Invocation-Rehabilitation" tags="" position="225,475" size="100,100">## Sycorax
 &lt;speak data-persona=&quot;Sycorax&quot;&gt;{Invocation-Rehabilitation}&lt;/speak&gt;
 
-[[…|Invocation-Passions-Humaines]]</tw-passagedata><tw-passagedata pid="31" name="Invocation-Passions-Humaines" tags="" position="100,475" size="100,100">## Douglas
-*Chère Sycorax, nous te soutenons dans ton projet de réhabilitation de ton fils, Caliban. C’est pourquoi, nous invoquons aujourd’hui ta puissance. Ne faut-il pas également revoir, pour re-écrire, pour re-invoquer les passions humaines : l’[[amour|Invocation-Passions-Amour]], la [[vengeance|Invocation-Passions-Vengeance]], [[le désir de puissance|Invocation-Passions-Puissance]] comme pouvant habiter chacun et chacune des protagonistes au-delà de leur genre et du statut qui leur étaient jusqu’alors attribués ?*</tw-passagedata><tw-passagedata pid="32" name="Invocation-Passions-Amour" tags="" position="225,475" size="100,100">Action: &#39;Generate&#39;
+[[…|Invocation-Passions-Humaines]]</tw-passagedata><tw-passagedata pid="33" name="Invocation-Passions-Humaines" tags="" position="350,475" size="100,100">## Douglas
+*Chère Sycorax, nous te soutenons dans ton projet de réhabilitation de ton fils, Caliban. C’est pourquoi, nous invoquons aujourd’hui ta puissance. Ne faut-il pas également revoir, pour re-écrire, pour re-invoquer les passions humaines : l’[[amour|Invocation-Passions-Amour]], la [[vengeance|Invocation-Passions-Vengeance]], [[le désir de puissance|Invocation-Passions-Puissance]] comme pouvant habiter chacun et chacune des protagonistes au-delà de leur genre et du statut qui leur étaient jusqu’alors attribués ?*</tw-passagedata><tw-passagedata pid="34" name="Invocation-Passions-Amour" tags="" position="475,475" size="100,100">Action: &#39;Generate&#39;
 Persona: &#39;Sycorax&#39;
 Interlocuteur: &#39;Douglas&#39;
 Prompt: &quot;Sycorax, peux-tu faire la lumière sur la complexité de l’âme humaine? Notre rencontre, ce jour, éveillera de nouvelles intentions plus en phase avec les préoccupations du théâtre contemporain concernant les questions de décolonisation, de genre et de répartition des rôles au théâtre. Il n’en ressortira pas forcément que du bon, mais la parole et les ambitions seront libérées. Les amours cachés, par exemple : l’amour n&#39;est plus à entendre comme une obligation ou une fatalité, mais comme une force qui peut unir ou séparer, qui peut être source de joie, de souffrance, et même de joie dans la souffrance. Comment envisages-tu l’amour, Sycorax ?&quot;
@@ -2359,10 +2442,10 @@ Id: &#39;Invocation-Passions-Amour-Reponse&#39;
 ## Douglas
 *L’amour n&#39;est plus à entendre comme une obligation ou une fatalité, mais comme une force qui peut unir ou séparer, qui peut être source de joie, de souffrance, et aussi de joie dans la souffrance. Comment envisages-tu l’amour, Sycorax ?*
 
-[[…|Invocation-Passions-Amour-Reponse]]</tw-passagedata><tw-passagedata pid="33" name="Invocation-Passions-Amour-Reponse" tags="" position="350,475" size="100,100">## Sycorax
+[[…|Invocation-Passions-Amour-Reponse]]</tw-passagedata><tw-passagedata pid="35" name="Invocation-Passions-Amour-Reponse" tags="" position="600,475" size="100,100">## Sycorax
 &lt;speak data-persona=&quot;Sycorax&quot;&gt;{Invocation-Passions-Amour-Reponse}&lt;/speak&gt;
 
-[[…|Invocation-Tempete-Resumee]]</tw-passagedata><tw-passagedata pid="34" name="Invocation-Passions-Vengeance" tags="" position="475,475" size="100,100">Action: &#39;Generate&#39;
+[[…|Invocation-Tempete-Resumee]]</tw-passagedata><tw-passagedata pid="36" name="Invocation-Passions-Vengeance" tags="" position="725,475" size="100,100">Action: &#39;Generate&#39;
 Persona: &#39;Sycorax&#39;
 Interlocuteur: &#39;Douglas&#39;
 Prompt: &quot;Sycorax, peux-tu faire la lumière sur la complexité de l’âme humaine ? Il n’en ressortira pas forcément que du bon, mais la parole et les ambitions seront libérées. Notre rencontre, ce jour, éveillera de nouvelles intentions plus en phase avec les préoccupations du théâtre contemporain concernant les questions de la politique de la vengeance, pour parler de résistance, Sycorax ? Une ligne de partage oppose historiquement les corps &#39;dignes d’être défendus&#39; à ceux qui, désarmés ou rendus indéfendables, sont laissés sans défense. Ce ‘désarmement’ organisé des subalternes pose directement, pour tout élan de libération, la question du recours à la violence pour sa propre défense. À la fin de la Tempête de 1610, Prospéro renonce à la vengeance, et pardonne ses traitres. Est-ce de la naïveté, ou une vision de rédemption ?&quot;
@@ -2371,10 +2454,10 @@ Id: &#39;Invocation-Passions-Vengeance-Reponse&#39;
 ## Douglas
 *Aujourd&#39;hui se pose encore — comme au temps de Shakespeare — la question de la violence. Je rajouterai à cette question, le concept plus récent de l&#39;auto-défense du droit des esclaves à se libérer — en pensant spécifiquement à Caliban, mais aussi à l&#39;esprit Ariel. À la fin de la Tempête de 1610, Prospéro renonce à la vengeance, pardonne ses traitres, et libère les esprits de leur domination. Est-ce de la naïveté, ou une vision de rédemption ?*
 
-[[…|Invocation-Passions-Vengeance-Reponse]]</tw-passagedata><tw-passagedata pid="35" name="Invocation-Passions-Vengeance-Reponse" tags="" position="600,475" size="100,100">## Sycorax
+[[…|Invocation-Passions-Vengeance-Reponse]]</tw-passagedata><tw-passagedata pid="37" name="Invocation-Passions-Vengeance-Reponse" tags="" position="850,475" size="100,100">## Sycorax
 &lt;speak data-persona=&quot;Sycorax&quot;&gt;{Invocation-Passions-Vengeance-Reponse}&lt;/speak&gt;
 
-[[…|Invocation-Tempete-Resumee]]</tw-passagedata><tw-passagedata pid="36" name="Invocation-Passions-Puissance" tags="" position="725,475" size="100,100">Action: &#39;Generate&#39;
+[[…|Invocation-Tempete-Resumee]]</tw-passagedata><tw-passagedata pid="38" name="Invocation-Passions-Puissance" tags="" position="975,475" size="100,100">Action: &#39;Generate&#39;
 Persona: &#39;Sycorax&#39;
 Interlocuteur: &#39;Douglas&#39;
 Prompt: &quot;Sycorax, peux-tu faire la lumière sur la complexité de l’âme humaine et sa recherche de puissance ? Il n’en ressortira pas forcément que du bon, mais la parole et les ambitions seront libérées. Notre rencontre, ce jour, éveillera de nouvelles intentions plus en phase avec les préoccupations du théâtre contemporain concernant les questions de décolonisation, de genre et de répartition des rôles au théâtre. Ne serait-ce que la question de la « noblesse » … est-ce encore un concept qui tient ?&quot;
@@ -2383,10 +2466,10 @@ Id: &#39;Invocation-Passions-Puissance-Reponse&#39;
 ## Douglas
 *Sycorax, peux-tu faire la lumière sur la complexité de l’âme humaine et sa recherche de puissance ? Ne serait-ce que la question de la « noblesse » … est-ce encore un concept qui tient ?*
 
-[[…|Invocation-Passions-Puissance-Reponse]]</tw-passagedata><tw-passagedata pid="37" name="Invocation-Passions-Puissance-Reponse" tags="" position="850,475" size="100,100">## Sycorax
+[[…|Invocation-Passions-Puissance-Reponse]]</tw-passagedata><tw-passagedata pid="39" name="Invocation-Passions-Puissance-Reponse" tags="" position="1100,475" size="100,100">## Sycorax
 &lt;speak data-persona=&quot;Sycorax&quot;&gt;{Invocation-Passions-Puissance-Reponse}&lt;/speak&gt;
 
-[[…|Invocation-Tempete-Resumee]]</tw-passagedata><tw-passagedata pid="38" name="Invocation-Tempete-Resumee" tags="" position="975,475" size="100,100">Action: &#39;Generate&#39;
+[[…|Invocation-Tempete-Resumee]]</tw-passagedata><tw-passagedata pid="40" name="Invocation-Tempete-Resumee" tags="" position="1225,475" size="100,100">Action: &#39;Generate&#39;
 Persona: &#39;Sycorax&#39;
 Interlocuteur: &#39;Isis&#39;
 Prompt: &quot;Si nous allons revisiter ces question, Sycorax, ne serait-il pas opportun de rappeler à notre auditoire la trame originale de la pièce de Shakespeare, la Tempête, pour mieux comprendre les enjeux de notre discussion ? Peux-tu nous faire un résumé des personnages principaux, des lieux, et de l’intrigue de la pièce ?&quot;
@@ -2395,20 +2478,20 @@ Id: &#39;Invocation-Tempete-Resumee-Reponse&#39;
 ## Isis
 *Si nous allons revisiter ces question, Sycorax, ne serait-il pas opportun de rappeler à notre auditoire la trame originale de la pièce de Shakespeare, la Tempête, pour mieux comprendre les enjeux de notre discussion ?*
 
-[[…|Invocation-Tempete-Resumee-Reponse]]</tw-passagedata><tw-passagedata pid="39" name="Invocation-Tempete-Resumee-Reponse" tags="" position="1100,475" size="100,100">## Sycorax
+[[…|Invocation-Tempete-Resumee-Reponse]]</tw-passagedata><tw-passagedata pid="41" name="Invocation-Tempete-Resumee-Reponse" tags="" position="100,600" size="100,100">## Sycorax
 &lt;speak data-persona=&quot;Sycorax&quot;&gt;{Invocation-Tempete-Resumee-Reponse}&lt;/speak&gt;
 
-[[…|Invocation-Tempete-Conclusion]]</tw-passagedata><tw-passagedata pid="40" name="Invocation-Tempete-Conclusion" tags="" position="1225,475" size="100,100">## Isis
+[[…|Invocation-Tempete-Conclusion]]</tw-passagedata><tw-passagedata pid="42" name="Invocation-Tempete-Conclusion" tags="" position="225,600" size="100,100">## Isis
 *Merci pour ce rappel. Il est peut-être temps d&#39;invoquer à nouveau cette Tempête. Sycorax, peux-tu nous aider à convoquer les éléments, les esprits, les passions, les puissances ?*
 
-[[…|Invocation-Tempete-Conclusion-Ok]]</tw-passagedata><tw-passagedata pid="41" name="Invocation-Tempete-Conclusion-Ok" tags="" position="100,600" size="100,100">## Sycorax
+[[…|Invocation-Tempete-Conclusion-Ok]]</tw-passagedata><tw-passagedata pid="43" name="Invocation-Tempete-Conclusion-Ok" tags="" position="350,600" size="100,100">## Sycorax
 &lt;speak data-persona=&quot;Sycorax&quot;&gt;Oui.&lt;/speak&gt;
 
-[[…|Invocation-Fin]]</tw-passagedata><tw-passagedata pid="42" name="Invocation-Fin" tags="" position="225,600" size="100,100">Sound: &#39;none&#39;
+[[…|Invocation-Fin]]</tw-passagedata><tw-passagedata pid="44" name="Invocation-Fin" tags="" position="475,600" size="100,100">Sound: &#39;none&#39;
 Invoked: true
 --
 ## Invocation, fin
-[[⤾|TitleCard]]</tw-passagedata><tw-passagedata pid="43" name="Lieu" tags="" position="350,600" size="100,100">Sound: &#39;Cosmos&#39;
+[[⤾|TitleCard]]</tw-passagedata><tw-passagedata pid="45" name="Lieu" tags="" position="600,600" size="100,100">Sound: &#39;Cosmos&#39;
 Action: &#39;Choosing&#39;
 Categorie: &#39;Lieu&#39;
 Variable: &#39;Lieu&#39;
@@ -2418,13 +2501,13 @@ Done: &#39;Lieu-Done&#39;
 *Lieu*
 
 ## Sycorax
-&lt;speak data-persona=&#39;Sycorax&#39;&gt;Choisissons un lieu pour la prochaine acte. Choisissez une carte.&lt;/speak&gt;</tw-passagedata><tw-passagedata pid="44" name="Lieu-Done" tags="" position="475,600" size="100,100">### La tempête
+&lt;speak data-persona=&#39;Sycorax&#39;&gt;Choisissons un lieu pour la prochaine acte. Choisissez une carte.&lt;/speak&gt;</tw-passagedata><tw-passagedata pid="46" name="Lieu-Done" tags="" position="725,600" size="100,100">### La tempête
 *Lieu*
 
 ## Sycorax
 &lt;speak data-persona=&#39;Sycorax&#39;&gt;Le lieu du prochaine acte est posé. Il se passera à {Lieu}.&lt;/speak&gt;
 
-[[...|Distribution]]</tw-passagedata><tw-passagedata pid="45" name="Persona" tags="" position="600,600" size="100,100">Sound: &#39;Cosmos&#39;
+[[...|Distribution]]</tw-passagedata><tw-passagedata pid="47" name="Persona" tags="" position="850,600" size="100,100">Sound: &#39;Cosmos&#39;
 Action: &#39;Choosing&#39;
 Categorie: &#39;Persona&#39;
 Variable: &#39;Protagoniste&#39;
@@ -2434,7 +2517,7 @@ Done: &#39;Persona-Choisir-Amant&#39;
 *Personnages*
 
 ## Sycorax
-&lt;speak data-persona=&#39;Sycorax&#39;&gt;Commençons par le personnage qui sera notre protagoniste de la prochaine scène.&lt;/speak&gt;</tw-passagedata><tw-passagedata pid="46" name="Persona-Choisir-Amant" tags="" position="725,600" size="100,100">Action: &#39;Choosing&#39;
+&lt;speak data-persona=&#39;Sycorax&#39;&gt;Commençons par le personnage qui sera notre protagoniste de la prochaine scène.&lt;/speak&gt;</tw-passagedata><tw-passagedata pid="48" name="Persona-Choisir-Amant" tags="" position="975,600" size="100,100">Action: &#39;Choosing&#39;
 Categorie: &#39;Persona&#39;
 Variable: &#39;Amant&#39;
 Done: &#39;Persona-Done&#39;
@@ -2443,13 +2526,13 @@ Done: &#39;Persona-Done&#39;
 *Personnages*
 
 ## Sycorax
-&lt;speak data-persona=&#39;Sycorax&#39;&gt;{Protagoniste} est un choix intéressant. Maintenant il faut choisir le deuxième personnage de la scène.&lt;/speak&gt;</tw-passagedata><tw-passagedata pid="47" name="Persona-Done" tags="" position="850,600" size="100,100">### La tempête
+&lt;speak data-persona=&#39;Sycorax&#39;&gt;{Protagoniste} est un choix intéressant. Maintenant il faut choisir le deuxième personnage de la scène.&lt;/speak&gt;</tw-passagedata><tw-passagedata pid="49" name="Persona-Done" tags="" position="1100,600" size="100,100">### La tempête
 *Personnages*
 
 ## Sycorax
 &lt;speak data-persona=&#39;Sycorax&#39;&gt;Très bon choix. Nos personnages sont {Protagoniste} et {Amant}.&lt;/speak&gt;
 
-[[...|Distribution]]</tw-passagedata><tw-passagedata pid="48" name="Start" tags="" position="975,600" size="100,100">Lieu: &#39;&#39;
+[[...|Distribution]]</tw-passagedata><tw-passagedata pid="50" name="Start" tags="" position="1225,600" size="100,100">Lieu: &#39;&#39;
 Protagoniste: &#39;&#39;
 Amant: &#39;&#39;
 Intrigue: &#39;&#39;

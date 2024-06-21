@@ -14,6 +14,10 @@ Id: 'EpilogueProspero'
 
 
 :: Epilogue-Sycorax
+Action: 'Sentencize'
+Id: 'EpilogueProspero'
+DialogueIndex: 0
+--
 ## Epilogue
 
 ## Sycorax
@@ -31,6 +35,42 @@ Sound: 'Plage'
 ## Prospero
 <speak data-persona="Prospero">{EpilogueProspero}</speak>
 
+[[…|Epilogue-Fin]]
+
+
+:: Epilogue-Prospero-A
+DialogueIndex: DialogueIndex + 1
+ParoleId: 'DialogueContent' + DialogueIndex
+--
+[JavaScript]
+engine.state.set('dialogue', engine.state.get(ParoleId));
+[continue]
+## Epilogue
+
+## Prospero
+<speak data-persona='Prospero'>{dialogue}</speak>
+
+[if DialogueIndex < DialogueCount]
+[[…|Epilogue-Prospero-B]]
+[else]
+[[…|Epilogue-Fin]]
+
+
+:: Epilogue-Prospero-B
+DialogueIndex: DialogueIndex + 1
+ParoleId: 'DialogueContent' + DialogueIndex
+--
+[JavaScript]
+engine.state.set('dialogue', engine.state.get(ParoleId));
+[continue]
+## Epilogue
+
+## Prospero
+<speak data-persona='Prospero'>{dialogue}</speak>
+
+[if DialogueIndex < DialogueCount]
+[[…|Epilogue-Prospero-A]]
+[else]
 [[…|Epilogue-Fin]]
 
 
