@@ -45,6 +45,7 @@ Canal #28	RGB		Personnage Right-Of-Center (Interlocutor)
 ## Serial Protocol
 This is the internal Tempête Serial protocol
 
+### On/Off Lights
 ```l1=255```
 Light #1 value = 255
 
@@ -57,6 +58,13 @@ Light #28 value = 255
 ```l28=off```
 Light #28 value = 0
 
+### LED Lights
+```c5=255 0 0 255```
+Light #5 Red=255 Green=0 Blue=0 Intensity=255
+
+```c28=255 255 0 120```
+Light #28 Red=255 Green=255 Blue=0 Intensity=120
+
 
 ### Fiche Technique Robe T11
 - <https://robelighting.fr/res/downloads/dmx_charts/Robin_T11_Profile_PC_Fresnel_DMX_charts.pdf>
@@ -68,17 +76,17 @@ Light #28 value = 0
 	- 5 + (below)
 	- 28 + (below)
 - Mode 2 values
-+ 05 | 28	: 0 	Power/Special Function (IGNORE)
-+ 06 | 29	: 0 	Color Functions
++0	05 | 28	: 0 	Power/Special Function (IGNORE)
++1	06 | 29	: 0 	Color Functions
 			- 0				No Function
 			- 45 > 49		Color Mixing Mode RGB
-+ 07 | 30	: 0 	CRI Selection 	(CRI = Color Rendering Index)
-+ 08 | 31	: 0-255	Cyan / Red		(Default 255 if in RGB mode, i.e. all 255 == WHITE)
-+ 09 | 32	: 0-255	Magenta / Green	(Default 255 if in RGB mode, i.e. all 255 == WHITE)
-+ 10 | 33	: 0-255	Yellow / Blue	(Default 255 if in RGB mode, i.e. all 255 == WHITE)
-+ 11 | 34	: 110		Color Temperature correction (CTT)
-+ 12 | 35	: 32	Shutter / Strobe
-+ 13 | 36	: 0-255	Dimmer Intensity
++2	07 | 30	: 0 	CRI Selection 	(CRI = Color Rendering Index)
++3	08 | 31	: 0-255	Cyan			(Default 255 if in RGB mode, i.e. all 255 == WHITE)
++4	09 | 32	: 0-255	Magenta			(Default 255 if in RGB mode, i.e. all 255 == WHITE)
++5	10 | 33	: 0-255	Yellow			(Default 255 if in RGB mode, i.e. all 255 == WHITE)
++6	11 | 34	: 110		Color Temperature correction (CTT)
++7	12 | 35	: 32	Shutter / Strobe
++8	13 | 36	: 0-255	Dimmer Intensity
 
 > Factory display menu setting: Colour mixing mode-CMY, Dimmer Curve-Square Law, Tungsten effect simulation-Off, Chromatic white- Off, Light output stability-Off, Uniformity-Off
 

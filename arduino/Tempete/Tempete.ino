@@ -103,6 +103,60 @@ void parseAll(String input) {
 
 
 void parseColor(String input) {
+
+  // make sure there are enough chars
+  if (input.length() < 5) return;
+
+  // Find the position of the equals sign
+  int equalsIndex = input.indexOf('=');
+  // If no equals sign found, return
+  if (equalsIndex == -1) return;
+  // get string after equals sign
+  String after = input.substring(equalsIndex + 1);
+
+  String before = input.substring(1,equalsIndex);
+
+  int channel = before.toInt();
+  if (channel > 0) {
+    
+    // parse spaces in after
+    int firstIndex = after.indexOf(' ');
+    if (firstIndex < -1) return;
+
+    int secondIndex = after.indexOf(' ', firstIndex+1);
+    if (secondIndex < -1) return;
+
+    int thirdIndex = after.indexOf(' ', secondIndex+1);
+    if (thirdIndex < -1) return;
+
+    String first = after.substring(0,firstIndex);
+    String second = after.substring(firstIndex+1,secondIndex);
+    String third = after.substring(secondIndex+1,thirdIndex);
+    String fourth = after.substring(thirdIndex+1);
+
+    int cyanValue = first.toInt();
+    int magentaValue = second.toInt();
+    int yellowValue = third.toInt();
+    int brightnessValue = fourth.toInt();
+
+    if (cyanValue < 0 || cyanValue > 255) return;
+    if (magentaValue < 0 || magentaValue > 255) return;
+    if (yellowValue < 0 || yellowValue > 255) return;
+    if (brightnessValue < 0 || brightnessValue > 255) return;
+
+    // set T11 values
+    setTarget(channel+0, 0);
+    setTarget(channel+1, 0);
+    setTarget(channel+2, 0); // CRI
+    setTarget(channel+3, cyanValue);
+    setTarget(channel+4, magentaValue);
+    setTarget(channel+5, yellowValue);
+    setTarget(channel+6, 110); // CTT
+    setTarget(channel+7, 32); // Shutter
+    setTarget(channel+8, brightnessValue);
+
+  }
+  
 }
 
 
