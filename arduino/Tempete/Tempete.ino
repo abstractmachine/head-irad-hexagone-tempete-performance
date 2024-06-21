@@ -97,8 +97,8 @@ void parseAll(String input) {
   setTarget(3, value);
   setTarget(4, value);
   // turn on the LED lights
-  // setLED(5,value);
-  // setLED(28,value);
+  setLED(5, 0, 255, 0, value);
+  setLED(28, 255, 0, 255, value);
 }
 
 
@@ -144,16 +144,8 @@ void parseColor(String input) {
     if (yellowValue < 0 || yellowValue > 255) return;
     if (brightnessValue < 0 || brightnessValue > 255) return;
 
-    // set T11 values
-    setTarget(channel+0, 0);
-    setTarget(channel+1, 0);
-    setTarget(channel+2, 0); // CRI
-    setTarget(channel+3, cyanValue);
-    setTarget(channel+4, magentaValue);
-    setTarget(channel+5, yellowValue);
-    setTarget(channel+6, 110); // CTT
-    setTarget(channel+7, 32); // Shutter
-    setTarget(channel+8, brightnessValue);
+    // int channel, int cyan, int magenta, int yellow, int brightness
+    setLED(channel, cyanValue, magentaValue, yellowValue, brightnessValue);
 
   }
   
@@ -195,7 +187,19 @@ void parseLight(String input) {
 }
 
 
-void setLED(int channel, int red, int green, int blue, int brightness) {
+void setLED(int channel, int cyan, int magenta, int yellow, int brightness) {
+
+    // set T11 values
+    setTarget(channel+0, 0);
+    setTarget(channel+1, 0);
+    setTarget(channel+2, 0); // CRI
+    setTarget(channel+3, cyan);
+    setTarget(channel+4, magenta);
+    setTarget(channel+5, yellow);
+    setTarget(channel+6, 110); // CTT
+    setTarget(channel+7, 32); // Shutter
+    setTarget(channel+8, brightness);
+
 }
 
 //   // Find the position of the space
