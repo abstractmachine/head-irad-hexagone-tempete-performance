@@ -103,24 +103,55 @@ async function readLoop() {
 }
 
 async function sendDataLight(channel, value) {
+
+	console.log("sendDataLight(" + channel + "," + value + ")");
+
 	if (outputStream) {
 		// Add the data to the write queue
 		writeQueue.push(`l${channel}=${value}\n`);
 		// Process the write queue
 		processWriteQueue();
 	}
+	
 }
 
-async function sendData(channel, value) {
+async function sendDataColor(channel, cyan, magenta, yellow, value) {
+
+	console.log("sendDataColor(" + channel + "," + cyan + "," + magenta + "," + yellow + "," + value + ")");
+
 	if (outputStream) {
 		// Add the data to the write queue
-		writeQueue.push(`${channel} ${value}\n`);
+		writeQueue.push(`c${channel}=${cyan} ${magenta} ${yellow} ${value}\n`);
 		// Process the write queue
 		processWriteQueue();
 	}
 }
 
+async function sendDataAll(value) {
+
+	console.log("sendDataAll(" + value + ")");
+
+	if (outputStream) {
+		// Add the data to the write queue
+		writeQueue.push(`a=${value}\n`);
+		// Process the write queue
+		processWriteQueue();
+	}
+}
+
+async function sendData(channel, value) {
+
+	if (outputStream) {
+		// Add the data to the write queue
+		writeQueue.push(`l${channel}=${value}\n`);
+		// Process the write queue
+		processWriteQueue();
+	}
+
+}
+
 async function processWriteQueue() {
+
 	try {
 		if (writeQueue.length > 0) {
 			const writer = outputStream.getWriter();
@@ -133,6 +164,7 @@ async function processWriteQueue() {
 	} catch (error) {
 		console.error('Error processing write queue:', error);
 	}
+
 }
 
 // // Event listener for any click on the page to reinitialize the serial connection

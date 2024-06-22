@@ -1039,24 +1039,55 @@ async function readLoop() {
 }
 
 async function sendDataLight(channel, value) {
+
+	console.log("sendDataLight(" + channel + "," + value + ")");
+
 	if (outputStream) {
 		// Add the data to the write queue
 		writeQueue.push(`l${channel}=${value}\n`);
 		// Process the write queue
 		processWriteQueue();
 	}
+	
 }
 
-async function sendData(channel, value) {
+async function sendDataColor(channel, cyan, magenta, yellow, value) {
+
+	console.log("sendDataColor(" + channel + "," + cyan + "," + magenta + "," + yellow + "," + value + ")");
+
 	if (outputStream) {
 		// Add the data to the write queue
-		writeQueue.push(`${channel} ${value}\n`);
+		writeQueue.push(`c${channel}=${cyan} ${magenta} ${yellow} ${value}\n`);
 		// Process the write queue
 		processWriteQueue();
 	}
 }
 
+async function sendDataAll(value) {
+
+	console.log("sendDataAll(" + value + ")");
+
+	if (outputStream) {
+		// Add the data to the write queue
+		writeQueue.push(`a=${value}\n`);
+		// Process the write queue
+		processWriteQueue();
+	}
+}
+
+async function sendData(channel, value) {
+
+	if (outputStream) {
+		// Add the data to the write queue
+		writeQueue.push(`l${channel}=${value}\n`);
+		// Process the write queue
+		processWriteQueue();
+	}
+
+}
+
 async function processWriteQueue() {
+
 	try {
 		if (writeQueue.length > 0) {
 			const writer = outputStream.getWriter();
@@ -1069,6 +1100,7 @@ async function processWriteQueue() {
 	} catch (error) {
 		console.error('Error processing write queue:', error);
 	}
+
 }
 
 // // Event listener for any click on the page to reinitialize the serial connection
@@ -1093,6 +1125,7 @@ let currentSound = "";
 let lastPassageName = "";
 let cartes = {};
 let motivations = {};
+let speakerColor = 'white';
 
 let lightStates = {"1":false, "2": false, "3": false, "4":false, "5": false, "28": false};
 
@@ -1128,7 +1161,7 @@ async function parseKey(key) {
 			storyReset();
 			break;
 
-		case '§':
+		case ';':
 			printHistory();
 			break;
 
@@ -1140,7 +1173,6 @@ async function parseKey(key) {
 		case '&':
 		case '2':
 		case 'é':
-			console.log("switch");
 			lightStates['1'] = !lightStates['1'];
 			lightStates['2'] = lightStates['1'];
 			if (lightStates['1']) {
@@ -1154,20 +1186,39 @@ async function parseKey(key) {
 		case '"':
 			lightStates['3'] = !lightStates['3'];
 			if (lightStates['3']) {
-				dmxOn('Isis');
+				sendDataLight(3, 'on');
 			} else {
-				dmxOff('Isis')
+				sendDataLight(3, 'off');
 			}
 			break;
 
 		case '4':
 		case "'":
-			console.log("Douglas");
 			lightStates['4'] = !lightStates['4'];
 			if (lightStates['4']) {
 				dmxOn('Douglas');
 			} else {
 				dmxOff('Douglas')
+			}
+			break;
+
+		case '5':
+		case '(':
+			lightStates['5'] = !lightStates['5'];
+			if (lightStates['5']) {
+				dmxOn('Protagonist');
+			} else {
+				dmxOff('Protagonist')
+			}
+			break;
+
+		case '6':
+		case '§':
+			lightStates['28'] = !lightStates['28'];
+			if (lightStates['28']) {
+				dmxOn('Interlocuteur');
+			} else {
+				dmxOff('Interlocuteur')
 			}
 			break;
 
@@ -1732,46 +1783,63 @@ function dmxSpeaker(which, ambiance, state) {
 
 function dmxOn(speaker) {
 
-	// console.log("DMX on: " + speaker);
+	console.log("dmxOn(" + speaker + ")");
+
+	let c1, c2, c3, value;
+
+	switch(speakerColor) {
+		case 'white':
+			c1 = 255;
+			c2 = 255;
+			c3 = 255;
+			value = 255;
+			break;
+		case 'red':
+			c1 = 255;
+			c2 = 0;
+			c3 = 0;
+			value = 255;
+			break;
+	}
+
 	// depending on the name of the speaker, we can turn on different lights
 	switch (speaker) {
 		case 'Sycorax':
 			lightStates['1'] = true;
-			// lightStates['2'] = true;
 			sendDataLight(1, 'on');
-			// sendData(2, 'on');
+			setTimeout(function() { sendDataLight(2, 'on'); }, 20);
+			break;
+		case 'Protagonist':
+			lightStates['5'] = true;
+			sendDataColor(5, 255, 255, 255, 255);
+			break;
+		case 'Interlocuteur':
+			lightStates['28'] = true;
+			sendDataColor(28, 255, 255, 255, 255);
 			break;
 		case 'Isis':
-			lightStates['3'] = true;
-			sendDataLight(3, 'on');
+			lightStates['4'] = true;
+			sendDataLight(4, 'on');
 			return;
 		case 'Douglas':
 			lightStates['4'] = true;
 			sendDataLight(4, 'on');
 			return;
 		case 'Miranda':
-			// sendData(5, 'on');
 			break;
 		case 'Ariel':
-			// sendData(5, 'on');
 			break;
 		case 'Ferdinand':
-			// sendData(5, 'on');
 			break;
 		case 'Prospero':
-			// sendData(5, 'on');
 			break;
 		case 'Antonio':
-			// sendData(5, 'on');
 			break;
 		case 'Sébastien':
-			// sendData(5, 'on');
 			break;
 		case 'Alonso':
-			// sendData(5, 'on');
 			break;
 		case 'Caliban':
-			// sendData(5, 'on');
 			break;
 	}
 	//switch(speaker)
@@ -1781,48 +1849,46 @@ function dmxOn(speaker) {
 
 function dmxOff(speaker) {
 
-	console.log("dmxOff " + speaker);
+	console.log("dmxOff(" + speaker + ")");
 
-	// console.log("DMX off: " + speaker);
 	// depending on the name of the speaker, we can turn on different lights
 	switch (speaker) {
 		case 'Sycorax':
 			lightStates['1'] = false;
 			sendDataLight(1, 'off');
-			// lightStates['2'] = false;
-			// sendData(1, 'off');
+			setTimeout(function() { sendDataLight(2, 'off'); }, 20);
 			break;
 		case 'Isis':
-			lightStates['3'] = false;
-			sendDataLight(3, 'off');
+			lightStates['4'] = false;
+			sendDataLight(4, 'off');
 			return;
 		case 'Douglas':
 			lightStates['4'] = false;
 			sendDataLight(4, 'off');
 			return;
+		case 'Protagonist':
+			lightStates['5'] = false;
+			sendDataColor(5, 0, 0, 0, 0);
+			break;
+		case 'Interlocuteur':
+			lightStates['28'] = false;
+			sendDataColor(28, 0, 0, 0, 0);
+			break;
 		case 'Miranda':
-			// sendData(5, 'off');
 			break;
 		case 'Ariel':
-			// sendData(5, 'off');
 			break;
 		case 'Ferdinand':
-			// sendData(5, 'off');
 			break;
 		case 'Prospero':
-			// sendData(5, 'off');
 			break;
 		case 'Antonio':
-			// sendData(5, 'off');
 			break;
 		case 'Sébastien':
-			// sendData(5, 'off');
 			break;
 		case 'Alonso':
-			// sendData(5, 'off');
 			break;
 		case 'Caliban':
-			// sendData(5, 'off');
 			break;
 	}
 	//switch(speaker)
@@ -1831,9 +1897,7 @@ function dmxOff(speaker) {
 
 
 function dmxOffAll() {
-	for(let i=1; i<=11; i++) {
-		sendData(i, 'off');
-	}
+	sendDataAll(i, 'off');
 }
 // dmxOff()
 
@@ -2023,6 +2087,7 @@ window.parent.postMessage({OPEN_AI_API_KEY: 'true'}, '*');
 /* twine-user-script #6: "voices.js" */
 var synth;
 let personaTalking = '';
+let roleTalking = '';
 let talkingText = '';
 let validVoices = {};
 let utterances = [];
@@ -2170,6 +2235,8 @@ function talkingDone() {
 }
 
 </script><tw-passagedata pid="1" name="Acte" tags="" position="100,100" size="100,100">Sound: Lieu
+Role: &#39;none&#39;
+RoleColor: Lieu
 Action: &#39;Parse&#39;
 Id: &#39;Distribution-Dialogue&#39;
 DialogueIndex: 0
@@ -2177,12 +2244,13 @@ DialogueIndex: 0
 - ## Lieu
 - *{Lieu}*
 
-[[...|Acte-Dialogue-A]]
+[[...|Acte-Dialogue-Protagonist]]
 
 [JavaScript]
 // log the current dialogues
 console.log(engine.state.get(&#39;Distribution-Dialogue&#39;));
-[continue]</tw-passagedata><tw-passagedata pid="2" name="Acte-Dialogue-A" tags="" position="225,100" size="100,100">DialogueIndex: DialogueIndex + 1
+[continue]</tw-passagedata><tw-passagedata pid="2" name="Acte-Dialogue-Protagonist" tags="" position="225,100" size="100,100">Role: &#39;Protagonist&#39;
+DialogueIndex: DialogueIndex + 1
 SpeakerId: &#39;DialogueSpeaker&#39; + DialogueIndex
 ParoleId: &#39;DialogueContent&#39; + DialogueIndex
 --
@@ -2197,9 +2265,10 @@ engine.state.set(&#39;dialogue&#39;, engine.state.get(ParoleId));
 &lt;speak data-persona=&#39;{speaker}&#39;&gt;{dialogue}&lt;/speak&gt;
 
 [if DialogueIndex &lt; DialogueCount]
-[[…|Acte-Dialogue-B]]
+[[…|Acte-Dialogue-Interlocuteur]]
 [else]
-[[…|Acte-Fin]]</tw-passagedata><tw-passagedata pid="3" name="Acte-Dialogue-B" tags="" position="350,100" size="100,100">DialogueIndex: DialogueIndex + 1
+[[…|Acte-Fin]]</tw-passagedata><tw-passagedata pid="3" name="Acte-Dialogue-Interlocuteur" tags="" position="350,100" size="100,100">Role: &#39;Interlocuteur&#39;
+DialogueIndex: DialogueIndex + 1
 SpeakerId: &#39;DialogueSpeaker&#39; + DialogueIndex
 ParoleId: &#39;DialogueContent&#39; + DialogueIndex
 --
@@ -2214,7 +2283,7 @@ engine.state.set(&#39;dialogue&#39;, engine.state.get(ParoleId));
 &lt;speak data-persona=&#39;{speaker}&#39;&gt;{dialogue}&lt;/speak&gt;
 
 [if DialogueIndex &lt; DialogueCount]
-[[…|Acte-Dialogue-A]]
+[[…|Acte-Dialogue-Protagonist]]
 [else]
 [[…|Acte-Fin]]</tw-passagedata><tw-passagedata pid="4" name="Acte-Fin" tags="" position="475,100" size="100,100">Sound: &#39;none&#39;
 Action: &#39;ResetCards&#39;

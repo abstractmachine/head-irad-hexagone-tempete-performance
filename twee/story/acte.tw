@@ -1,5 +1,7 @@
 :: Acte
 Sound: Lieu
+Role: 'none'
+RoleColor: Lieu
 Action: 'Parse'
 Id: 'Distribution-Dialogue'
 DialogueIndex: 0
@@ -7,14 +9,15 @@ DialogueIndex: 0
 - ## Lieu
 - *{Lieu}*
 
-[[...|Acte-Dialogue-A]]
+[[...|Acte-Dialogue-Protagonist]]
 
 [JavaScript]
 // log the current dialogues
 console.log(engine.state.get('Distribution-Dialogue'));
 [continue]
 
-:: Acte-Dialogue-A
+:: Acte-Dialogue-Protagonist
+Role: 'Protagonist'
 DialogueIndex: DialogueIndex + 1
 SpeakerId: 'DialogueSpeaker' + DialogueIndex
 ParoleId: 'DialogueContent' + DialogueIndex
@@ -30,12 +33,13 @@ engine.state.set('dialogue', engine.state.get(ParoleId));
 <speak data-persona='{speaker}'>{dialogue}</speak>
 
 [if DialogueIndex < DialogueCount]
-[[…|Acte-Dialogue-B]]
+[[…|Acte-Dialogue-Interlocuteur]]
 [else]
 [[…|Acte-Fin]]
 
 
-:: Acte-Dialogue-B
+:: Acte-Dialogue-Interlocuteur
+Role: 'Interlocuteur'
 DialogueIndex: DialogueIndex + 1
 SpeakerId: 'DialogueSpeaker' + DialogueIndex
 ParoleId: 'DialogueContent' + DialogueIndex
@@ -51,7 +55,7 @@ engine.state.set('dialogue', engine.state.get(ParoleId));
 <speak data-persona='{speaker}'>{dialogue}</speak>
 
 [if DialogueIndex < DialogueCount]
-[[…|Acte-Dialogue-A]]
+[[…|Acte-Dialogue-Protagonist]]
 [else]
 [[…|Acte-Fin]]
 

@@ -1,5 +1,6 @@
 var synth;
 let personaTalking = '';
+let roleTalking = '';
 let talkingText = '';
 let validVoices = {};
 let utterances = [];

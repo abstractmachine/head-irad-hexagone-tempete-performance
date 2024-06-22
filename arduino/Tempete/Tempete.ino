@@ -97,8 +97,8 @@ void parseAll(String input) {
   setTarget(3, value);
   setTarget(4, value);
   // turn on the LED lights
-  setLED(5, 0, 255, 0, value);
-  setLED(28, 255, 0, 255, value);
+  setLED(5, 255, 255, 255, value);
+  setLED(28, 255, 255, 255, value);
 }
 
 
@@ -202,39 +202,6 @@ void setLED(int channel, int cyan, int magenta, int yellow, int brightness) {
 
 }
 
-//   // Find the position of the space
-//   int spaceIndex = input.indexOf(' ');
-//   // If no space found, return
-//   if (spaceIndex == -1) return;
-
-//   // Extract the first and second numbers as substrings
-//   String firstNumberStr = input.substring(1, spaceIndex);
-//   String secondNumberStr = input.substring(spaceIndex + 1);
-
-//   // Convert the first part to an unsigned integer
-//   unsigned int firstNumber = firstNumberStr.toInt();
-//   unsigned int secondNumber;
-
-//   // Check if the second part is "on" or "off"
-//   if (secondNumberStr == "on") {
-//     secondNumber = 255;
-//   } else if (secondNumberStr == "off") {
-//     secondNumber = 0;
-//   } else {
-//     // Convert the second part to an unsigned integer
-//     secondNumber = secondNumberStr.toInt();
-//   }
-
-//   // Check if the numbers are within the valid range
-//   if (firstNumber < universeSize && secondNumber <= 255) {
-//     // Apply new target value
-//     setTarget(firstNumber, secondNumber);
-//   }
-//}
-// if (Serial.available())
-//}
-// checkSerial()
-
 
 void checkValues() {
   // Track whether values changed or not
@@ -262,11 +229,6 @@ void checkValues() {
     DMX.beginTransmission();
     DMX.write(i, values[i]);
     DMX.endTransmission();
-
-    // Serial.print("channel:");
-    // Serial.print(i);
-    // Serial.print('\t');
-    // Serial.println(values[i]);
 
     // Record current time of this change
     elapsed[i] = millis();
