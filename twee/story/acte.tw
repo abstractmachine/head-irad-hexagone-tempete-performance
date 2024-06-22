@@ -63,6 +63,7 @@ engine.state.set('dialogue', engine.state.get(ParoleId));
 :: Acte-Fin
 Sound: 'none'
 Action: 'ResetCards'
+Protagoniste: ''
 EpilogueReady: true
 --
 <speak data-persona='Sycorax'>Fin de l'acte.</speak>

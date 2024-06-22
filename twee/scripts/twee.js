@@ -661,13 +661,11 @@ function parseParagraph(paragraph) {
 
 function dmxSpeaker(personaTalking, roleColor, role) {
 
-	console.log("dmxSpeaker(" + personaTalking + "\t" + roleColor + "\t" + role);
+	// console.log("dmxSpeaker(" + personaTalking + "\t" + roleColor + "\t" + role);
 
 }
 
 function dmxOn(speaker) {
-
-	console.log("dmxOn(" + speaker + ")");
 
 	let c1, c2, c3, value;
 
@@ -732,8 +730,6 @@ function dmxOn(speaker) {
 
 
 function dmxOff(speaker) {
-
-	console.log("dmxOff(" + speaker + ")");
 
 	// depending on the name of the speaker, we can turn on different lights
 	switch (speaker) {

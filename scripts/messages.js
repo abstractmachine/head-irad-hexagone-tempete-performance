@@ -49,7 +49,6 @@ window.addEventListener("message", (event) => {
 				// using the class 'visible' to toggle the webcam
 				webcamElement.classList.toggle('visible');
 				// if the classList contains 'visible'
-				console.log(webcamElement.classList);
 				if (webcamElement.classList.contains('visible')) {
 					isHiding = true;
 				} else {

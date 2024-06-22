@@ -81,7 +81,7 @@ Which: random.d4
 [if Which == 3]
 <speak data-persona='Sycorax'>Tout à fait. J'entend déjà les paroles de {Protagoniste} et de {Amant}. J'entend des histoires de {Intrigue}.</speak>
 [if Which == 4]
-<speak data-persona='Sycorax'>Écoutes bien, et tu veras bien dans ton œil intérieur cette scène de {Lieu} où {Protagoniste} et {Amant} parlent déjà de {Intrigue}.</speak>
+<speak data-persona='Sycorax'>Écoutes bien, et tu entendras bien dans ton oreille intérieure cette scène de {Lieu} où {Protagoniste} et {Amant} parlent déjà de {Intrigue}.</speak>
 [continue]
 
 [JavaScript]
@@ -92,9 +92,6 @@ if (currentStoryHistory !== '') {
 }
 currentStoryHistory += engine.state.get('DistributionStory');
 engine.state.set('StoryHistory', currentStoryHistory);
-console.log("------------------------");
-console.log(currentStoryHistory);
-console.log("------------------------");
 [continue]
 
 [[…|Acte]]

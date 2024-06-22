@@ -54,6 +54,11 @@ function speak(nom, newText, delayTime = 0) {
 	// 	console.log("newText: ", newText);
 	// }
 
+	let protagonisteName = engine.state.get('Protagoniste');
+	let iAmProtagonist = (protagonisteName == nom);
+	let isMaleVoice = (protagonisteName == 'Ferdinand' || protagonisteName == 'Antonio' || protagonisteName == 'Sébastien' || protagonisteName == 'Alonso' || protagonisteName == 'Caliban')
+	let iShouldChangeVoice = (!iAmProtagonist && isMaleVoice);
+
 	switch (nom) {
 		case 'Douglas':
 			// don't speak text from Douglas
@@ -73,23 +78,43 @@ function speak(nom, newText, delayTime = 0) {
 		case 'Ariel':
 			desiredVoice = validVoices['Aurélie']; // audrey, aude
 			break;
-		case 'Ferdinand':
-			desiredVoice = validVoices['Daniel (French (France))'];
-			break;
 		case 'Prospero':
 			desiredVoice = validVoices['Thomas (French (France))'];
 			break;
+		case 'Ferdinand':
+			if (!iAmProtagonist && isMaleVoice) {
+				desiredVoice = validVoices['Thomas (French (France))'];
+			} else {
+				desiredVoice = validVoices['Daniel (French (France))'];
+			}
+			break;
 		case 'Antonio':
-			desiredVoice = validVoices['Daniel (French (France))'];
+			if (!iAmProtagonist && isMaleVoice) {
+				desiredVoice = validVoices['Thomas (French (France))'];
+			} else {
+				desiredVoice = validVoices['Daniel (French (France))'];
+			}
 			break;
 		case 'Sébastien':
-			desiredVoice = validVoices['Daniel (French (France))'];
+			if (!iAmProtagonist && isMaleVoice) {
+				desiredVoice = validVoices['Thomas (French (France))'];
+			} else {
+				desiredVoice = validVoices['Daniel (French (France))'];
+			}
 			break;
 		case 'Alonso':
-			desiredVoice = validVoices['Daniel (French (France))'];
+			if (!iAmProtagonist && isMaleVoice) {
+				desiredVoice = validVoices['Thomas (French (France))'];
+			} else {
+				desiredVoice = validVoices['Daniel (French (France))'];
+			}
 			break;
 		case 'Caliban':
-			desiredVoice = validVoices['Thomas (French (France))'];
+			if (!iAmProtagonist && isMaleVoice) {
+				desiredVoice = validVoices['Thomas (French (France))'];
+			} else {
+				desiredVoice = validVoices['Daniel (French (France))'];
+			}
 			break;
 
 	}

@@ -620,10 +620,6 @@ function createMessages(persona) {
 		user += getUserPrompt(interlocuteur, prompt, persona);
 	}
 
-	console.log("=====================================");
-	console.log(prompt);
-	console.log("=====================================");
-
 	// create the messages object
 	let messages = [
 		{role: 'system', content: system},
@@ -1041,8 +1037,6 @@ async function readLoop() {
 
 async function sendDataLight(channel, value) {
 
-	console.log("sendDataLight(" + channel + "," + value + ")");
-
 	if (outputStream && !blockSerial) {
 		// Add the data to the write queue
 		writeQueue.push(`l${channel}=${value}\n`);
@@ -1054,8 +1048,6 @@ async function sendDataLight(channel, value) {
 
 async function sendDataColor(channel, cyan, magenta, yellow, value) {
 
-	console.log("sendDataColor(" + channel + "," + cyan + "," + magenta + "," + yellow + "," + value + ")");
-
 	if (outputStream && !blockSerial) {
 		// Add the data to the write queue
 		writeQueue.push(`c${channel}=${cyan} ${magenta} ${yellow} ${value}\n`);
@@ -1065,8 +1057,6 @@ async function sendDataColor(channel, cyan, magenta, yellow, value) {
 }
 
 async function sendDataAll(value) {
-
-	console.log("sendDataAll(" + value + ")");
 
 	if (outputStream && !blockSerial) {
 		// Add the data to the write queue
@@ -1777,13 +1767,11 @@ function parseParagraph(paragraph) {
 
 function dmxSpeaker(personaTalking, roleColor, role) {
 
-	console.log("dmxSpeaker(" + personaTalking + "\t" + roleColor + "\t" + role);
+	// console.log("dmxSpeaker(" + personaTalking + "\t" + roleColor + "\t" + role);
 
 }
 
 function dmxOn(speaker) {
-
-	console.log("dmxOn(" + speaker + ")");
 
 	let c1, c2, c3, value;
 
@@ -1848,8 +1836,6 @@ function dmxOn(speaker) {
 
 
 function dmxOff(speaker) {
-
-	console.log("dmxOff(" + speaker + ")");
 
 	// depending on the name of the speaker, we can turn on different lights
 	switch (speaker) {
@@ -2141,6 +2127,11 @@ function speak(nom, newText, delayTime = 0) {
 	// 	console.log("newText: ", newText);
 	// }
 
+	let protagonisteName = engine.state.get('Protagoniste');
+	let iAmProtagonist = (protagonisteName == nom);
+	let isMaleVoice = (protagonisteName == 'Ferdinand' || protagonisteName == 'Antonio' || protagonisteName == 'Sébastien' || protagonisteName == 'Alonso' || protagonisteName == 'Caliban')
+	let iShouldChangeVoice = (!iAmProtagonist && isMaleVoice);
+
 	switch (nom) {
 		case 'Douglas':
 			// don't speak text from Douglas
@@ -2160,23 +2151,43 @@ function speak(nom, newText, delayTime = 0) {
 		case 'Ariel':
 			desiredVoice = validVoices['Aurélie']; // audrey, aude
 			break;
-		case 'Ferdinand':
-			desiredVoice = validVoices['Daniel (French (France))'];
-			break;
 		case 'Prospero':
 			desiredVoice = validVoices['Thomas (French (France))'];
 			break;
+		case 'Ferdinand':
+			if (!iAmProtagonist && isMaleVoice) {
+				desiredVoice = validVoices['Thomas (French (France))'];
+			} else {
+				desiredVoice = validVoices['Daniel (French (France))'];
+			}
+			break;
 		case 'Antonio':
-			desiredVoice = validVoices['Daniel (French (France))'];
+			if (!iAmProtagonist && isMaleVoice) {
+				desiredVoice = validVoices['Thomas (French (France))'];
+			} else {
+				desiredVoice = validVoices['Daniel (French (France))'];
+			}
 			break;
 		case 'Sébastien':
-			desiredVoice = validVoices['Daniel (French (France))'];
+			if (!iAmProtagonist && isMaleVoice) {
+				desiredVoice = validVoices['Thomas (French (France))'];
+			} else {
+				desiredVoice = validVoices['Daniel (French (France))'];
+			}
 			break;
 		case 'Alonso':
-			desiredVoice = validVoices['Daniel (French (France))'];
+			if (!iAmProtagonist && isMaleVoice) {
+				desiredVoice = validVoices['Thomas (French (France))'];
+			} else {
+				desiredVoice = validVoices['Daniel (French (France))'];
+			}
 			break;
 		case 'Caliban':
-			desiredVoice = validVoices['Thomas (French (France))'];
+			if (!iAmProtagonist && isMaleVoice) {
+				desiredVoice = validVoices['Thomas (French (France))'];
+			} else {
+				desiredVoice = validVoices['Daniel (French (France))'];
+			}
 			break;
 
 	}
@@ -2290,6 +2301,7 @@ engine.state.set(&#39;dialogue&#39;, engine.state.get(ParoleId));
 [else]
 [[…|Acte-Fin]]</tw-passagedata><tw-passagedata pid="4" name="Acte-Fin" tags="" position="475,100" size="100,100">Sound: &#39;none&#39;
 Action: &#39;ResetCards&#39;
+Protagoniste: &#39;&#39;
 EpilogueReady: true
 --
 &lt;speak data-persona=&#39;Sycorax&#39;&gt;Fin de l&#39;acte.&lt;/speak&gt;
@@ -2385,7 +2397,7 @@ Which: random.d4
 [if Which == 3]
 &lt;speak data-persona=&#39;Sycorax&#39;&gt;Tout à fait. J&#39;entend déjà les paroles de {Protagoniste} et de {Amant}. J&#39;entend des histoires de {Intrigue}.&lt;/speak&gt;
 [if Which == 4]
-&lt;speak data-persona=&#39;Sycorax&#39;&gt;Écoutes bien, et tu veras bien dans ton œil intérieur cette scène de {Lieu} où {Protagoniste} et {Amant} parlent déjà de {Intrigue}.&lt;/speak&gt;
+&lt;speak data-persona=&#39;Sycorax&#39;&gt;Écoutes bien, et tu entendras bien dans ton oreille intérieure cette scène de {Lieu} où {Protagoniste} et {Amant} parlent déjà de {Intrigue}.&lt;/speak&gt;
 [continue]
 
 [JavaScript]
@@ -2396,9 +2408,6 @@ if (currentStoryHistory !== &#39;&#39;) {
 }
 currentStoryHistory += engine.state.get(&#39;DistributionStory&#39;);
 engine.state.set(&#39;StoryHistory&#39;, currentStoryHistory);
-console.log(&quot;------------------------&quot;);
-console.log(currentStoryHistory);
-console.log(&quot;------------------------&quot;);
 [continue]
 
 [[…|Acte]]</tw-passagedata><tw-passagedata pid="12" name="Epilogue" tags="" position="225,225" size="100,100">Action: &#39;Generate&#39;
