@@ -135,6 +135,9 @@ function speak(nom, newText, delayTime = 0) {
 		talkingText = newText;
 		speechSynthesis.speak(utterance);
 		utterances.push(utterance);
+		role = engine.state.get('Role');
+		roleColor = engine.state.get('RoleColor');
+		dmxSpeaker(personaTalking, roleColor, role);
 	}, utteranceDelay);
 
 }

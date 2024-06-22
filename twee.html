@@ -1774,12 +1774,11 @@ function parseParagraph(paragraph) {
 }
 
 
-function dmxSpeaker(which, ambiance, state) {
+function dmxSpeaker(personaTalking, roleColor, role) {
 
-	console.log(which, ambiance, state);
+	console.log("dmxSpeaker(" + personaTalking + "\t" + roleColor + "\t" + role);
 
 }
-
 
 function dmxOn(speaker) {
 
@@ -2222,6 +2221,9 @@ function speak(nom, newText, delayTime = 0) {
 		talkingText = newText;
 		speechSynthesis.speak(utterance);
 		utterances.push(utterance);
+		role = engine.state.get('Role');
+		roleColor = engine.state.get('RoleColor');
+		dmxSpeaker(personaTalking, roleColor, role);
 	}, utteranceDelay);
 
 }

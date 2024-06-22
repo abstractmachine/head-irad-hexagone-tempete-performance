@@ -2,6 +2,7 @@ let cnv;
 let font;
 let cards = [];
 let cardsToAdd = [];
+let isHiding = false;
 
 
 function preload() {
@@ -47,9 +48,11 @@ function draw() {
 		cards[i].update();
 	}
 
-	// draw all the cards
-	for(let i = 0; i < cards.length; i++) {
-		cards[i].draw();
+	if (!isHiding) {
+		// draw all the cards
+		for(let i = 0; i < cards.length; i++) {
+			cards[i].draw();
+		}
 	}
 
 }

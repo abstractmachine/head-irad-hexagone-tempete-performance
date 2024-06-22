@@ -659,12 +659,11 @@ function parseParagraph(paragraph) {
 }
 
 
-function dmxSpeaker(which, ambiance, state) {
+function dmxSpeaker(personaTalking, roleColor, role) {
 
-	console.log(which, ambiance, state);
+	console.log("dmxSpeaker(" + personaTalking + "\t" + roleColor + "\t" + role);
 
 }
-
 
 function dmxOn(speaker) {
 
