@@ -1,4 +1,4 @@
-let blockSerial = true;
+let blockSerial = false;
 let port;
 let reader;
 let inputDone;

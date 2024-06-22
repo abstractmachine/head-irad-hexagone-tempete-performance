@@ -934,7 +934,7 @@ function sentencizeGeneratedText(id) {
 
 }
 /* twine-user-script #4: "serial.js" */
-let blockSerial = true;
+let blockSerial = false;
 let port;
 let reader;
 let inputDone;
@@ -1826,20 +1826,20 @@ function dmxOn(speaker) {
 			sendDataLight(4, 'on');
 			return;
 		case 'Miranda':
-			break;
 		case 'Ariel':
-			break;
 		case 'Ferdinand':
-			break;
 		case 'Prospero':
-			break;
 		case 'Antonio':
-			break;
 		case 'Sébastien':
-			break;
 		case 'Alonso':
-			break;
 		case 'Caliban':
+			if (engine.state.get('Role') == 'Protagonist') {
+				lightStates['5'] = true;
+				sendDataColor(5, 255, 255, 255, 255);
+			} else if (engine.state.get('Role') == 'Interlocuteur') {
+				lightStates['28'] = true;
+				sendDataColor(28, 255, 255, 255, 255);
+			}
 			break;
 	}
 	//switch(speaker)
@@ -1875,20 +1875,20 @@ function dmxOff(speaker) {
 			sendDataColor(28, 0, 0, 0, 0);
 			break;
 		case 'Miranda':
-			break;
 		case 'Ariel':
-			break;
 		case 'Ferdinand':
-			break;
 		case 'Prospero':
-			break;
 		case 'Antonio':
-			break;
 		case 'Sébastien':
-			break;
 		case 'Alonso':
-			break;
 		case 'Caliban':
+			if (engine.state.get('Role') == 'Protagonist') {
+				lightStates['5'] = false;
+				sendDataColor(5, 0, 0, 0, 0);
+			} else if (engine.state.get('Role') == 'Interlocuteur') {
+				lightStates['28'] = false;
+				sendDataColor(28, 0, 0, 0, 0);
+			}
 			break;
 	}
 	//switch(speaker)
@@ -2360,20 +2360,12 @@ _ready: Protagoniste &amp;&amp; Amant &amp;&amp; Lieu &amp;&amp; Intrigue
 Persona: &#39;Sycorax&#39;
 Prompt: &quot;Maintenant que les cartes sont tirées, comment vois-tu le déroulement de cette scène ? Nous avons une intrigue — &quot; + Intrigue + &quot; — qui se passe dans &quot; + Lieu + &quot;, avec &quot; + Protagoniste + &quot; et &quot; + Amant + &quot; comme personnages principaux.\n\nTu vas me décrire l’histoire de cette scène avec ces deux personnages dans ce lieu &quot; + Lieu + &quot;. Il faut une scène avec des rebondissement intriguants et inattendus. Sois méchant et cruel avec les personnages &quot; + Protagoniste + &quot; et &quot; + Amant + &quot;. Il faut du conflit, surtout intérieur, même quand les personnages sont heureux ou gentils. On doit comprendre les conflits qui les anime. Tout personnage souffre d&#39;un conflit intérieur. Un des deux personnages de cette scène doit être dans un conflit intérieur plus fort, et que l&#39;autre personnage arrive à résoudre d&#39;une manière étonnante. La résolution doit révéler le sense de l&#39;intriguie: &quot; + Intrigue + &quot;\n\nN&#39;utilises jamais des platitudes moraliste et gentillets.\n\nLes personnages ayant accès à la magie — Prospero, Ariel, Caliban — ont accès à la magie pour résoudre leurs difficultés. Les autres personnages ont recours à d&#39;autres atouts et ruses, selon leur personnage. Alonso et Sébastien sont des manipulateurs et utilisent la ruse et la violence pour obtenir gain de cause.\n\nLa motivation de &quot; + Protagoniste + &quot; est ceci: &quot; + ProtagonisteMotivation + &quot; La motivation de &quot; + Amant + &quot;, l&#39;autre personnage dans la scène, est: &quot; + AmantMotivation + &quot; Décris-moi ce que font alors nos deux personnages pendant cette scène ? Fais de sorte que l&#39;intrigue — ici &quot; + Intrigue + &quot;— arrive à point nommé vers la fin de l&#39;acte. Décris-moi le déroulement de cette scène sans rapporter de dialogue: décris-moi les actions, les mouvements, les émotions, les pensées des personnages — sans citations. Ton histoire va inclure les scènes précédentes que tu as déjà décrites:&quot; + StoryHistory + &quot;\n\nÉvites de raconter des histoires trop gentillets ou innoncents. Nous aimerions des histoires difficiles et tourmentés, avec des aspects tragiques, mais racontés avec beaucoup d&#39;ironie de cynicisme. Il s&#39;agit d&#39;une tragicomédie, avec des éléments forts de comédie noire.&quot;
 Id: &#39;DistributionStory&#39;
-Which: random.d4
 --
 ### La tempête
 *Déroulement*
 
 ## Douglas
-[if Which==1]
-*Maintenant que les cartes sont tirées, comment vois-tu le déroulement de cette scène ? {Intrigue}, {Lieu}, {Protagoniste}, {Amant}. Saurais-tu réunir tous ces éléments, Sycorax ?*
-[if Which==2]
-*Voici Sycorax nos ingrédients: {Intrigue}, {Lieu}, {Protagoniste}, {Amant}. Est-ce que tu peux chercher nos personnages et nous les ramener sur ce plateau pour raconter cette scène ?*
-[if Which==3]
-*Les dès sont jetés. Nous avons une scène de {Intrigue} avec {Protagoniste}, {Amant}. Vois-tu comment se déroule cette scène?*
-[if Which==4]
-*Est-ce que tu pourrais nous invoquer cette scène de {Intrigue}, Sycorax ? Est-ce nos personnages {Protagoniste} et {Amant} sont là pour nous le jouer ?*
+*Voici Sycorax nos ingrédients: {Intrigue}, {Lieu}, {Protagoniste}, {Amant}. Est-ce que tu peux chercher l&#39;âme de nos personnages et nous les ramener sur ce plateau pour raconter cette scène ?*
 
 [[…|Distribution-Story]]</tw-passagedata><tw-passagedata pid="11" name="Distribution-Story" tags="" position="100,225" size="100,100">Lines: 12
 Action: &#39;Generate&#39;
@@ -2417,7 +2409,7 @@ Id: &#39;EpilogueProspero&#39;
 ## Epilogue
 
 ## Isis
-*Je sens la fin de notre voyage approcher. Sycorax, peux-tu convoquer Prospero et voir comment il souhaite conclure notre histoire ?*
+*Je sens la fin de notre voyage approcher. Sycorax, peux-tu convoquer l&#39;âme de Prospero et voir comment il souhaite conclure notre histoire ?*
 
 [[…|Epilogue-Sycorax]]</tw-passagedata><tw-passagedata pid="13" name="Epilogue-Sycorax" tags="" position="350,225" size="100,100">Action: &#39;Sentencize&#39;
 Id: &#39;EpilogueProspero&#39;
@@ -2428,7 +2420,9 @@ DialogueIndex: 0
 ## Sycorax
 &lt;speak data-persona=&#39;Sycorax&#39;&gt;Bien sûr, Isis. Je vais le chercher.&lt;/speak&gt;
 
-[[…|Epilogue-Prospero]]</tw-passagedata><tw-passagedata pid="14" name="Epilogue-Prospero" tags="" position="475,225" size="100,100">Sound: &#39;Plage&#39;
+[[…|Epilogue-Prospero]]</tw-passagedata><tw-passagedata pid="14" name="Epilogue-Prospero" tags="" position="475,225" size="100,100">Role: &#39;Protagonist&#39;
+RoleColor: &#39;Plage&#39;
+Sound: &#39;Plage&#39;
 --
 ## Epilogue
 

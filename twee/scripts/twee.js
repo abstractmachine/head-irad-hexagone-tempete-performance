@@ -710,20 +710,20 @@ function dmxOn(speaker) {
 			sendDataLight(4, 'on');
 			return;
 		case 'Miranda':
-			break;
 		case 'Ariel':
-			break;
 		case 'Ferdinand':
-			break;
 		case 'Prospero':
-			break;
 		case 'Antonio':
-			break;
 		case 'Sébastien':
-			break;
 		case 'Alonso':
-			break;
 		case 'Caliban':
+			if (engine.state.get('Role') == 'Protagonist') {
+				lightStates['5'] = true;
+				sendDataColor(5, 255, 255, 255, 255);
+			} else if (engine.state.get('Role') == 'Interlocuteur') {
+				lightStates['28'] = true;
+				sendDataColor(28, 255, 255, 255, 255);
+			}
 			break;
 	}
 	//switch(speaker)
@@ -759,20 +759,20 @@ function dmxOff(speaker) {
 			sendDataColor(28, 0, 0, 0, 0);
 			break;
 		case 'Miranda':
-			break;
 		case 'Ariel':
-			break;
 		case 'Ferdinand':
-			break;
 		case 'Prospero':
-			break;
 		case 'Antonio':
-			break;
 		case 'Sébastien':
-			break;
 		case 'Alonso':
-			break;
 		case 'Caliban':
+			if (engine.state.get('Role') == 'Protagonist') {
+				lightStates['5'] = false;
+				sendDataColor(5, 0, 0, 0, 0);
+			} else if (engine.state.get('Role') == 'Interlocuteur') {
+				lightStates['28'] = false;
+				sendDataColor(28, 0, 0, 0, 0);
+			}
 			break;
 	}
 	//switch(speaker)

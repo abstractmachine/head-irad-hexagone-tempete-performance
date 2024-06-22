@@ -7,7 +7,7 @@ Id: 'EpilogueProspero'
 ## Epilogue
 
 ## Isis
-*Je sens la fin de notre voyage approcher. Sycorax, peux-tu convoquer Prospero et voir comment il souhaite conclure notre histoire ?*
+*Je sens la fin de notre voyage approcher. Sycorax, peux-tu convoquer l'âme de Prospero et voir comment il souhaite conclure notre histoire ?*
 
 [[…|Epilogue-Sycorax]]
 
@@ -28,6 +28,8 @@ DialogueIndex: 0
 
 
 :: Epilogue-Prospero
+Role: 'Protagonist'
+RoleColor: 'Plage'
 Sound: 'Plage'
 --
 ## Epilogue
