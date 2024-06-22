@@ -45,7 +45,8 @@ async function connectSerial() {
 		reader = inputStream.getReader();
 		readLoop();  // Start the read loop automatically
 
-		// console.log('Serial port connected');
+		console.log('Serial port connected ');
+
 	} catch (error) {
 		console.log('There was an error opening the serial port:', error);
 		// If there's an error, clear the saved port info
@@ -98,6 +99,15 @@ async function readLoop() {
 		}
 	} catch (error) {
 		console.error('Read loop error:', error);
+	}
+}
+
+async function sendDataLight(channel, value) {
+	if (outputStream) {
+		// Add the data to the write queue
+		writeQueue.push(`l${channel}=${value}\n`);
+		// Process the write queue
+		processWriteQueue();
 	}
 }
 

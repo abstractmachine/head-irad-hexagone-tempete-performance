@@ -11,6 +11,8 @@ let lastPassageName = "";
 let cartes = {};
 let motivations = {};
 
+let lightStates = {"1":false, "2": false, "3": false, "4":false, "5": false, "28": false};
+
 
 async function parseKey(key) {
 
@@ -49,6 +51,41 @@ async function parseKey(key) {
 
 		case '$':
 			printStoryVariables();
+			break;
+
+		case '1':
+		case '&':
+		case '2':
+		case 'é':
+			console.log("switch");
+			lightStates['1'] = !lightStates['1'];
+			lightStates['2'] = lightStates['1'];
+			if (lightStates['1']) {
+				dmxOn('Sycorax');
+			} else {
+				dmxOff('Sycorax')
+			}
+			break;
+
+		case '3':
+		case '"':
+			lightStates['3'] = !lightStates['3'];
+			if (lightStates['3']) {
+				dmxOn('Isis');
+			} else {
+				dmxOff('Isis')
+			}
+			break;
+
+		case '4':
+		case "'":
+			console.log("Douglas");
+			lightStates['4'] = !lightStates['4'];
+			if (lightStates['4']) {
+				dmxOn('Douglas');
+			} else {
+				dmxOff('Douglas')
+			}
 			break;
 
 		case 'a':
@@ -342,7 +379,7 @@ async function loadMotivationData() {
 	// the data is in the format: Personnage,Motivation
 	// the data is loaded into the motivations object
 
-	const csv = await fetch('assets/data/head-hexagone-performance-tempete-PersonnagesIntrigues.csv');
+	const csv = await fetch('assets/data/head-hexagone-performance-tempete-Intrigues.csv');
 	const text = await csv.text();
 	const csvData = d3.csvParse(text);
 	let jsonData = JSON.parse(JSON.stringify(csvData));
@@ -603,43 +640,55 @@ function parseParagraph(paragraph) {
 }
 
 
+function dmxSpeaker(which, ambiance, state) {
+
+	console.log(which, ambiance, state);
+
+}
+
+
 function dmxOn(speaker) {
 
 	// console.log("DMX on: " + speaker);
 	// depending on the name of the speaker, we can turn on different lights
 	switch (speaker) {
-		case 'Douglas':
-			sendData(3, 'on');
-			return;
-		case 'Isis':
-			sendData(4, 'on');
-			return;
 		case 'Sycorax':
-			sendData(2, 'on');
+			lightStates['1'] = true;
+			// lightStates['2'] = true;
+			sendDataLight(1, 'on');
+			// sendData(2, 'on');
 			break;
+		case 'Isis':
+			lightStates['3'] = true;
+			sendDataLight(3, 'on');
+			return;
+		case 'Douglas':
+			lightStates['4'] = true;
+			sendDataLight(4, 'on');
+			return;
 		case 'Miranda':
-			sendData(5, 'on');
+			// sendData(5, 'on');
 			break;
 		case 'Ariel':
-			sendData(5, 'on');
+			// sendData(5, 'on');
 			break;
 		case 'Ferdinand':
-			sendData(5, 'on');
+			// sendData(5, 'on');
 			break;
 		case 'Prospero':
-			sendData(5, 'on');
+			// sendData(5, 'on');
 			break;
 		case 'Antonio':
-			sendData(5, 'on');
+			// sendData(5, 'on');
 			break;
 		case 'Sébastien':
-			sendData(5, 'on');
+			// sendData(5, 'on');
 			break;
 		case 'Alonso':
-			sendData(5, 'on');
+			// sendData(5, 'on');
 			break;
 		case 'Caliban':
-			sendData(5, 'on');
+			// sendData(5, 'on');
 			break;
 	}
 	//switch(speaker)
@@ -649,41 +698,48 @@ function dmxOn(speaker) {
 
 function dmxOff(speaker) {
 
+	console.log("dmxOff " + speaker);
+
 	// console.log("DMX off: " + speaker);
 	// depending on the name of the speaker, we can turn on different lights
 	switch (speaker) {
-		case 'Douglas':
-			sendData(3, 'off');
-			return;
-		case 'Isis':
-			sendData(4, 'off');
-			return;
 		case 'Sycorax':
-			sendData(2, 'off');
+			lightStates['1'] = false;
+			sendDataLight(1, 'off');
+			// lightStates['2'] = false;
+			// sendData(1, 'off');
 			break;
+		case 'Isis':
+			lightStates['3'] = false;
+			sendDataLight(3, 'off');
+			return;
+		case 'Douglas':
+			lightStates['4'] = false;
+			sendDataLight(4, 'off');
+			return;
 		case 'Miranda':
-			sendData(5, 'off');
+			// sendData(5, 'off');
 			break;
 		case 'Ariel':
-			sendData(5, 'off');
+			// sendData(5, 'off');
 			break;
 		case 'Ferdinand':
-			sendData(5, 'off');
+			// sendData(5, 'off');
 			break;
 		case 'Prospero':
-			sendData(5, 'off');
+			// sendData(5, 'off');
 			break;
 		case 'Antonio':
-			sendData(5, 'off');
+			// sendData(5, 'off');
 			break;
 		case 'Sébastien':
-			sendData(5, 'off');
+			// sendData(5, 'off');
 			break;
 		case 'Alonso':
-			sendData(5, 'off');
+			// sendData(5, 'off');
 			break;
 		case 'Caliban':
-			sendData(5, 'off');
+			// sendData(5, 'off');
 			break;
 	}
 	//switch(speaker)
