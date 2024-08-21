@@ -2,7 +2,53 @@ wait {
 	visibility: hidden; 
 }
 
-/* activate the following style to remove the Chapbook sidebar */
+/* activate the following styles to remove the Chapbook footer */
 
 /*
 
+div#backdrop {
+	background-color: var(--background-color);
+	display: block;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+div#page {
+	display: block;
+	background-color: transparent;
+	position: absolute;
+	padding: 2em;
+	margin: 0;
+	top: 0;
+	left: 0;
+	max-width: none !important;
+	max-height: none !important;
+	width: 100%;
+	height: 100%;
+}
+
+div#page a {
+	text-decoration: none;
+}
+
+div#page header {
+	display: none;
+}
+
+div#page footer {
+	display: none;
+}
+
+div#page article {
+	display: block;
+	position: fixed;
+	padding: 0;
+	margin: 0;
+}
+
+ul.warnings {
+	display: none;
+}	
